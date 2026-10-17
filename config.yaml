@@ -1,0 +1,39 @@
+# Dataset audit configuration. All paths are relative to this file's folder.
+seed: 42
+output_dir: outputs
+
+thresholds:
+  mask_binarize: 127          # a pixel is polyp if value > 127
+  full_mask_fraction: 0.90    # flag masks covering more than this fraction
+  near_duplicate_hamming: 4   # pHash (64 bit) Hamming distance <= 4 counts as near-duplicate
+
+datasets:
+  kvasir:
+    name: Kvasir-SEG
+    root: data/kvasir_seg
+    image_dir: Kvasir-SEG/Kvasir-SEG/images
+    mask_dir: Kvasir-SEG/Kvasir-SEG/masks
+    expected_count: 1000
+    split:
+      method: random          # random, seeded, sizes below
+      sizes: {train: 800, val: 100, test: 100}
+
+  cvc:
+    name: CVC-ClinicDB
+    root: data/cvc_clinicdb
+    image_dir: PNG/Original
+    mask_dir: PNG/Ground Truth
+    expected_count: 612
+    expected_sequences: 31
+    # Sequence IDs (frame_id -> sequence_id). If missing, the split falls back to contiguous blocks.
+    sequence_metadata:
+      file: metadata.csv
+      stem_column: frame_id
+      sequence_column: sequence_id
+    # Optional: second copy of the same frames (TIFF); pixels are compared against the main copy.
+    crosscheck:
+      image_dir: TIF/Original
+      mask_dir: TIF/Ground Truth
+    split:
+      method: sequence        # whole sequences go to one split; falls back to "block" without IDs
+      fractions: {train: 0.70, val: 0.15, test: 0.15}

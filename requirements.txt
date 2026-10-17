@@ -1,0 +1,15 @@
+numpy>=1.23
+pillow>=9.0
+pandas>=1.5
+scipy>=1.9
+matplotlib>=3.6
+pyyaml>=6.0
+tqdm>=4.60
+# testing
+pytest>=7.0
+# running the notebook headless (optional)
+nbformat>=5.0
+nbclient>=0.7
+ipykernel>=6.0
+# optional: not required, the audit ships its own pHash
+# imagehash>=4.3
