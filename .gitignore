@@ -1,0 +1,6 @@
+# Raw data is read-only and large; never commit it
+data/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+*.pyc

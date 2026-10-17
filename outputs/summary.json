@@ -1,0 +1,380 @@
+{
+  "datasets": {
+    "cvc": {
+      "area_fraction": {
+        "max": 0.4896195023148148,
+        "mean": 0.09165658722256265,
+        "median": 0.06833676938657407,
+        "min": 0.003372757523148148,
+        "q25": 0.03632948133680555,
+        "q75": 0.1272876880787037,
+        "std": 0.07568646744106029
+      },
+      "brightness_gray": {
+        "max": 119.96189597800925,
+        "mean": 76.1947222423161,
+        "median": 74.60340711805556,
+        "min": 35.702736183449076,
+        "q25": 67.32794189453125,
+        "q75": 84.3678566261574,
+        "std": 13.863357454843925
+      },
+      "channel_means": {
+        "b": {
+          "max": 91.80673104745371,
+          "mean": 46.94900981798729,
+          "median": 45.45691370081018,
+          "min": 25.85957392939815,
+          "q25": 41.24638536241319,
+          "q75": 52.409525553385414,
+          "std": 8.073896802787933
+        },
+        "g": {
+          "max": 112.42040111400463,
+          "mean": 68.70382564104202,
+          "median": 66.70128942418981,
+          "min": 31.951018156828702,
+          "q25": 60.48504638671875,
+          "q75": 75.77833839699073,
+          "std": 12.937974666015503
+        },
+        "r": {
+          "max": 158.44447157118054,
+          "mean": 102.20527124785822,
+          "median": 101.59988064236111,
+          "min": 46.925980179398145,
+          "q25": 89.5044533058449,
+          "q75": 113.85171395760995,
+          "std": 20.01003172088637
+        }
+      },
+      "counts": {
+        "ambiguous_stems": [],
+        "expected_pairs": 612,
+        "images": 612,
+        "masks": 612,
+        "matched_pairs": 612,
+        "matches_expected": true,
+        "unmatched_image_stems": [],
+        "unmatched_images": 0,
+        "unmatched_mask_stems": [],
+        "unmatched_masks": 0
+      },
+      "crosscheck": {
+        "images_compared": 0,
+        "images_identical": 0,
+        "images_second_copy_found": 612,
+        "images_second_copy_undecodable": 612,
+        "masks_compared": 612,
+        "masks_identical": 612,
+        "masks_second_copy_found": 612
+      },
+      "empty_masks": [],
+      "mask_values": {
+        "mask_modes": {
+          "RGB": 612
+        },
+        "max_distinct_values_in_one_mask": 64,
+        "n_binarized_one_class": 0,
+        "n_binarized_two_class": 612,
+        "n_masks_only_0_255": 474,
+        "n_masks_other_values": 138,
+        "threshold": "value > 127"
+      },
+      "n_flagged_files": 0,
+      "n_polyps": {
+        "histogram": {
+          "1": 542,
+          "2": 57,
+          "3": 8,
+          "4": 5
+        },
+        "histogram_note": "key 4 means 4 or more",
+        "max": 11.0,
+        "mean": 1.1699346405228759,
+        "median": 1.0,
+        "min": 1.0,
+        "q25": 1.0,
+        "q75": 1.0,
+        "std": 0.6958405804314646
+      },
+      "name": "CVC-ClinicDB",
+      "near_full_masks": [],
+      "sequence_info": {
+        "expected_sequences": 31,
+        "frames_per_sequence": {
+          "max": 26,
+          "median": 22.0,
+          "min": 6
+        },
+        "matches_expected": false,
+        "n_sequences": 29,
+        "pairs_with_sequence_id": 612,
+        "pairs_without_sequence_id": 0,
+        "source": "read from 'metadata.csv'"
+      },
+      "sizes": {
+        "channels": {
+          "3": 612
+        },
+        "distinct": 1,
+        "height": {
+          "max": 288.0,
+          "mean": 288.0,
+          "median": 288.0,
+          "min": 288.0,
+          "q25": 288.0,
+          "q75": 288.0,
+          "std": 0.0
+        },
+        "n_size_mismatch": 0,
+        "width": {
+          "max": 384.0,
+          "mean": 384.0,
+          "median": 384.0,
+          "min": 384.0,
+          "q25": 384.0,
+          "q75": 384.0,
+          "std": 0.0
+        }
+      },
+      "split": {
+        "achieved_fractions": {
+          "test": 0.1487,
+          "train": 0.701,
+          "val": 0.1503
+        },
+        "approximate": false,
+        "error": null,
+        "excluded_unreadable_pairs": [],
+        "method": "sequence_grouped",
+        "n_pairs": 612,
+        "n_sequences": 29,
+        "note": "Whole video sequences are assigned to one split (seeded shuffle, largest first, greedy balancing). Fractions are matched as closely as whole sequences allow.",
+        "seed": 42,
+        "sizes": {
+          "test": 91,
+          "train": 429,
+          "val": 92
+        },
+        "target_fractions": {
+          "test": 0.15,
+          "train": 0.7,
+          "val": 0.15
+        }
+      },
+      "unreadable": {
+        "corrupt_images": [],
+        "corrupt_masks": []
+      }
+    },
+    "kvasir": {
+      "area_fraction": {
+        "max": 0.8118197138419853,
+        "mean": 0.15390989411452588,
+        "median": 0.11400724156702018,
+        "min": 0.004739268974883774,
+        "q25": 0.059352105258683924,
+        "q75": 0.20976061538648866,
+        "std": 0.12993562667440797
+      },
+      "brightness_gray": {
+        "max": 151.24900016231132,
+        "mean": 97.47724361830758,
+        "median": 97.60140837997153,
+        "min": 48.127532942650994,
+        "q25": 88.91248345364951,
+        "q75": 106.67712717874947,
+        "std": 13.448608234949306
+      },
+      "channel_means": {
+        "b": {
+          "max": 118.27006735919494,
+          "mean": 60.13304739581616,
+          "median": 59.57332844882423,
+          "min": 15.508877855014896,
+          "q25": 52.587776871143895,
+          "q75": 68.14155063275473,
+          "std": 12.598545321868409
+        },
+        "g": {
+          "max": 143.7599837688687,
+          "mean": 82.02664494265127,
+          "median": 81.9016183212575,
+          "min": 38.80969215491559,
+          "q25": 74.85351237795287,
+          "q75": 90.4860899002131,
+          "std": 11.727312239412004
+        },
+        "r": {
+          "max": 206.16220797673728,
+          "mean": 142.0355524155744,
+          "median": 141.91190861142903,
+          "min": 69.41135124148911,
+          "q25": 128.17697486219976,
+          "q75": 156.6657786882119,
+          "std": 20.72103641313076
+        }
+      },
+      "counts": {
+        "ambiguous_stems": [],
+        "expected_pairs": 1000,
+        "images": 1000,
+        "masks": 1000,
+        "matched_pairs": 1000,
+        "matches_expected": true,
+        "unmatched_image_stems": [],
+        "unmatched_images": 0,
+        "unmatched_mask_stems": [],
+        "unmatched_masks": 0
+      },
+      "empty_masks": [],
+      "mask_values": {
+        "mask_modes": {
+          "L": 1000
+        },
+        "max_distinct_values_in_one_mask": 18,
+        "n_binarized_one_class": 0,
+        "n_binarized_two_class": 1000,
+        "n_masks_only_0_255": 0,
+        "n_masks_other_values": 1000,
+        "threshold": "value > 127"
+      },
+      "n_flagged_files": 0,
+      "n_polyps": {
+        "histogram": {
+          "1": 819,
+          "2": 164,
+          "3": 14,
+          "4": 3
+        },
+        "histogram_note": "key 4 means 4 or more",
+        "max": 10.0,
+        "mean": 1.207,
+        "median": 1.0,
+        "min": 1.0,
+        "q25": 1.0,
+        "q75": 1.0,
+        "std": 0.525500713605605
+      },
+      "name": "Kvasir-SEG",
+      "near_full_masks": [],
+      "sequence_info": {
+        "n_sequences": null,
+        "source": "no sequence metadata configured"
+      },
+      "sizes": {
+        "channels": {
+          "3": 1000
+        },
+        "distinct": 333,
+        "height": {
+          "max": 1072.0,
+          "mean": 545.228,
+          "median": 530.0,
+          "min": 352.0,
+          "q25": 529.0,
+          "q75": 531.0,
+          "std": 90.64544123120588
+        },
+        "n_size_mismatch": 0,
+        "width": {
+          "max": 1920.0,
+          "mean": 625.292,
+          "median": 621.0,
+          "min": 332.0,
+          "q25": 591.75,
+          "q75": 622.0,
+          "std": 129.55631492134992
+        }
+      },
+      "split": {
+        "approximate": false,
+        "error": null,
+        "excluded_unreadable_pairs": [],
+        "method": "random",
+        "n_pairs": 1000,
+        "note": "Random permutation of the sorted file stems with numpy default_rng(seed).",
+        "seed": 42,
+        "sizes": {
+          "test": 100,
+          "train": 800,
+          "val": 100
+        }
+      },
+      "unreadable": {
+        "corrupt_images": [],
+        "corrupt_masks": []
+      }
+    }
+  },
+  "duplicates": {
+    "exact_groups": [],
+    "hamming_histogram_by_scope": {
+      "across_datasets": {
+        "6": 1,
+        "8": 3
+      },
+      "within_cvc": {
+        "0": 14,
+        "2": 43,
+        "4": 126,
+        "6": 313,
+        "8": 685
+      },
+      "within_kvasir": {
+        "0": 3,
+        "2": 1,
+        "4": 3,
+        "6": 22,
+        "8": 149
+      }
+    },
+    "method": "pHash 64 bit (32x32 grey, 8x8 DCT, median threshold); near-duplicate = Hamming <= 4",
+    "near_pairs_by_scope": {
+      "within_cvc": 183,
+      "within_kvasir": 7
+    }
+  },
+  "environment": {
+    "matplotlib": "3.9.4",
+    "numpy": "1.26.4",
+    "pandas": "2.3.3",
+    "pillow": "11.3.0",
+    "python": "3.9.6",
+    "pyyaml": "6.0.3",
+    "scipy": "1.13.1",
+    "seed": 42
+  },
+  "n_flagged_file_entries": 0,
+  "problems": [
+    "Kvasir-SEG: 1000 of 1000 masks contain values other than 0/255 (up to 18 distinct values in one mask; compression or anti-aliasing artefacts). They are binarised with > 127; 1000 of 1000 binarised masks have exactly two classes.",
+    "CVC-ClinicDB: 138 of 612 masks contain values other than 0/255 (up to 64 distinct values in one mask; compression or anti-aliasing artefacts). They are binarised with > 127; 612 of 612 binarised masks have exactly two classes.",
+    "CVC-ClinicDB: the sequence metadata lists 29 video sequences, but 31 were expected.",
+    "CVC-ClinicDB: the second (TIFF) copy of 612 images could not be decoded by Pillow, so the PNG/TIFF image cross-check was not possible (masks: 612/612 identical).",
+    "183 near-duplicate image pair(s) within CVC-ClinicDB (pHash Hamming <= 4) (181 of them within the same video sequence).",
+    "7 near-duplicate image pair(s) within Kvasir-SEG (pHash Hamming <= 4).",
+    "Kvasir-SEG: 2 near-duplicate pair(s) end up in different splits."
+  ],
+  "settings": {
+    "full_mask_fraction": 0.9,
+    "mask_binarize_threshold": 127,
+    "near_duplicate_hamming": 4,
+    "seed": 42
+  },
+  "split_leakage_check": {
+    "cvc": {
+      "examples": [],
+      "near_duplicate_pairs": 183,
+      "pairs_in_different_splits": 0
+    },
+    "kvasir": {
+      "examples": [
+        "cju30bmab08bi0835mvlr6e0r.jpg (train) ~ cju77k828z46w0871r0avuoo9.jpg (test)",
+        "cju8c5223s8j80850b4kealt4.jpg (val) ~ cju8dpa89u6l80818dj6lldh9.jpg (test)"
+      ],
+      "near_duplicate_pairs": 7,
+      "pairs_in_different_splits": 2
+    }
+  }
+}
