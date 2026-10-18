@@ -50,6 +50,12 @@ The expected 31 sequences come from the original description (Vazquez et al. 201
 `metadata.csv` lists 29 and the origin of the difference is unresolved. The audit checks that no listed sequence crosses
 train/val/test. Sequences are not patients: there is no patient ID, so patient-level leakage cannot be excluded.
 
+## Training on another machine
+Everything for training is in `train/` (settings in `train_config.yaml`). Step-by-step instructions (in Russian):
+`docs/SETUP_ru.md` (install PyTorch and libraries, copy and verify the data) and `docs/RUNBOOK_ru.md` (run the full experiment,
+copy results back). Quick check of any machine: `python -m train.verify_data`, `pytest`, `python -m train.run_all --smoke`.
+`python -m train.analyze` turns the per-image Dice files into confidence intervals and a figure.
+
 ## Notes on the audit
 - Near-duplicates use a 64-bit DCT perceptual hash (own implementation, `imagehash` not needed); threshold: Hamming <= 4 (`config.yaml`).
 - Masks are binarised with `value > 127`; polyps are counted as 4-connected components.
