@@ -17,6 +17,17 @@ datasets:
     split:
       method: random          # random, seeded, sizes below
       sizes: {train: 800, val: 100, test: 100}
+    # Near-duplicate candidates (pHash) that were looked at by hand. Evidence: outputs/review_near_duplicates.png
+    # verdict "duplicate" -> both images are forced into the same split; "different_images" -> no action.
+    reviewed_near_duplicates:
+      - a: cju30bmab08bi0835mvlr6e0r
+        b: cju77k828z46w0871r0avuoo9
+        verdict: duplicate
+        note: adjacent frames of the same polyp (same overlay timestamp, 2 s apart); image correlation 0.9997, mask IoU 0.95
+      - a: cju8c5223s8j80850b4kealt4
+        b: cju8dpa89u6l80818dj6lldh9
+        verdict: different_images
+        note: pHash false positive caused by the shared black octagonal border; different patients and polyps (2012 vs 2013), image correlation 0.75, mask IoU 0.05
 
   cvc:
     name: CVC-ClinicDB

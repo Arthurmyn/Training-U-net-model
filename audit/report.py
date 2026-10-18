@@ -146,8 +146,8 @@ def find_problems(result: "AuditResult") -> List[str]:
         label = "between the two datasets" if scope == "across_datasets" else f"within {result.datasets[scope[7:]].cfg.name}"
         p.append(f"{len(g)} near-duplicate image pair(s) {label} (pHash Hamming <= {result.config.near_duplicate_hamming}){extra}.")
     for key, lk in result.leakage.items():
-        if lk and lk["pairs_in_different_splits"]:
-            p.append(f"{result.datasets[key].cfg.name}: {lk['pairs_in_different_splits']} near-duplicate pair(s) end up in different splits.")
+        if lk and lk["leaking_pairs"]:
+            p.append(f"{result.datasets[key].cfg.name}: {lk['leaking_pairs']} near-duplicate pair(s) end up in different splits (possible leakage).")
     return p
 
 
@@ -379,7 +379,8 @@ def render_markdown(result: "AuditResult") -> str:
         L.append("")
     for key, lk in result.leakage.items():
         if lk:
-            L.append(f"- Leakage check, {ds[key].cfg.name}: {lk['pairs_in_different_splits']} of {lk['near_duplicate_pairs']} within-dataset near-duplicate pairs lie in different splits"
+            L.append(f"- Leakage check, {ds[key].cfg.name}: {lk['pairs_in_different_splits']} of {lk['near_duplicate_pairs']} within-dataset near-duplicate pairs lie in different splits; "
+                     f"{lk['reviewed_as_different_images']} of these were reviewed by hand as different images (pHash false positives), so {lk['leaking_pairs']} remain as possible leakage"
                      + (f" (e.g. {'; '.join(lk['examples'])})." if lk["examples"] else "."))
     L.append("")
 
