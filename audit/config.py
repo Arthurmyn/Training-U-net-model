@@ -45,6 +45,8 @@ class DatasetConfig:
     crosscheck_image_dir: Optional[str] = None
     crosscheck_mask_dir: Optional[str] = None
     reviewed_pairs: Tuple[ReviewedPair, ...] = ()
+    expected_sequences_note: str = ""
+    limitations: Tuple[str, ...] = ()
 
     @property
     def image_path(self) -> Path:
@@ -102,6 +104,8 @@ def load_config(path: str | Path) -> AuditConfig:
             sequence_meta=SequenceMeta(seq["file"], str(seq["stem_column"]), str(seq["sequence_column"])) if seq else None,
             crosscheck_image_dir=xc.get("image_dir"),
             crosscheck_mask_dir=xc.get("mask_dir"),
+            expected_sequences_note=str(d.get("expected_sequences_note", "")).strip(),
+            limitations=tuple(str(x).strip() for x in d.get("limitations", [])),
             reviewed_pairs=tuple(ReviewedPair(str(r["a"]), str(r["b"]), r["verdict"], r.get("note", ""))
                                  for r in d.get("reviewed_near_duplicates", [])),
         )

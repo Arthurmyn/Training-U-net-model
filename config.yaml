@@ -36,6 +36,15 @@ datasets:
     mask_dir: PNG/Ground Truth
     expected_count: 612
     expected_sequences: 31
+    expected_sequences_note: >-
+      31 comes from the original description of the database (Vazquez et al. 2017, arXiv:1612.00799: "612 images ...
+      31 polyp video sequences acquired from 23 patients"). metadata.csv in this copy, and public mirrors of the dataset
+      (e.g. Dataset Ninja, Hugging Face), list 29 sequences. The origin of the difference could not be resolved from
+      the available metadata.
+    limitations:
+      - >-
+        Sequences are not patients. The original description reports 23 patients for 31 sequences and metadata.csv has no
+        patient ID, so frames of the same patient can appear in different splits; patient-level leakage cannot be excluded.
     # Sequence IDs (frame_id -> sequence_id). If missing, the split falls back to contiguous blocks.
     sequence_metadata:
       file: metadata.csv

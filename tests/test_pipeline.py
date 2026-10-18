@@ -93,3 +93,46 @@ def test_wrong_split_sizes_are_reported_not_guessed(tmp_path):
     assert r.datasets["a"].split is None and r.datasets["a"].split_error
     write_outputs(r)
     assert "split not created" in (tmp_path / "out" / "audit_report.md").read_text()
+
+
+def test_sequence_integrity_detects_crossing_and_reports_cross_sequence_pairs():
+    from audit.run import sequence_integrity
+    seqs = {"1": "a", "2": "a", "3": "b", "4": "b"}
+    ok = sequence_integrity(seqs, {"train": ["1", "2"], "val": ["3", "4"], "test": []}, ["1", "2", "3", "4"], pd.DataFrame(
+        {"a_file": ["2.png"], "b_file": ["3.png"], "hamming": [2]}))
+    assert ok["sequences_crossing_splits"] == [] and ok["frame_ranges_contiguous"] is True
+    assert ok["cross_sequence_near_duplicates"][0]["split_a"] == "train" and ok["cross_sequence_near_duplicates"][0]["split_b"] == "val"
+    bad = sequence_integrity(seqs, {"train": ["1", "3"], "val": ["2", "4"], "test": []}, ["1", "2", "3", "4"],
+                             pd.DataFrame({"a_file": [], "b_file": [], "hamming": []}))
+    assert bad["sequences_crossing_splits"] == ["a", "b"]
+    gap = sequence_integrity({"1": "a", "5": "a"}, {"train": ["1", "5"], "val": [], "test": []}, ["1", "5"],
+                             pd.DataFrame({"a_file": [], "b_file": [], "hamming": []}))
+    assert gap["frame_ranges_contiguous"] is False
+
+
+def _clean_sequence_project(base: Path, complete: bool) -> Path:
+    make_dataset(base / "data" / "c", n_good=24, defects=False)
+    ids = range(24) if complete else range(20)             # incomplete metadata -> block fallback
+    rows = ["frame_id,sequence_id"] + [f"g{i:02d},{i // 4}" for i in ids]
+    (base / "data" / "c" / "meta.csv").write_text("\n".join(rows) + "\n")
+    cfg = {"seed": 3, "output_dir": "out", "datasets": {"c": {
+        "name": "C", "root": "data/c", "image_dir": "images", "mask_dir": "masks", "expected_count": 24,
+        "sequence_metadata": {"file": "meta.csv", "stem_column": "frame_id", "sequence_column": "sequence_id"},
+        "split": {"method": "sequence", "fractions": {"train": 0.5, "val": 0.25, "test": 0.25}}}}}
+    p = base / "config.yaml"
+    p.write_text(yaml.safe_dump(cfg))
+    return p
+
+
+def test_complete_sequence_ids_give_no_crossing_sequences(tmp_path):
+    c = run_audit(load_config(_clean_sequence_project(tmp_path, True)), progress=False).datasets["c"]
+    assert c.split_meta["method"] == "sequence_grouped"
+    assert c.sequence_info["integrity"]["sequences_crossing_splits"] == []
+    assert c.sequence_info["integrity"]["sequences_checked"] == 6
+
+
+def test_block_fallback_is_caught_by_the_sequence_check(tmp_path):
+    c = run_audit(load_config(_clean_sequence_project(tmp_path, False)), progress=False).datasets["c"]
+    assert c.split_meta["method"] == "contiguous_blocks"
+    crossing = c.sequence_info["integrity"]["sequences_crossing_splits"]
+    assert crossing == ["4"]       # blocks 12/6/6 cut sequence 4 (frames 16-19) at frame 18

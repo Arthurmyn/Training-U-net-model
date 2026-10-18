@@ -123,7 +123,10 @@ def find_problems(result: "AuditResult") -> List[str]:
             p.append(f"{n}: {len(s['near_full_masks'])} mask(s) cover more than {_pct(result.config.full_mask_fraction, 0)}% of the image.")
         si = res.sequence_info
         if si.get("n_sequences") and not si.get("matches_expected", True):
-            p.append(f"{n}: the sequence metadata lists {si['n_sequences']} video sequences, but {si['expected_sequences']} were expected.")
+            p.append(f"{n}: the sequence metadata lists {si['n_sequences']} video sequences, but {si['expected_sequences']} were expected. "
+                     + (res.cfg.expected_sequences_note or ""))
+        if si.get("integrity", {}).get("sequences_crossing_splits"):
+            p.append(f"{n}: sequence(s) {', '.join(si['integrity']['sequences_crossing_splits'])} cross the train/val/test boundaries.")
         if si.get("pairs_without_sequence_id"):
             p.append(f"{n}: {si['pairs_without_sequence_id']} pair(s) have no sequence ID.")
         x = s.get("crosscheck")
@@ -451,6 +454,18 @@ def render_markdown(result: "AuditResult") -> str:
         if si.get("n_sequences"):
             fs = si["frames_per_sequence"]
             L.append(f"- Sequence information for {r.cfg.name} ({si['source']}): {si['n_sequences']} sequences, {fs['min']}-{fs['max']} frames each (median {fs['median']:g}).")
+            ig = si.get("integrity")
+            if ig:
+                L.append(f"- Sequence check: of {ig['sequences_checked']} sequences, {len(ig['sequences_crossing_splits'])} cross the train/val/test boundaries "
+                         f"(sequences per split: {ig['sequences_per_split']}); frame numbers of every sequence are consecutive: "
+                         f"{'yes' if ig['frame_ranges_contiguous'] else ('no' if ig['frame_ranges_contiguous'] is False else 'not applicable')}.")
+                cp = ig["cross_sequence_near_duplicates"]
+                L.append(f"- Near-duplicate pairs connecting two different sequences: {len(cp)}"
+                         + (" (" + "; ".join(f"{x['a']} (seq {x['sequence_a']}, {x['split_a']}) ~ {x['b']} (seq {x['sequence_b']}, {x['split_b']})" for x in cp) + ")." if cp else "."))
+            if r.cfg.expected_sequences_note:
+                L.append(f"- Expected number of sequences ({r.cfg.expected_sequences}): {r.cfg.expected_sequences_note}")
+            for lim in r.cfg.limitations:
+                L.append(f"- **Limitation:** {lim}")
         elif r.cfg.sequence_meta is not None:
             L.append(f"- Sequence information for {r.cfg.name} is not available ({si['source']}); the sequence-aware split could not be made.")
     L.append("")
