@@ -20,7 +20,6 @@ Seed 42; Python 3.9.6, numpy 1.26.4, pandas 2.3.3, scipy 1.13.1, Pillow 11.3.0, 
 - CVC-ClinicDB: the second (TIFF) copy of 612 images could not be decoded by Pillow, so the PNG/TIFF image cross-check was not possible (masks: 612/612 identical).
 - 183 near-duplicate image pair(s) within CVC-ClinicDB (pHash Hamming <= 4) (181 of them within the same video sequence).
 - 7 near-duplicate image pair(s) within Kvasir-SEG (pHash Hamming <= 4).
-- Kvasir-SEG: 2 near-duplicate pair(s) end up in different splits.
 
 ## 3. Unreadable files
 
@@ -148,8 +147,15 @@ Closest cross-dataset pairs (all listed pairs are within 8 bits; full list in `d
 | cju8c1a0ws7o208181c6lbsom.jpg | cju13cgqmnhwn0988yrainhcp.jpg | 4 | False |
 | cju8c1a0ws7o208181c6lbsom.jpg | cju83kxitjv340987z09m0ezy.jpg | 4 | False |
 
-- Leakage check, Kvasir-SEG: 2 of 7 within-dataset near-duplicate pairs lie in different splits (e.g. cju30bmab08bi0835mvlr6e0r.jpg (train) ~ cju77k828z46w0871r0avuoo9.jpg (test); cju8c5223s8j80850b4kealt4.jpg (val) ~ cju8dpa89u6l80818dj6lldh9.jpg (test)).
-- Leakage check, CVC-ClinicDB: 0 of 183 within-dataset near-duplicate pairs lie in different splits.
+- Leakage check, Kvasir-SEG: 1 of 7 within-dataset near-duplicate pairs lie in different splits; 1 of these were reviewed by hand as different images (pHash false positives), so 0 remain as possible leakage.
+- Leakage check, CVC-ClinicDB: 0 of 183 within-dataset near-duplicate pairs lie in different splits; 0 of these were reviewed by hand as different images (pHash false positives), so 0 remain as possible leakage.
+
+Near-duplicate candidates reviewed by hand (figure: `review_near_duplicates.png`). Verdict `duplicate` = the pair is forced into one split; `different_images` = pHash false positive, no action.
+
+| Dataset | Image A | Image B | Image correlation | Mask IoU | Verdict | Note |
+|---|---|---|---|---|---|---|
+| Kvasir-SEG | cju30bmab08bi0835mvlr6e0r | cju77k828z46w0871r0avuoo9 | 0.9998 | 0.96 | duplicate | adjacent frames of the same polyp (same overlay timestamp, 2 s apart); image correlation 0.9997, mask IoU 0.95 |
+| Kvasir-SEG | cju8c5223s8j80850b4kealt4 | cju8dpa89u6l80818dj6lldh9 | 0.7575 | 0.05 | different_images | pHash false positive caused by the shared black octagonal border; different patients and polyps (2012 vs 2013), image correlation 0.75, mask IoU 0.05 |
 
 ## 10. Fixed splits
 
@@ -158,7 +164,7 @@ Closest cross-dataset pairs (all listed pairs are within 8 bits; full list in `d
 | Kvasir-SEG | random | 42 | 800/100/100 | n/a | no |
 | CVC-ClinicDB | sequence_grouped | 42 | 429/92/91 | 29 | no |
 
-- **Kvasir-SEG:** Random permutation of the sorted file stems with numpy default_rng(seed).
+- **Kvasir-SEG:** Random permutation of the sorted file stems with numpy default_rng(seed); manually confirmed near-duplicate pairs are kept in the same split.
 - **CVC-ClinicDB:** Whole video sequences are assigned to one split (seeded shuffle, largest first, greedy balancing). Fractions are matched as closely as whole sequences allow. Achieved fractions: {'train': 0.701, 'val': 0.1503, 'test': 0.1487} (target {'train': 0.7, 'val': 0.15, 'test': 0.15}).
 
 Each split is checked by assertion: the parts are disjoint, together cover every usable pair exactly once, and (sequence split) no sequence appears in two parts. Every dataset's complete pair list is also saved as an external-test list (`splits/*_external_test.json`). Files: `outputs/splits/`.
