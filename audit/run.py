@@ -110,6 +110,37 @@ def build_split(res: DatasetResult, seed: int) -> None:
         log.error("%s: split NOT created: %s", ds.name, res.split_error)
 
 
+def sequence_integrity(sequences: Dict[str, str], split: Dict[str, List[str]], matched: List[str],
+                       within_pairs: pd.DataFrame) -> dict:
+    """Explicit check that no known video sequence crosses train/val/test.
+
+    Also reports whether every sequence is a run of consecutive frame numbers (numeric stems only) and lists
+    near-duplicate pairs that connect two *different* sequences (a hint that sequences may belong together).
+    """
+    where = {s: name for name, part in split.items() for s in part}
+    seq_parts: Dict[str, set] = {}
+    for stem, name in where.items():
+        if stem in sequences:
+            seq_parts.setdefault(sequences[stem], set()).add(name)
+    crossing = sorted((q for q, parts in seq_parts.items() if len(parts) > 1), key=load.natural_key)
+    contiguous = None
+    if matched and all(m.isdigit() for m in matched):
+        by_seq: Dict[str, List[int]] = {}
+        for m in matched:
+            if m in sequences:
+                by_seq.setdefault(sequences[m], []).append(int(m))
+        contiguous = all(max(v) - min(v) + 1 == len(v) for v in by_seq.values())
+    cross_pairs = []
+    for r in within_pairs.itertuples():
+        a, b = Path(r.a_file).stem, Path(r.b_file).stem
+        if a in sequences and b in sequences and sequences[a] != sequences[b]:
+            cross_pairs.append({"a": r.a_file, "b": r.b_file, "hamming": int(r.hamming), "sequence_a": sequences[a],
+                                "sequence_b": sequences[b], "split_a": where.get(a), "split_b": where.get(b)})
+    return {"sequences_checked": len(seq_parts), "sequences_crossing_splits": crossing,
+            "sequences_per_split": {name: sum(1 for parts in seq_parts.values() if name in parts) for name in split},
+            "frame_ranges_contiguous": contiguous, "cross_sequence_near_duplicates": cross_pairs}
+
+
 def split_leakage(result_ds: Dict[str, DatasetResult], near_pairs: pd.DataFrame) -> dict:
     """Count within-dataset near-duplicate pairs that fall into different splits.
 
@@ -162,6 +193,10 @@ def run_audit(cfg: AuditConfig, progress: bool = True) -> AuditResult:
 
     dup = checks.find_duplicates({k: r.table for k, r in results.items()}, cfg.near_duplicate_hamming)
     leakage = split_leakage(results, dup["near_pairs"])
+    for key, res in results.items():
+        if res.sequences and res.split is not None:
+            within = dup["near_pairs"][dup["near_pairs"]["scope"] == f"within_{key}"]
+            res.sequence_info["integrity"] = sequence_integrity(res.sequences, res.split, res.files.matched, within)
     out = AuditResult(config=cfg, datasets=results, duplicates=dup, leakage=leakage, environment=env)
     out.flagged = report.flagged_files(out)
     out.problems = report.find_problems(out)
