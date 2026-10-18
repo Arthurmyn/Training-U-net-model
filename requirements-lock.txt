@@ -1,0 +1,15 @@
+# Exact versions that were tested together (macOS arm64, Python 3.9.6).
+# Use this when you want the same versions; if a pin has no wheel for your Python/OS, use requirements-train.txt instead.
+# PyTorch is not pinned here because the right build depends on your hardware (see docs/SETUP_ru.md).
+# Tested with: torch==2.8.0
+ipykernel==6.31.0
+matplotlib==3.9.4
+nbclient==0.10.2
+nbformat==5.10.4
+numpy==2.0.2
+pandas==2.3.3
+pillow==11.3.0
+pytest==8.4.2
+PyYAML==6.0.3
+scipy==1.13.1
+tqdm==4.70.1
