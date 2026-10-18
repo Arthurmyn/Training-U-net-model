@@ -16,7 +16,7 @@ Seed 42; Python 3.9.6, numpy 1.26.4, pandas 2.3.3, scipy 1.13.1, Pillow 11.3.0, 
 
 - Kvasir-SEG: 1000 of 1000 masks contain values other than 0/255 (up to 18 distinct values in one mask; compression or anti-aliasing artefacts). They are binarised with > 127; 1000 of 1000 binarised masks have exactly two classes.
 - CVC-ClinicDB: 138 of 612 masks contain values other than 0/255 (up to 64 distinct values in one mask; compression or anti-aliasing artefacts). They are binarised with > 127; 612 of 612 binarised masks have exactly two classes.
-- CVC-ClinicDB: the sequence metadata lists 29 video sequences, but 31 were expected.
+- CVC-ClinicDB: the sequence metadata lists 29 video sequences, but 31 were expected. 31 comes from the original description of the database (Vazquez et al. 2017, arXiv:1612.00799: "612 images ... 31 polyp video sequences acquired from 23 patients"). metadata.csv in this copy, and public mirrors of the dataset (e.g. Dataset Ninja, Hugging Face), list 29 sequences. The origin of the difference could not be resolved from the available metadata.
 - CVC-ClinicDB: the second (TIFF) copy of 612 images could not be decoded by Pillow, so the PNG/TIFF image cross-check was not possible (masks: 612/612 identical).
 - 183 near-duplicate image pair(s) within CVC-ClinicDB (pHash Hamming <= 4) (181 of them within the same video sequence).
 - 7 near-duplicate image pair(s) within Kvasir-SEG (pHash Hamming <= 4).
@@ -170,6 +170,10 @@ Near-duplicate candidates reviewed by hand (figure: `review_near_duplicates.png`
 Each split is checked by assertion: the parts are disjoint, together cover every usable pair exactly once, and (sequence split) no sequence appears in two parts. Every dataset's complete pair list is also saved as an external-test list (`splits/*_external_test.json`). Files: `outputs/splits/`.
 
 - Sequence information for CVC-ClinicDB (read from 'metadata.csv'): 29 sequences, 6-26 frames each (median 22).
+- Sequence check: of 29 sequences, 0 cross the train/val/test boundaries (sequences per split: {'train': 19, 'val': 5, 'test': 5}); frame numbers of every sequence are consecutive: yes.
+- Near-duplicate pairs connecting two different sequences: 2 (27.png (seq 2, train) ~ 90.png (seq 5, train); 29.png (seq 2, train) ~ 90.png (seq 5, train)).
+- Expected number of sequences (31): 31 comes from the original description of the database (Vazquez et al. 2017, arXiv:1612.00799: "612 images ... 31 polyp video sequences acquired from 23 patients"). metadata.csv in this copy, and public mirrors of the dataset (e.g. Dataset Ninja, Hugging Face), list 29 sequences. The origin of the difference could not be resolved from the available metadata.
+- **Limitation:** Sequences are not patients. The original description reports 23 patients for 31 sequences and metadata.csv has no patient ID, so frames of the same patient can appear in different splits; patient-level leakage cannot be excluded.
 
 ## 11. Second image copy cross-check (CVC-ClinicDB)
 

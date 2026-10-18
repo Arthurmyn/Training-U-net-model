@@ -107,6 +107,36 @@
           "median": 22.0,
           "min": 6
         },
+        "integrity": {
+          "cross_sequence_near_duplicates": [
+            {
+              "a": "27.png",
+              "b": "90.png",
+              "hamming": 4,
+              "sequence_a": "2",
+              "sequence_b": "5",
+              "split_a": "train",
+              "split_b": "train"
+            },
+            {
+              "a": "29.png",
+              "b": "90.png",
+              "hamming": 4,
+              "sequence_a": "2",
+              "sequence_b": "5",
+              "split_a": "train",
+              "split_b": "train"
+            }
+          ],
+          "frame_ranges_contiguous": true,
+          "sequences_checked": 29,
+          "sequences_crossing_splits": [],
+          "sequences_per_split": {
+            "test": 5,
+            "train": 19,
+            "val": 5
+          }
+        },
         "matches_expected": false,
         "n_sequences": 29,
         "pairs_with_sequence_id": 612,
@@ -356,7 +386,7 @@
   "problems": [
     "Kvasir-SEG: 1000 of 1000 masks contain values other than 0/255 (up to 18 distinct values in one mask; compression or anti-aliasing artefacts). They are binarised with > 127; 1000 of 1000 binarised masks have exactly two classes.",
     "CVC-ClinicDB: 138 of 612 masks contain values other than 0/255 (up to 64 distinct values in one mask; compression or anti-aliasing artefacts). They are binarised with > 127; 612 of 612 binarised masks have exactly two classes.",
-    "CVC-ClinicDB: the sequence metadata lists 29 video sequences, but 31 were expected.",
+    "CVC-ClinicDB: the sequence metadata lists 29 video sequences, but 31 were expected. 31 comes from the original description of the database (Vazquez et al. 2017, arXiv:1612.00799: \"612 images ... 31 polyp video sequences acquired from 23 patients\"). metadata.csv in this copy, and public mirrors of the dataset (e.g. Dataset Ninja, Hugging Face), list 29 sequences. The origin of the difference could not be resolved from the available metadata.",
     "CVC-ClinicDB: the second (TIFF) copy of 612 images could not be decoded by Pillow, so the PNG/TIFF image cross-check was not possible (masks: 612/612 identical).",
     "183 near-duplicate image pair(s) within CVC-ClinicDB (pHash Hamming <= 4) (181 of them within the same video sequence).",
     "7 near-duplicate image pair(s) within Kvasir-SEG (pHash Hamming <= 4)."
