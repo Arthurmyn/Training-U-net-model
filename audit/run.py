@@ -20,7 +20,7 @@ import PIL
 import scipy
 import yaml
 
-from . import checks, load, report, splits
+from . import checks, load, preprocess, report, splits
 from .config import AuditConfig, DatasetConfig, load_config
 
 log = logging.getLogger("audit")
@@ -42,6 +42,8 @@ class DatasetResult:
     split_error: str = ""
     split_seq_of: Optional[Dict[str, str]] = None
     usable_stems: List[str] = field(default_factory=list)
+    preprocess_table: pd.DataFrame = field(default_factory=pd.DataFrame)
+    preprocess_summary: dict = field(default_factory=dict)
 
 
 @dataclass
@@ -188,6 +190,8 @@ def run_audit(cfg: AuditConfig, progress: bool = True) -> AuditResult:
         else:
             res.sequence_info = {"source": seq_note, "n_sequences": None}
         build_split(res, cfg.seed)
+        res.preprocess_table, res.preprocess_summary = preprocess.check_preprocessing(
+            files, res.usable_stems, cfg.preprocess_size, cfg.mask_binarize)
         results[key] = res
         log.info("[%s] %d matched pairs, %d flagged files", ds.name, len(files.matched), summary["n_flagged_files"])
 
@@ -229,6 +233,7 @@ def write_outputs(result: AuditResult) -> List[Path]:
     written.append(p)
     written += report.make_figures(result, out)
     written += report.make_review_figure(result, out)
+    written += report.make_preprocessing_figures(result, out)
     p = out / "summary.json"
     p.write_text(report.summary_json(result))
     written.append(p)

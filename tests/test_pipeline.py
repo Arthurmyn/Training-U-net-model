@@ -55,7 +55,8 @@ def test_full_run_twice_gives_identical_outputs(tmp_path):
     names = set(snapshots[0])
     for need in ("audit_report.md", "summary.json", "per_image_stats_a.csv", "per_image_stats_b.csv",
                  "fig_polyp_area_fraction.png", "fig_image_sizes.png", "fig_brightness_hist.png",
-                 "splits/a_split.json", "splits/b_split.csv", "splits/a_external_test.json"):
+                 "splits/a_split.json", "splits/b_split.csv", "splits/a_external_test.json",
+                 "fig_preprocessing_a.png", "fig_preprocessing_b.png", "review_near_duplicates.png"):
         assert need in names
     report = snapshots[0]["audit_report.md"].decode()
     assert "corrupt.png" in report and "only_image.png" in report and "only_mask.png" in report
@@ -64,6 +65,7 @@ def test_full_run_twice_gives_identical_outputs(tmp_path):
             assert str(tmp_path) not in data.decode(), name
     summ = json.loads(snapshots[0]["summary.json"])
     assert summ["datasets"]["a"]["counts"]["matches_expected"] is False
+    assert summ["datasets"]["a"]["preprocessing"]["size"] == 256 and summ["datasets"]["a"]["preprocessing"]["mask_values"] == [0, 1]
 
 
 def test_splits_exclude_unreadable_and_cover_each_pair_once(tmp_path):

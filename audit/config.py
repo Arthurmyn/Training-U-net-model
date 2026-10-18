@@ -68,6 +68,8 @@ class AuditConfig:
     near_duplicate_hamming: int
     datasets: Dict[str, DatasetConfig]
     base_dir: Path
+    preprocess_size: int = 256
+    preprocess_examples: int = 5
 
     def settings_dict(self) -> dict:
         """Config values that go into summary.json (no absolute paths)."""
@@ -117,4 +119,6 @@ def load_config(path: str | Path) -> AuditConfig:
         near_duplicate_hamming=int(thr.get("near_duplicate_hamming", 4)),
         datasets=datasets,
         base_dir=base,
+        preprocess_size=int(raw.get("preprocessing", {}).get("size", 256)),
+        preprocess_examples=int(raw.get("preprocessing", {}).get("n_examples", 5)),
     )

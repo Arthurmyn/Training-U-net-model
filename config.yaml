@@ -7,6 +7,10 @@ thresholds:
   full_mask_fraction: 0.90    # flag masks covering more than this fraction
   near_duplicate_hamming: 4   # pHash (64 bit) Hamming distance <= 4 counts as near-duplicate
 
+preprocessing:                # the methodology's preprocessing; checked visually and numerically
+  size: 256                   # images and masks are resized to size x size
+  n_examples: 5               # examples per dataset in the preprocessing figure
+
 datasets:
   kvasir:
     name: Kvasir-SEG
