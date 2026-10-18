@@ -208,6 +208,41 @@ def make_figures(result: "AuditResult", out_dir: Path) -> List[Path]:
     return paths
 
 
+def review_rows(result: "AuditResult") -> List[dict]:
+    """Reviewed near-duplicate pairs with similarity numbers (only pairs whose files exist)."""
+    from .checks import pair_similarity
+
+    rows = []
+    for key, res in result.datasets.items():
+        for r in res.cfg.reviewed_pairs:
+            if all(x in res.files.images and x in res.files.masks for x in (r.a, r.b)):
+                sim = pair_similarity(res.files.images[r.a], res.files.images[r.b], res.files.masks[r.a], res.files.masks[r.b])
+                rows.append({"dataset": res.cfg.name, "key": key, "a": r.a, "b": r.b, "verdict": r.verdict, "note": r.note, **sim})
+    return rows
+
+
+def make_review_figure(result: "AuditResult", out_dir: Path) -> List[Path]:
+    """Side-by-side images and masks of every manually reviewed pair (evidence for the verdicts)."""
+    from .load import open_image_rgb, read_mask_raw
+
+    rows = review_rows(result)
+    if not rows:
+        return []
+    fig, axes = plt.subplots(len(rows), 4, figsize=(11, 2.9 * len(rows)), squeeze=False)
+    for i, r in enumerate(rows):
+        res = result.datasets[r["key"]]
+        for j, stem in enumerate((r["a"], r["b"])):
+            axes[i][j].imshow(open_image_rgb(res.files.images[stem]))
+            axes[i][j + 2].imshow(read_mask_raw(res.files.masks[stem])[0] > result.config.mask_binarize, cmap="gray")
+            axes[i][j].set_title(f"{stem[:12]}...", fontsize=8, color=INK2)
+        axes[i][0].set_ylabel(f"{r['verdict']}\ncorr {r['image_correlation']:.3f}\nmask IoU {r['mask_iou']:.2f}", fontsize=9, color=INK)
+        for ax in axes[i]:
+            ax.set_xticks([])
+            ax.set_yticks([])
+    fig.suptitle("Reviewed near-duplicate candidates (left: images, right: masks)", x=0.01, ha="left", fontsize=11, fontweight="bold", color=INK)
+    return [_save(fig, out_dir / "review_near_duplicates.png")]
+
+
 # --------------------------------------------------------------------------- summary.json
 def summary_json(result: "AuditResult") -> str:
     """Machine-readable summary (deterministic text)."""
@@ -224,6 +259,7 @@ def summary_json(result: "AuditResult") -> str:
             "method": f"pHash 64 bit (32x32 grey, 8x8 DCT, median threshold); near-duplicate = Hamming <= {result.config.near_duplicate_hamming}",
         },
         "split_leakage_check": result.leakage,
+        "reviewed_near_duplicates": review_rows(result),
         "n_flagged_file_entries": int(len(result.flagged)),
     }
     for key, res in result.datasets.items():
@@ -383,6 +419,12 @@ def render_markdown(result: "AuditResult") -> str:
                      f"{lk['reviewed_as_different_images']} of these were reviewed by hand as different images (pHash false positives), so {lk['leaking_pairs']} remain as possible leakage"
                      + (f" (e.g. {'; '.join(lk['examples'])})." if lk["examples"] else "."))
     L.append("")
+    rev = review_rows(result)
+    if rev:
+        L += ["Near-duplicate candidates reviewed by hand (figure: `review_near_duplicates.png`). Verdict `duplicate` = the pair is forced into one split; "
+              "`different_images` = pHash false positive, no action.", "",
+              md_table(["Dataset", "Image A", "Image B", "Image correlation", "Mask IoU", "Verdict", "Note"],
+                       [[x["dataset"], x["a"], x["b"], _f(x["image_correlation"], 4), _f(x["mask_iou"], 2), x["verdict"], x["note"]] for x in rev]), ""]
 
     L += ["## 10. Fixed splits", ""]
     rows = []

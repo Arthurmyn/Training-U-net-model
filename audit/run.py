@@ -193,6 +193,7 @@ def write_outputs(result: AuditResult) -> List[Path]:
     result.flagged.to_csv(p, index=False)
     written.append(p)
     written += report.make_figures(result, out)
+    written += report.make_review_figure(result, out)
     p = out / "summary.json"
     p.write_text(report.summary_json(result))
     written.append(p)
