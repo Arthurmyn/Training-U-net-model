@@ -39,6 +39,17 @@ Running twice gives byte-identical outputs (no timestamps, fixed seed, sorted fi
 - `*_external_test.json`: the whole dataset, used when a model trained on the other dataset is tested.
 - The distribution's own `train.txt` / `val.txt` for Kvasir-SEG (880/120) are not used.
 
+## Preprocessing check
+`audit/preprocess.py` implements the methodology's preprocessing (256x256, bilinear for images, nearest for masks,
+mask threshold > 127, pixels in [0, 1]); augmentation is training-only and not included. The audit writes
+`outputs/fig_preprocessing_<dataset>.png` (original image, original mask, preprocessed result, overlay for five polyp
+sizes) and checks every pair numerically. Look at the figures before training.
+
+## CVC-ClinicDB sequences
+The expected 31 sequences come from the original description (Vazquez et al. 2017: 31 sequences, 23 patients);
+`metadata.csv` lists 29 and the origin of the difference is unresolved. The audit checks that no listed sequence crosses
+train/val/test. Sequences are not patients: there is no patient ID, so patient-level leakage cannot be excluded.
+
 ## Notes on the audit
 - Near-duplicates use a 64-bit DCT perceptual hash (own implementation, `imagehash` not needed); threshold: Hamming <= 4 (`config.yaml`).
 - Masks are binarised with `value > 127`; polyps are counted as 4-connected components.
