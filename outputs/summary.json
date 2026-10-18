@@ -292,9 +292,15 @@
         "approximate": false,
         "error": null,
         "excluded_unreadable_pairs": [],
+        "kept_together_pairs": [
+          [
+            "cju30bmab08bi0835mvlr6e0r",
+            "cju77k828z46w0871r0avuoo9"
+          ]
+        ],
         "method": "random",
         "n_pairs": 1000,
-        "note": "Random permutation of the sorted file stems with numpy default_rng(seed).",
+        "note": "Random permutation of the sorted file stems with numpy default_rng(seed); manually confirmed near-duplicate pairs are kept in the same split.",
         "seed": 42,
         "sizes": {
           "test": 100,
@@ -353,8 +359,31 @@
     "CVC-ClinicDB: the sequence metadata lists 29 video sequences, but 31 were expected.",
     "CVC-ClinicDB: the second (TIFF) copy of 612 images could not be decoded by Pillow, so the PNG/TIFF image cross-check was not possible (masks: 612/612 identical).",
     "183 near-duplicate image pair(s) within CVC-ClinicDB (pHash Hamming <= 4) (181 of them within the same video sequence).",
-    "7 near-duplicate image pair(s) within Kvasir-SEG (pHash Hamming <= 4).",
-    "Kvasir-SEG: 2 near-duplicate pair(s) end up in different splits."
+    "7 near-duplicate image pair(s) within Kvasir-SEG (pHash Hamming <= 4)."
+  ],
+  "reviewed_near_duplicates": [
+    {
+      "a": "cju30bmab08bi0835mvlr6e0r",
+      "b": "cju77k828z46w0871r0avuoo9",
+      "dataset": "Kvasir-SEG",
+      "image_correlation": 0.9997644150368705,
+      "image_mean_abs_diff": 0.3529052734375,
+      "key": "kvasir",
+      "mask_iou": 0.9556923076923077,
+      "note": "adjacent frames of the same polyp (same overlay timestamp, 2 s apart); image correlation 0.9997, mask IoU 0.95",
+      "verdict": "duplicate"
+    },
+    {
+      "a": "cju8c5223s8j80850b4kealt4",
+      "b": "cju8dpa89u6l80818dj6lldh9",
+      "dataset": "Kvasir-SEG",
+      "image_correlation": 0.7575358473006224,
+      "image_mean_abs_diff": 30.84765625,
+      "key": "kvasir",
+      "mask_iou": 0.05161943319838057,
+      "note": "pHash false positive caused by the shared black octagonal border; different patients and polyps (2012 vs 2013), image correlation 0.75, mask IoU 0.05",
+      "verdict": "different_images"
+    }
   ],
   "settings": {
     "full_mask_fraction": 0.9,
@@ -365,16 +394,17 @@
   "split_leakage_check": {
     "cvc": {
       "examples": [],
+      "leaking_pairs": 0,
       "near_duplicate_pairs": 183,
-      "pairs_in_different_splits": 0
+      "pairs_in_different_splits": 0,
+      "reviewed_as_different_images": 0
     },
     "kvasir": {
-      "examples": [
-        "cju30bmab08bi0835mvlr6e0r.jpg (train) ~ cju77k828z46w0871r0avuoo9.jpg (test)",
-        "cju8c5223s8j80850b4kealt4.jpg (val) ~ cju8dpa89u6l80818dj6lldh9.jpg (test)"
-      ],
+      "examples": [],
+      "leaking_pairs": 0,
       "near_duplicate_pairs": 7,
-      "pairs_in_different_splits": 2
+      "pairs_in_different_splits": 1,
+      "reviewed_as_different_images": 1
     }
   }
 }
