@@ -247,6 +247,24 @@ def summarize_dataset(df: pd.DataFrame, files: Discovery, ds: DatasetConfig) -> 
     return s
 
 
+# --------------------------------------------------------------------------- manual review support
+def pair_similarity(image_a, image_b, mask_a, mask_b, threshold: int = 127, size: int = 128) -> dict:
+    """Numbers that support a visual near-duplicate review: grey-image correlation and mask IoU (both at 128x128)."""
+    def grey(p):
+        return np.asarray(open_image_rgb(p).convert("L").resize((size, size), Image.BILINEAR), dtype=np.float64)
+
+    def binary(p):
+        raw, _ = read_mask_raw(p)
+        return np.asarray(Image.fromarray(raw.astype(np.uint8)).resize((size, size), Image.NEAREST)) > threshold
+
+    ga, gb = grey(image_a), grey(image_b)
+    ma, mb = binary(mask_a), binary(mask_b)
+    union = int((ma | mb).sum())
+    return {"image_correlation": float(np.corrcoef(ga.ravel(), gb.ravel())[0, 1]),
+            "image_mean_abs_diff": float(np.abs(ga - gb).mean()),
+            "mask_iou": float((ma & mb).sum() / union) if union else float("nan")}
+
+
 # --------------------------------------------------------------------------- duplicates
 def find_duplicates(frames: Dict[str, pd.DataFrame], max_hamming: int) -> dict:
     """Exact (MD5) and near (pHash Hamming <= ``max_hamming``) duplicates, within and across datasets.
