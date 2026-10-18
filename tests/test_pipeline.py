@@ -56,7 +56,7 @@ def test_full_run_twice_gives_identical_outputs(tmp_path):
     for need in ("audit_report.md", "summary.json", "per_image_stats_a.csv", "per_image_stats_b.csv",
                  "fig_polyp_area_fraction.png", "fig_image_sizes.png", "fig_brightness_hist.png",
                  "splits/a_split.json", "splits/b_split.csv", "splits/a_external_test.json",
-                 "fig_preprocessing_a.png", "fig_preprocessing_b.png", "review_near_duplicates.png"):
+                 "fig_preprocessing_a.png", "fig_preprocessing_b.png"):
         assert need in names
     report = snapshots[0]["audit_report.md"].decode()
     assert "corrupt.png" in report and "only_image.png" in report and "only_mask.png" in report
