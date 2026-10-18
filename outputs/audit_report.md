@@ -93,9 +93,20 @@ Polyps are counted as 4-connected components (`scipy.ndimage.label`) of the bina
 | Kvasir-SEG | 97.48 | 13.45 | 48.13 | 151.25 | 142.04 | 82.03 | 60.13 |
 | CVC-ClinicDB | 76.19 | 13.86 | 35.70 | 119.96 | 102.21 | 68.70 | 46.95 |
 
-On average Kvasir-SEG images are 21.3 grey levels brighter than CVC-ClinicDB images (97.5 vs 76.2 on a 0-255 scale).
+On average Kvasir-SEG images are 21.3 grey levels brighter than CVC-ClinicDB images (97.5 vs 76.2 on a 0-255 scale). These numbers are descriptive: a drop in Dice on the other dataset would reflect the combined effect of brightness, resolution, annotation style and everything else that differs, and cannot be attributed to brightness alone.
 
-## 9. Duplicates (report only; nothing was deleted)
+## 9. Preprocessing check
+
+Preprocessing of the methodology: resize to 256x256 (bilinear for images, nearest neighbour for masks), binarise masks with value > 127, scale pixels to [0, 1]. Geometric augmentation is applied only during training and is not part of this check. Examples (smallest to largest polyp) are shown in `fig_preprocessing_<dataset>.png`; every pair was also checked numerically.
+
+| Dataset | Pairs | Image value range | Mask values | Aspect ratio w/h median (range) | Polyp area change, mean / max (percentage points) | Masks empty after | Masks with changed polyp count | Status |
+|---|---|---|---|---|---|---|---|---|
+| Kvasir-SEG | 1000 | [0.00, 1.00] | {0, 1} | 1.16 (0.68-1.79) | 0.014 / 0.183 | 0 | 143 | OK |
+| CVC-ClinicDB | 612 | [0.00, 1.00] | {0, 1} | 1.33 (1.33-1.33) | 0.013 / 0.098 | 0 | 23 | OK |
+
+Notes: (1) Resizing to a square changes the aspect ratio of every image that is not square (table above), so polyps are stretched; the same happens to image and mask. (2) Pillow's bilinear resize averages over the source pixels when shrinking; a different library (for example plain bilinear sampling in a deep-learning framework) gives slightly different pixel values. Use the same function for training and testing. (3) Bilinear interpolation is not applied to masks: it would create grey values at the polyp border.
+
+## 10. Duplicates (report only; nothing was deleted)
 
 Exact duplicates (identical file bytes): none, within or across the datasets.
 
@@ -157,7 +168,7 @@ Near-duplicate candidates reviewed by hand (figure: `review_near_duplicates.png`
 | Kvasir-SEG | cju30bmab08bi0835mvlr6e0r | cju77k828z46w0871r0avuoo9 | 0.9998 | 0.96 | duplicate | adjacent frames of the same polyp (same overlay timestamp, 2 s apart); image correlation 0.9997, mask IoU 0.95 |
 | Kvasir-SEG | cju8c5223s8j80850b4kealt4 | cju8dpa89u6l80818dj6lldh9 | 0.7575 | 0.05 | different_images | pHash false positive caused by the shared black octagonal border; different patients and polyps (2012 vs 2013), image correlation 0.75, mask IoU 0.05 |
 
-## 10. Fixed splits
+## 11. Fixed splits
 
 | Dataset | Method | Seed | Train/val/test pairs | Sequences | Approximation |
 |---|---|---|---|---|---|
@@ -175,13 +186,13 @@ Each split is checked by assertion: the parts are disjoint, together cover every
 - Expected number of sequences (31): 31 comes from the original description of the database (Vazquez et al. 2017, arXiv:1612.00799: "612 images ... 31 polyp video sequences acquired from 23 patients"). metadata.csv in this copy, and public mirrors of the dataset (e.g. Dataset Ninja, Hugging Face), list 29 sequences. The origin of the difference could not be resolved from the available metadata.
 - **Limitation:** Sequences are not patients. The original description reports 23 patients for 31 sequences and metadata.csv has no patient ID, so frames of the same patient can appear in different splits; patient-level leakage cannot be excluded.
 
-## 11. Second image copy cross-check (CVC-ClinicDB)
+## 12. Second image copy cross-check (CVC-ClinicDB)
 
 Masks: 612 of 612 compared mask pairs are pixel-identical between the main copy and the second copy. Images: the second copy of 612 of 612 images could not be decoded by Pillow, so images were NOT compared.
 
-## 12. Flagged files
+## 13. Flagged files
 
-Flag meanings: `corrupt_*` cannot be fully decoded; `size_mismatch` image and mask sizes differ; `empty_mask` no polyp pixel after binarising; `near_full_mask` more than 90% polyp; `not_two_class` binarised mask does not have two classes; `unmatched_*` no partner file; `exact_duplicate`; `near_duplicate_across_datasets`. Within-dataset near-duplicates and noisy-but-valid masks are not listed per file (see sections 5 and 9, `duplicate_pairs.csv`).
+Flag meanings: `corrupt_*` cannot be fully decoded; `size_mismatch` image and mask sizes differ; `empty_mask` no polyp pixel after binarising; `near_full_mask` more than 90% polyp; `not_two_class` binarised mask does not have two classes; `unmatched_*` no partner file; `exact_duplicate`; `near_duplicate_across_datasets`. Within-dataset near-duplicates and noisy-but-valid masks are not listed per file (see sections 5 and 10, `duplicate_pairs.csv`).
 
 No file was flagged.
 

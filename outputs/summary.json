@@ -100,6 +100,35 @@
       },
       "name": "CVC-ClinicDB",
       "near_full_masks": [],
+      "preprocessing": {
+        "area_abs_change": {
+          "max": 0.0009776927806712937,
+          "mean": 0.00012583883816957527
+        },
+        "aspect_ratio": {
+          "max": 1.3333333333333333,
+          "median": 1.3333333333333333,
+          "min": 1.3333333333333333
+        },
+        "image_max": 1.0,
+        "image_min": 0.0,
+        "interpolation": {
+          "images": "bilinear (Pillow)",
+          "masks": "nearest"
+        },
+        "mask_threshold": 127,
+        "mask_values": [
+          0,
+          1
+        ],
+        "masks_component_count_changed": 23,
+        "masks_empty_after": [],
+        "n_checked": 612,
+        "n_resized_non_square": 612,
+        "ok": true,
+        "size": 256,
+        "violations": []
+      },
       "sequence_info": {
         "expected_sequences": 31,
         "frames_per_sequence": {
@@ -289,6 +318,35 @@
       },
       "name": "Kvasir-SEG",
       "near_full_masks": [],
+      "preprocessing": {
+        "area_abs_change": {
+          "max": 0.001834671585648151,
+          "mean": 0.00013769949477394623
+        },
+        "aspect_ratio": {
+          "max": 1.791044776119403,
+          "median": 1.1550728600698283,
+          "min": 0.6817248459958932
+        },
+        "image_max": 1.0,
+        "image_min": 0.0,
+        "interpolation": {
+          "images": "bilinear (Pillow)",
+          "masks": "nearest"
+        },
+        "mask_threshold": 127,
+        "mask_values": [
+          0,
+          1
+        ],
+        "masks_component_count_changed": 143,
+        "masks_empty_after": [],
+        "n_checked": 1000,
+        "n_resized_non_square": 998,
+        "ok": true,
+        "size": 256,
+        "violations": []
+      },
       "sequence_info": {
         "n_sequences": null,
         "source": "no sequence metadata configured"
