@@ -134,6 +134,8 @@ def find_problems(result: "AuditResult") -> List[str]:
             p.append(f"{n}: the second (TIFF) copy of {x['images_second_copy_undecodable']} images could not be decoded by Pillow, "
                      "so the PNG/TIFF image cross-check was not possible (masks: "
                      f"{x['masks_identical']}/{x['masks_compared']} identical).")
+        for v in res.preprocess_summary.get("violations", []):
+            p.append(f"{n}: preprocessing check: {v}.")
         if res.split_error:
             p.append(f"{n}: split NOT created ({res.split_error}).")
         elif res.split_meta.get("approximate"):
@@ -211,6 +213,43 @@ def make_figures(result: "AuditResult", out_dir: Path) -> List[Path]:
     return paths
 
 
+def make_preprocessing_figures(result: "AuditResult", out_dir: Path) -> List[Path]:
+    """One figure per dataset: original image, original mask, preprocessed image, preprocessed mask, overlay."""
+    from . import preprocess
+    from .load import open_image_rgb, read_mask_raw
+
+    size, thr = result.config.preprocess_size, result.config.mask_binarize
+    paths = []
+    for key, res in result.datasets.items():
+        stems = preprocess.select_examples(res.preprocess_table, result.config.preprocess_examples)
+        if not stems:
+            continue
+        info = res.preprocess_table.set_index("stem")
+        fig, axes = plt.subplots(len(stems), 5, figsize=(12.5, 2.5 * len(stems)), squeeze=False)
+        for i, stem in enumerate(stems):
+            rgb = open_image_rgb(res.files.images[stem])
+            raw = read_mask_raw(res.files.masks[stem])[0]
+            img, mask = preprocess.preprocess_pair(res.files.images[stem], res.files.masks[stem], size, thr)
+            overlay = img.copy()
+            overlay[mask == 1] = 0.5 * overlay[mask == 1] + 0.5 * np.array([0.92, 0.41, 0.2], dtype=np.float32)
+            panels = [np.asarray(rgb), raw > thr, img, mask, overlay]
+            for j, panel in enumerate(panels):
+                ax = axes[i][j]
+                ax.imshow(panel, cmap="gray", vmin=0, vmax=1) if panel.ndim == 2 else ax.imshow(panel)
+                ax.set_xticks([])
+                ax.set_yticks([])
+            r = info.loc[stem]
+            axes[i][0].set_ylabel(f"{stem[:10]}\npolyp {100 * r['area_before']:.1f}% -> {100 * r['area_after']:.1f}%", fontsize=8, color=INK)
+            axes[i][0].set_xlabel(f"{int(r['orig_width'])}x{int(r['orig_height'])}", fontsize=8, color=INK2)
+            axes[i][2].set_xlabel(f"{size}x{size}, range [{r['image_min']:.2f}, {r['image_max']:.2f}]", fontsize=8, color=INK2)
+            axes[i][3].set_xlabel(f"values {{{r['mask_values'].replace(';', ', ')}}}", fontsize=8, color=INK2)
+        for j, t in enumerate(["Original image", "Original mask (> %d)" % thr, "Preprocessed image", "Preprocessed mask", "Overlay"]):
+            axes[0][j].set_title(t, fontsize=10, color=INK)
+        fig.suptitle(f"{res.cfg.name}: preprocessing check (smallest to largest polyp)", x=0.01, ha="left", fontsize=12, fontweight="bold", color=INK)
+        paths.append(_save(fig, out_dir / f"fig_preprocessing_{key}.png"))
+    return paths
+
+
 def review_rows(result: "AuditResult") -> List[dict]:
     """Reviewed near-duplicate pairs with similarity numbers (only pairs whose files exist)."""
     from .checks import pair_similarity
@@ -269,6 +308,7 @@ def summary_json(result: "AuditResult") -> str:
         body["datasets"][key] = {
             **res.summary,
             "sequence_info": res.sequence_info,
+            "preprocessing": res.preprocess_summary,
             "split": {**res.split_meta, "error": res.split_error or None,
                       "sizes": {k: len(v) for k, v in (res.split or {}).items()}},
         }
@@ -377,9 +417,32 @@ def render_markdown(result: "AuditResult") -> str:
     if len(keys) == 2:
         a, b = (ds[k].summary["brightness_gray"]["mean"] for k in keys)
         L += [f"On average {ds[keys[0]].cfg.name} images are {abs(a - b):.1f} grey levels {'brighter' if a > b else 'darker'} than {ds[keys[1]].cfg.name} images "
-              f"({a:.1f} vs {b:.1f} on a 0-255 scale).", ""]
+              f"({a:.1f} vs {b:.1f} on a 0-255 scale). These numbers are descriptive: a drop in Dice on the other dataset would reflect the combined effect of brightness, resolution, "
+              "annotation style and everything else that differs, and cannot be attributed to brightness alone.", ""]
 
-    L += ["## 9. Duplicates (report only; nothing was deleted)", ""]
+    L += ["## 9. Preprocessing check", "",
+          f"Preprocessing of the methodology: resize to {cfg.preprocess_size}x{cfg.preprocess_size} (bilinear for images, nearest neighbour for masks), "
+          f"binarise masks with value > {cfg.mask_binarize}, scale pixels to [0, 1]. Geometric augmentation is applied only during training and is not part of this check. "
+          "Examples (smallest to largest polyp) are shown in `fig_preprocessing_<dataset>.png`; every pair was also checked numerically.", ""]
+    rows = []
+    for r in ds.values():
+        q = r.preprocess_summary
+        if not q.get("n_checked"):
+            continue
+        rows.append([r.cfg.name, q["n_checked"], f"[{q['image_min']:.2f}, {q['image_max']:.2f}]", "{" + ", ".join(map(str, q["mask_values"])) + "}",
+                     f"{q['aspect_ratio']['median']:.2f} ({q['aspect_ratio']['min']:.2f}-{q['aspect_ratio']['max']:.2f})",
+                     f"{_pct(q['area_abs_change']['mean'], 3)} / {_pct(q['area_abs_change']['max'], 3)}", len(q["masks_empty_after"]),
+                     q["masks_component_count_changed"], "OK" if q["ok"] else "VIOLATION"])
+    L += [md_table(["Dataset", "Pairs", "Image value range", "Mask values", "Aspect ratio w/h median (range)",
+                    "Polyp area change, mean / max (percentage points)", "Masks empty after", "Masks with changed polyp count", "Status"], rows), ""]
+    for r in ds.values():
+        for v in r.preprocess_summary.get("violations", []):
+            L.append(f"- **{r.cfg.name}:** {v}.")
+    L += ["Notes: (1) Resizing to a square changes the aspect ratio of every image that is not square (table above), so polyps are stretched; the same happens to image and mask. "
+          "(2) Pillow's bilinear resize averages over the source pixels when shrinking; a different library (for example plain bilinear sampling in a deep-learning framework) gives slightly different pixel values. "
+          "Use the same function for training and testing. (3) Bilinear interpolation is not applied to masks: it would create grey values at the polyp border.", ""]
+
+    L += ["## 10. Duplicates (report only; nothing was deleted)", ""]
     d = result.duplicates
     if d["exact_groups"]:
         L.append(f"Exact duplicates (identical file bytes): {len(d['exact_groups'])} group(s).\n")
@@ -429,7 +492,7 @@ def render_markdown(result: "AuditResult") -> str:
               md_table(["Dataset", "Image A", "Image B", "Image correlation", "Mask IoU", "Verdict", "Note"],
                        [[x["dataset"], x["a"], x["b"], _f(x["image_correlation"], 4), _f(x["mask_iou"], 2), x["verdict"], x["note"]] for x in rev]), ""]
 
-    L += ["## 10. Fixed splits", ""]
+    L += ["## 11. Fixed splits", ""]
     rows = []
     for r in ds.values():
         m = r.split_meta
@@ -473,15 +536,15 @@ def render_markdown(result: "AuditResult") -> str:
     for r in ds.values():
         x = r.summary.get("crosscheck")
         if x:
-            L += [f"## 11. Second image copy cross-check ({r.cfg.name})", "",
+            L += [f"## 12. Second image copy cross-check ({r.cfg.name})", "",
                   f"Masks: {x['masks_identical']} of {x['masks_compared']} compared mask pairs are pixel-identical between the main copy and the second copy. "
                   + (f"Images: the second copy of {x['images_second_copy_undecodable']} of {x['images_second_copy_found']} images could not be decoded by Pillow, so images were NOT compared."
                      if x["images_second_copy_undecodable"] else f"Images: {x['images_identical']} of {x['images_compared']} pixel-identical."), ""]
 
-    L += ["## 12. Flagged files", "",
+    L += ["## 13. Flagged files", "",
           "Flag meanings: `corrupt_*` cannot be fully decoded; `size_mismatch` image and mask sizes differ; `empty_mask` no polyp pixel after binarising; "
           f"`near_full_mask` more than {_pct(cfg.full_mask_fraction, 0)}% polyp; `not_two_class` binarised mask does not have two classes; `unmatched_*` no partner file; "
-          "`exact_duplicate`; `near_duplicate_across_datasets`. Within-dataset near-duplicates and noisy-but-valid masks are not listed per file (see sections 5 and 9, `duplicate_pairs.csv`).", ""]
+          "`exact_duplicate`; `near_duplicate_across_datasets`. Within-dataset near-duplicates and noisy-but-valid masks are not listed per file (see sections 5 and 10, `duplicate_pairs.csv`).", ""]
     fl = result.flagged
     if len(fl):
         L.append(md_table(["Dataset", "File", "Flag", "Detail"], [[x.dataset, x.file, x.flag, x.detail] for x in fl.itertuples()]))
