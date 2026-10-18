@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, Tuple
 
 import yaml
 
@@ -15,6 +15,16 @@ class SequenceMeta:
     file: str
     stem_column: str
     sequence_column: str
+
+
+@dataclass(frozen=True)
+class ReviewedPair:
+    """A near-duplicate candidate pair that a person has looked at (stems, no extension)."""
+
+    a: str
+    b: str
+    verdict: str          # "duplicate" (keep in one split) or "different_images" (pHash false positive)
+    note: str = ""
 
 
 @dataclass(frozen=True)
@@ -34,6 +44,7 @@ class DatasetConfig:
     sequence_meta: Optional[SequenceMeta] = None
     crosscheck_image_dir: Optional[str] = None
     crosscheck_mask_dir: Optional[str] = None
+    reviewed_pairs: Tuple[ReviewedPair, ...] = ()
 
     @property
     def image_path(self) -> Path:
@@ -91,6 +102,8 @@ def load_config(path: str | Path) -> AuditConfig:
             sequence_meta=SequenceMeta(seq["file"], str(seq["stem_column"]), str(seq["sequence_column"])) if seq else None,
             crosscheck_image_dir=xc.get("image_dir"),
             crosscheck_mask_dir=xc.get("mask_dir"),
+            reviewed_pairs=tuple(ReviewedPair(str(r["a"]), str(r["b"]), r["verdict"], r.get("note", ""))
+                                 for r in d.get("reviewed_near_duplicates", [])),
         )
     return AuditConfig(
         seed=int(raw.get("seed", 42)),

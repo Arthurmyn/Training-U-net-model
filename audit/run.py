@@ -77,9 +77,11 @@ def build_split(res: DatasetResult, seed: int) -> None:
     meta: dict = {"seed": seed, "n_pairs": len(stems), "excluded_unreadable_pairs": excluded}
     try:
         if ds.split_method == "random":
-            split = splits.random_split(stems, ds.split_sizes, seed)
-            meta.update(method="random", approximate=False,
-                        note="Random permutation of the sorted file stems with numpy default_rng(seed).")
+            together = [[r.a, r.b] for r in ds.reviewed_pairs if r.verdict == "duplicate"]
+            split = splits.random_split(stems, ds.split_sizes, seed, keep_together=together)
+            meta.update(method="random", approximate=False, kept_together_pairs=together,
+                        note="Random permutation of the sorted file stems with numpy default_rng(seed); "
+                             "manually confirmed near-duplicate pairs are kept in the same split.")
             seq_of = None
         else:
             have_all = bool(res.sequences) and all(s in res.sequences for s in stems)
@@ -109,18 +111,24 @@ def build_split(res: DatasetResult, seed: int) -> None:
 
 
 def split_leakage(result_ds: Dict[str, DatasetResult], near_pairs: pd.DataFrame) -> dict:
-    """Count within-dataset near-duplicate pairs that fall into different splits (possible leakage)."""
+    """Count within-dataset near-duplicate pairs that fall into different splits.
+
+    Pairs a person reviewed as ``different_images`` are counted separately; ``leaking_pairs`` is what remains.
+    """
     out = {}
     for key, res in result_ds.items():
         if res.split is None:
             out[key] = None
             continue
         where = {res.files.images[s].name: name for name, part in res.split.items() for s in part}
+        not_dup = {frozenset((r.a, r.b)) for r in res.cfg.reviewed_pairs if r.verdict == "different_images"}
         pairs = near_pairs[near_pairs["scope"] == f"within_{key}"]
         cross = [(a, b) for a, b in zip(pairs["a_file"], pairs["b_file"])
                  if a in where and b in where and where[a] != where[b]]
+        leaking = [(a, b) for a, b in cross if frozenset((Path(a).stem, Path(b).stem)) not in not_dup]
         out[key] = {"near_duplicate_pairs": int(len(pairs)), "pairs_in_different_splits": len(cross),
-                    "examples": [f"{a} ({where[a]}) ~ {b} ({where[b]})" for a, b in cross[:5]]}
+                    "reviewed_as_different_images": len(cross) - len(leaking), "leaking_pairs": len(leaking),
+                    "examples": [f"{a} ({where[a]}) ~ {b} ({where[b]})" for a, b in leaking[:5]]}
     return out
 
 
