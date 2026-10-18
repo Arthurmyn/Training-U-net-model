@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Dict, List, Mapping, Optional, Sequence
+from typing import Dict, Iterable, List, Mapping, Optional, Sequence
 
 import numpy as np
 
@@ -12,18 +12,64 @@ from .load import natural_key
 SPLIT_NAMES = ("train", "val", "test")
 
 
-def random_split(stems: Sequence[str], sizes: Mapping[str, int], seed: int) -> Dict[str, List[str]]:
-    """Seeded random split with exact sizes. Input order does not matter (stems are sorted first)."""
+def merge_groups(pairs: Iterable[Sequence[str]]) -> List[List[str]]:
+    """Merge overlapping groups (A~B and B~C become {A, B, C}) with union-find; result is sorted."""
+    parent: Dict[str, str] = {}
+
+    def find(x: str) -> str:
+        parent.setdefault(x, x)
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    for grp in pairs:
+        for other in grp[1:]:
+            parent[find(other)] = find(grp[0])
+    merged: Dict[str, List[str]] = {}
+    for x in list(parent):
+        merged.setdefault(find(x), []).append(x)
+    return sorted((sorted(v, key=natural_key) for v in merged.values()), key=lambda v: natural_key(v[0]))
+
+
+def random_split(stems: Sequence[str], sizes: Mapping[str, int], seed: int,
+                 keep_together: Iterable[Sequence[str]] = ()) -> Dict[str, List[str]]:
+    """Seeded random split with exact sizes. Input order does not matter (stems are sorted first).
+
+    ``keep_together`` lists groups of stems (e.g. reviewed near-duplicates) that must land in one split.
+    The seeded permutation is kept; a group is placed where its earliest member appears, and a group that
+    does not fit into the space left in a split is deferred to the next split. Without groups the
+    result is a plain slice of the permutation.
+    """
     ordered = sorted(stems, key=natural_key)
     if sum(sizes.values()) != len(ordered):
         raise ValueError(f"split sizes {dict(sizes)} sum to {sum(sizes.values())}, but {len(ordered)} pairs are available")
+    present = set(ordered)
+    groups = [g for g in merge_groups([[x for x in g if x in present] for g in keep_together]) if len(g) > 1]
+    group_of = {x: i for i, g in enumerate(groups) for x in g}
     perm = np.random.default_rng(seed).permutation(len(ordered))
+    units: List[List[str]] = []
+    emitted = set()
+    for i in perm:
+        s = ordered[i]
+        if s in group_of:
+            if group_of[s] not in emitted:
+                emitted.add(group_of[s])
+                units.append(groups[group_of[s]])
+        else:
+            units.append([s])
     out: Dict[str, List[str]] = {}
-    start = 0
     for name in SPLIT_NAMES:
-        n = int(sizes[name])
-        out[name] = sorted((ordered[i] for i in perm[start:start + n]), key=natural_key)
-        start += n
+        cap, taken, rest = int(sizes[name]), [], []
+        for u in units:
+            if len(taken) + len(u) <= cap:
+                taken.extend(u)
+            else:
+                rest.append(u)
+        if len(taken) != cap:
+            raise ValueError(f"cannot fill split '{name}' with {cap} pairs while keeping groups together")
+        out[name] = sorted(taken, key=natural_key)
+        units = rest
     return out
 
 

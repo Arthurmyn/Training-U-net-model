@@ -66,3 +66,36 @@ def test_write_split_files_is_byte_deterministic(tmp_path):
     for f in (tmp_path / "a").iterdir():
         assert f.read_bytes() == (tmp_path / "b" / f.name).read_bytes()
     assert '"seed": 5' in (tmp_path / "a" / "k_split.json").read_text()
+
+
+def test_keep_together_puts_group_in_one_split_with_exact_sizes():
+    sizes = {"train": 80, "val": 10, "test": 10}
+    plain = splits.random_split(STEMS, sizes, 42)
+    where = {s: k for k, v in plain.items() for s in v}
+    # choose a pair that the plain split separates
+    a = next(s for s in STEMS if where[s] == "train")
+    b = next(s for s in STEMS if where[s] == "test")
+    grouped = splits.random_split(STEMS, sizes, 42, keep_together=[[a, b]])
+    splits.validate_split(grouped, STEMS)
+    assert {k: len(v) for k, v in grouped.items()} == sizes
+    assert any(a in v and b in v for v in grouped.values())
+    assert grouped == splits.random_split(STEMS, sizes, 42, keep_together=[[b, a]])      # deterministic, order-free
+
+
+def test_keep_together_without_groups_equals_plain_and_changes_little():
+    sizes = {"train": 80, "val": 10, "test": 10}
+    plain = splits.random_split(STEMS, sizes, 42)
+    assert plain == splits.random_split(STEMS, sizes, 42, keep_together=[])
+    where = {s: k for k, v in plain.items() for s in v}
+    a = next(s for s in STEMS if where[s] == "train")
+    b = next(s for s in STEMS if where[s] == "test")
+    g = splits.random_split(STEMS, sizes, 42, keep_together=[[a, b]])
+    moved = sum(1 for k, v in g.items() for s in v if where[s] != k)
+    assert moved <= 6                                         # small, local change
+
+
+def test_merge_groups_chains_and_group_larger_than_split():
+    assert splits.merge_groups([["1", "2"], ["2", "3"], ["10", "11"]]) == [["1", "2", "3"], ["10", "11"]]
+    import pytest
+    with pytest.raises(ValueError):
+        splits.random_split(STEMS, {"train": 50, "val": 25, "test": 25}, 1, keep_together=[STEMS[:60]])
