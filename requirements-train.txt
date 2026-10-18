@@ -1,0 +1,4 @@
+# Everything needed to train and evaluate (includes the audit requirements).
+# PyTorch is installed separately because the right wheel depends on your hardware, see docs/SETUP_ru.md.
+-r requirements.txt
+torch>=2.1
