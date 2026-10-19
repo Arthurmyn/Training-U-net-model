@@ -54,6 +54,7 @@ train/val/test. Sequences are not patients: there is no patient ID, so patient-l
 Everything for training is in `train/` (settings in `train_config.yaml`). Step-by-step instructions (in Russian):
 `docs/SETUP_ru.md` (install PyTorch and libraries, copy and verify the data) and `docs/RUNBOOK_ru.md` (run the full experiment,
 copy results back). Quick check of any machine: `python -m train.verify_data`, `pytest`, `python -m train.run_all --smoke`.
+Renting a GPU on RunPod instead: `docs/RUNPOD_ru.md`.
 `python -m train.analyze` turns the per-image Dice files into confidence intervals and a figure.
 
 ## Notes on the audit
