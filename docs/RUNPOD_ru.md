@@ -1,0 +1,87 @@
+# Обучение на RunPod
+
+RunPod сдаёт в аренду серверы с видеокартами по часам. Вы создаёте «pod», заходите в терминал, запускаете те же команды, что и на ноутбуке, а в конце
+**скачиваете результаты и удаляете pod**, чтобы за него перестали списывать деньги.
+
+Что проверено, а что нет: код проверен на Mac (MPS) и на CPU в тестах. На NVIDIA/CUDA и на самом RunPod я его не запускал.
+Для этого в инструкции есть проверочные шаги (3-4): они покажут проблему до того, как вы потратите время и деньги.
+Названия кнопок на сайте могут отличаться: ориентируйтесь на смысл и на https://docs.runpod.io.
+
+## 1. Подготовка (один раз)
+- Зарегистрируйтесь на runpod.io и пополните баланс на небольшую сумму (достаточно нескольких долларов; цену часа вы увидите при выборе GPU).
+- Убедитесь, что последние изменения **залиты на GitHub** (`git push`): pod скачает код оттуда. Данные в git не лежат, их перенесёте отдельно (шаг 3).
+- Держите под рукой два архива: `Kvasir-seg.zip` и `CVC-ClinicDB.zip`.
+
+## 2. Создать pod
+Pods -> Deploy:
+- **GPU:** подойдёт почти любая NVIDIA с 12 ГБ памяти и больше (модель маленькая: 7.8 млн параметров, batch 16 при 256x256 занимает единицы гигабайт).
+  Берите по цене, а не самую мощную: на таких данных разница во времени небольшая.
+- **Шаблон (template):** «RunPod PyTorch» (любая свежая версия 2.x). В нём уже есть PyTorch с CUDA, **заново ставить его не надо**.
+- **Диски:** Container disk 20 ГБ; Volume disk (подключается в `/workspace`) 20-30 ГБ. Всё, что нужно сохранять, кладите в `/workspace`.
+- Включите доступ к терминалу: Jupyter и/или SSH (в карточке pod: Connect).
+- Для первого запуска берите обычный (On-Demand) pod. Дешёвые прерываемые (Spot) тоже подойдут, потому что обучение умеет продолжаться (шаг 6), но их могут остановить.
+
+## 3. Код и данные
+Откройте терминал pod (Connect -> Jupyter Lab -> Terminal, либо SSH):
+```bash
+cd /workspace
+git clone https://github.com/Arthurmyn/Training-U-net-model
+cd Training-U-net-model
+mkdir -p data
+```
+Загрузите два архива в `/workspace/Training-U-net-model/data/`. Любой способ:
+- **Jupyter Lab:** слева откройте папку `Training-U-net-model/data`, кнопка Upload (стрелка вверх), выберите оба zip (около 290 МБ).
+- **scp с ноутбука** (адрес и порт смотрите в Connect -> SSH over exposed TCP):
+  `scp -P <ПОРТ> data/Kvasir-seg.zip data/CVC-ClinicDB.zip root@<АДРЕС>:/workspace/Training-U-net-model/data/`
+- **runpodctl** (если установлен в pod): на ноутбуке `runpodctl send data/Kvasir-seg.zip`, на pod выполните выданную команду `runpodctl receive <код>`.
+
+Проверка и распаковка (не требуют `unzip`):
+```bash
+sha256sum -c data_checksums.sha256          # обе строки должны быть OK; на Mac команда называется shasum -a 256 -c
+mkdir -p data/kvasir_seg data/cvc_clinicdb
+python3 -m zipfile -e data/Kvasir-seg.zip   data/kvasir_seg
+python3 -m zipfile -e data/CVC-ClinicDB.zip data/cvc_clinicdb
+```
+
+## 4. Окружение и проверки
+PyTorch уже стоит; доставляем остальное **без переустановки PyTorch**:
+```bash
+python3 -m pip install -r requirements.txt            # не requirements-lock.txt: его закреплённые версии могут конфликтовать с шаблоном
+nvidia-smi                                            # видеокарта видна
+python3 -c "import torch; print(torch.__version__, torch.cuda.is_available())"     # ожидаем: ... True
+python3 -m train.verify_data                          # ожидаем: DATA OK
+python3 -m pytest -q                                  # ожидаем: passed
+python3 -m train.run_all --smoke                      # 1-2 минуты; в конце оценка времени полного запуска
+rm -rf runs_smoke
+```
+Если `cuda` показывает `False`, остановитесь: выбран шаблон без CUDA или проблема с драйвером. Смените шаблон или GPU.
+
+Для скорости на Linux в `train_config.yaml` поставьте `num_workers: 4` (строка `training:`). Это влияет только на скорость загрузки данных, не на результат.
+
+## 5. Запуск
+Запускайте **в фоне**, чтобы закрытая вкладка браузера не остановила обучение:
+```bash
+cd /workspace/Training-U-net-model
+nohup python3 -m train.run_all > run_all.log 2>&1 &
+tail -f run_all.log          # выход из просмотра: Ctrl+C (обучение продолжится)
+```
+Полезно: `nvidia-smi` (загрузка GPU), `ls runs/` (какие запуски готовы). Чтобы сначала проверить дёшево, запустите один сид:
+`python3 -m train.run_all --seeds 1`, затем остальные.
+
+## 6. Если pod остановился или связь пропала
+Всё лежит в `/workspace`. Снова откройте терминал и запустите ту же команду: завершённые запуски пропустятся, прерванный продолжится с последней эпохи.
+Проверьте командой `tail run_all.log` и `ls runs/`.
+
+## 7. Скачать результаты (ДО удаления pod)
+```bash
+cd /workspace/Training-U-net-model
+tar czf runs_results.tar.gz --exclude='*.pt' runs run_all.log        # маленький архив для статистики
+tar czf weights.tar.gz $(find runs -name best.pt)                    # лучшие веса (по желанию, около 30 МБ на запуск)
+```
+Скачайте через Jupyter (правый клик по файлу -> Download), либо `scp -P <ПОРТ> root@<АДРЕС>:/workspace/Training-U-net-model/runs_results.tar.gz .`.
+На своём ноутбуке в корне проекта: `tar xzf runs_results.tar.gz` и `python -m train.analyze`.
+
+## 8. Остановить списание денег
+- **Stop** освобождает GPU, но данные в `/workspace` сохраняются, и **за диск всё равно списывают** (дешевле, чем GPU).
+- **Terminate** удаляет pod и его диски: больше ничего не списывается, но **данные пропадают**. Делайте только после того, как скачали архивы и открыли их на своём ноутбуке.
+Не оставляйте pod включённым «на потом»: это самая частая причина лишних расходов.
