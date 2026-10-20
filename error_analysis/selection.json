@@ -1,0 +1,12 @@
+{
+  "dice_threshold": 0.5,
+  "evaluation_set": "cvc_external",
+  "frames_below_threshold": 165,
+  "model": "kvasir-trained",
+  "reference_frames": 50,
+  "reference_frames_drawn_from": "frames with seed-averaged Dice >= 0.5 (447 available)",
+  "sampled_low_dice_frames": 100,
+  "sampling_seed": 42,
+  "size_bins": "small < 0.0363 (Q1 of GT area fraction at 256 px), large > 0.1272 (Q3), medium otherwise",
+  "total_frames": 612
+}
