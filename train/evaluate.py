@@ -63,6 +63,25 @@ def _qualitative(model, ds: SegDataset, df: pd.DataFrame, device, threshold: flo
     plt.close(fig)
 
 
+def build_eval_sets(cfg: TrainConfig, source: str) -> List[Tuple[str, str, str, List[Item], dict]]:
+    """Evaluation sets of a model trained on ``source``: own val and test, and every other dataset as a whole.
+
+    Each entry is ``(name, kind, part, items, own_split)``; ``own_split`` maps stem -> split in the dataset's own split.
+    """
+    parts, _ = load_items(cfg, source)
+    sets: List[Tuple[str, str, str, List[Item], dict]] = [
+        (f"{source}_val", "in_domain", "val", parts["val"], {}),
+        (f"{source}_test", "in_domain", "test", parts["test"], {}),
+    ]
+    for other in cfg.audit.datasets:
+        if other == source:
+            continue
+        o_parts, o_all = load_items(cfg, other)
+        own = {i.stem: part for part, items in o_parts.items() for i in items}
+        sets.append((f"{other}_external", "external", "all", o_all, own))
+    return sets
+
+
 def evaluate_run(cfg: TrainConfig, run_dir: Path, limit: Optional[int] = None, progress: bool = True,
                  examples: bool = True) -> Path:
     """Write ``per_image_dice.csv`` and ``eval_summary.json`` into the run folder (best checkpoint by val Dice)."""
@@ -76,17 +95,7 @@ def evaluate_run(cfg: TrainConfig, run_dir: Path, limit: Optional[int] = None, p
     model = UNet(3, int(cfg.section("model").get("base_channels", 32))).to(device)
     model.load_state_dict(torch.load(run_dir / "best.pt", map_location=device)["model"])
 
-    parts, _ = load_items(cfg, source)
-    sets: List[Tuple[str, str, str, List[Item], dict]] = [
-        (f"{source}_val", "in_domain", "val", parts["val"], {}),
-        (f"{source}_test", "in_domain", "test", parts["test"], {}),
-    ]
-    for other in cfg.audit.datasets:
-        if other == source:
-            continue
-        o_parts, o_all = load_items(cfg, other)
-        own = {i.stem: part for part, items in o_parts.items() for i in items}
-        sets.append((f"{other}_external", "external", "all", o_all, own))
+    sets = build_eval_sets(cfg, source)
 
     frames, summary = [], {}
     for name, kind, part, items, own_split in sets:
