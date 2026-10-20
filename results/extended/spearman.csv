@@ -1,0 +1,5 @@
+trained_on,evaluated_on,eval_set,variable,n_images,spearman_rho,p_value,status,note
+Kvasir-SEG-trained,CVC-ClinicDB,cvc_external,gt_area_fraction,612,0.134338,0.000863,,descriptive only; frames of one video sequence are not independent
+Kvasir-SEG-trained,CVC-ClinicDB,cvc_external,brightness_gray,612,0.133033,0.000970,,descriptive only; frames of one video sequence are not independent
+CVC-ClinicDB-trained,Kvasir-SEG,kvasir_external,gt_area_fraction,1000,0.798069,0.000000,preliminary (E10),descriptive only; frames of one video sequence are not independent
+CVC-ClinicDB-trained,Kvasir-SEG,kvasir_external,brightness_gray,1000,-0.254802,0.000000,preliminary (E10),descriptive only; frames of one video sequence are not independent

@@ -46,4 +46,5 @@ extended:                         # extended per-image metrics, statistics and e
   error_sample_size: 100          # random sample of those frames if there are more
   error_extra_frames: 50          # additional random frames with Dice >= threshold, for contrast
   sampling_seed: 42
+  preliminary_sources: [cvc]       # training datasets whose models are labelled preliminary
   preliminary_label: "preliminary (E10)"   # attached to every CVC-trained result (under-trained, see docs/errors_log.md)

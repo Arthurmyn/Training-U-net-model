@@ -99,3 +99,115 @@ def test_boundary_iou_is_less_forgiving_than_iou_for_large_shifted_masks():
     gt[20:100, 20:100] = True
     pred = np.roll(gt, 6, axis=1)
     assert em.boundary_iou(pred, gt, 5) < em.iou_from_counts(**em.confusion_counts(pred, gt))
+
+
+# ---------------------------------------------------------------- statistics
+import pandas as pd  # noqa: E402
+
+from train import extended_stats as xs  # noqa: E402
+
+
+def test_t_interval_three_seeds_uses_t_2_df():
+    t = xs.t_interval(np.array([0.1, 0.2, 0.3]))
+    assert t["t_crit"] == pytest.approx(4.302653, abs=1e-5)
+    assert t["mean"] == pytest.approx(0.2) and t["sd"] == pytest.approx(0.1)                  # sample SD, ddof=1
+    half = 4.302653 * 0.1 / math.sqrt(3)
+    assert (t["low"], t["high"]) == (pytest.approx(0.2 - half, abs=1e-5), pytest.approx(0.2 + half, abs=1e-5))
+
+
+def test_decision_rule_covers_all_four_outcomes():
+    assert xs.decide_delta(0.06, 0.2, 0.05) == "meaningful drop"
+    assert xs.decide_delta(-0.2, -0.06, 0.05) == "meaningful increase"
+    assert xs.decide_delta(-0.04, 0.04, 0.05) == "equivalence"
+    assert xs.decide_delta(-0.02, 0.09, 0.05) == "inconclusive"
+    assert xs.decide_delta(0.05, 0.2, 0.05) == "inconclusive"                                  # boundary is not strictly above delta
+
+
+def test_higher_lower_direction_flags():
+    assert xs.HIGHER_IS_BETTER["dice"] and xs.HIGHER_IS_BETTER["boundary_iou"]
+    assert not xs.HIGHER_IS_BETTER["hd95"] and not xs.HIGHER_IS_BETTER["miss"]
+
+
+# ---------------------------------------------------------------- Cohen's kappa
+from train import analyze_errors as ae  # noqa: E402
+
+
+def test_kappa_hand_computed_example():
+    # 10 frames. A: five 1s then five 2s. B: 1 1 1 2 2 2 2 2 1 1.
+    # agreement on frames 1-3 and 6-8 -> po = 6/10 = 0.6; both raters use 1 and 2 five times each -> pe = 0.5*0.5 + 0.5*0.5 = 0.5
+    # kappa = (0.6 - 0.5) / (1 - 0.5) = 0.2
+    a = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2]
+    b = [1, 1, 1, 2, 2, 2, 2, 2, 1, 1]
+    assert ae.cohen_kappa(a, b) == pytest.approx(0.2)
+
+
+def test_kappa_edge_cases():
+    assert ae.cohen_kappa([1, 2, 3, 3], [1, 2, 3, 3]) == pytest.approx(1.0)
+    assert ae.cohen_kappa([1, 1, 1], [1, 1, 1]) == 1.0                                            # pe == 1, full agreement
+    assert ae.cohen_kappa([1, 1], [1, 2]) == pytest.approx(0.0)                                   # agreement no better than chance
+    assert ae.cohen_kappa([1, 2, 1, 2], [2, 1, 2, 1]) == pytest.approx(-1.0)                      # complete disagreement
+    with pytest.raises(ValueError):
+        ae.cohen_kappa([1], [1, 2])
+
+
+def test_parse_category_and_analysis_on_filled_sheets(tmp_path):
+    assert ae.parse_category("3") == 3 and ae.parse_category("3.0") == 3 and ae.parse_category("low contrast") == 6
+    assert ae.parse_category("") is None and ae.parse_category(None) is None
+    with pytest.raises(ValueError):
+        ae.parse_category("9")
+    stems = [f"{i}" for i in range(1, 11)]
+    a = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2]
+    b = [1, 1, 1, 2, 2, 2, 2, 2, 1, 1]
+    pd.DataFrame({"stem": stems, "category": a, "notes": ""}).to_csv(tmp_path / "annotator_A.csv", index=False)
+    pd.DataFrame({"stem": stems[::-1], "category": b[::-1], "notes": ""}).to_csv(tmp_path / "annotator_B.csv", index=False)   # other row order
+    assert ae.analyze(tmp_path) == 0
+    text = (tmp_path / "summary.md").read_text()
+    assert "Cohen's kappa: 0.200" in text and "Disagreements: 4" in text
+    cm = pd.read_csv(tmp_path / "confusion_matrix.csv", index_col=0)
+    assert cm.loc["A: 1", "B: 1"] == 3 and cm.loc["A: 2", "B: 2"] == 3 and cm.loc["A: 1", "B: 2"] == 2 and cm.loc["A: 2", "B: 1"] == 2
+    d = pd.read_csv(tmp_path / "disagreements.csv")
+    assert list(d.columns) == ["stem", "category_A", "category_B", "resolved", "notes"] and len(d) == 4
+
+
+def test_blank_sheets_are_reported_not_crashing(tmp_path):
+    pd.DataFrame({"stem": ["1", "2"], "category": ["", ""], "notes": ["", ""]}).to_csv(tmp_path / "annotator_A.csv", index=False)
+    pd.DataFrame({"stem": ["1", "2"], "category": ["", ""], "notes": ["", ""]}).to_csv(tmp_path / "annotator_B.csv", index=False)
+    assert ae.analyze(tmp_path) == 2 and "not filled" in (tmp_path / "summary.md").read_text()
+
+
+# ---------------------------------------------------------------- gap tables on synthetic data with a known answer
+def _synthetic_extended(seed_offsets=(0.0, 0.1, 0.2)):
+    rows = []
+    for source, own, ext in (("a", "a_test", "b_external"), ("b", "b_test", "a_external")):
+        for k, seed in enumerate((1, 2, 3)):
+            for eval_set, base in ((own, 0.8), (ext, 0.5)):
+                for i in range(6):
+                    v = base + seed_offsets[k] * (1 if eval_set == own else 0)          # own-set Dice grows by seed, external is fixed
+                    rows.append({"run": f"{source}_seed{seed}", "source": source, "seed": seed, "eval_set": eval_set,
+                                 "kind": "in_domain" if eval_set == own else "external", "target": eval_set.rsplit("_", 1)[0], "dice": v,
+                                 "iou": v / (2 - v), "precision": v, "recall": v, "hd95": 10.0 + i, "boundary_iou": v / 2, "miss": 0,
+                                 "gt_area": 0.1, "pred_area": 0.1, "stem": f"{eval_set}{i}", "image_file": f"{eval_set}{i}.png",
+                                 "sequence_id": None, "target_split": "test"})
+    return pd.DataFrame(rows)
+
+
+def test_gap_tables_known_values_and_preliminary_label(tmp_path):
+    from tests.test_train import _project
+    from train.config import load_train_config
+    cfg = load_train_config(_project(tmp_path)).override(**{"extended.preliminary_sources": ["b"], "analysis.bootstrap_samples": 200})
+    df = _synthetic_extended()
+    by_seed, summ = xs.gap_tables(df, cfg)
+    g = by_seed[(by_seed["direction"] == "A-trained") & (by_seed["metric"] == "dice")].sort_values("seed")
+    assert g["gap"].tolist() == pytest.approx([0.3, 0.4, 0.5])                                  # (0.8 + offset) - 0.5 for offsets 0, .1, .2
+    row = summ[(summ["direction"] == "A-trained") & (summ["metric"] == "dice")].iloc[0]
+    half = 4.302653 * 0.1 / math.sqrt(3)
+    assert row["mean_gap"] == pytest.approx(0.4) and row["sd_gap"] == pytest.approx(0.1)
+    assert (row["ci_t_low"], row["ci_t_high"]) == (pytest.approx(0.4 - half, abs=1e-5), pytest.approx(0.4 + half, abs=1e-5))
+    assert row["better"] == "higher" and summ[(summ["metric"] == "hd95")]["better"].eq("lower").all()
+    assert summ[summ["direction"] == "A-trained"]["status"].eq("").all() and summ[summ["direction"] == "B-trained"]["status"].eq("preliminary (E10)").all()
+    mbc = xs.metrics_by_condition(df, cfg)
+    r = mbc[(mbc["eval_set"] == "a_test") & (mbc["metric"] == "dice")].iloc[0]
+    assert r["mean_over_seeds"] == pytest.approx(0.9) and r["sd_over_seeds"] == pytest.approx(0.1) and r["n_seeds"] == 3
+    dec = xs.decision_table(summ, [0.05, 0.03, 0.10])
+    assert dec[(dec["direction"] == "A-trained") & (dec["delta"] == 0.05)]["decision_t_ci"].iloc[0] == "meaningful drop"
+    assert len(dec) == 6 and dec["main_delta"].sum() == 2

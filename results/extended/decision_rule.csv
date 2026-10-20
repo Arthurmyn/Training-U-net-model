@@ -1,0 +1,7 @@
+direction,delta,main_delta,mean_gap,ci_t_low,ci_t_high,decision_t_ci,ci_boot_low,ci_boot_high,decision_bootstrap_ci,status
+Kvasir-SEG-trained,0.050000,True,0.167014,0.078915,0.255114,meaningful drop,0.087290,0.251311,meaningful drop,
+Kvasir-SEG-trained,0.030000,False,0.167014,0.078915,0.255114,meaningful drop,0.087290,0.251311,meaningful drop,
+Kvasir-SEG-trained,0.100000,False,0.167014,0.078915,0.255114,inconclusive,0.087290,0.251311,inconclusive,
+CVC-ClinicDB-trained,0.050000,True,-0.018532,-0.090700,0.053637,inconclusive,-0.240712,0.180965,inconclusive,preliminary (E10)
+CVC-ClinicDB-trained,0.030000,False,-0.018532,-0.090700,0.053637,inconclusive,-0.240712,0.180965,inconclusive,preliminary (E10)
+CVC-ClinicDB-trained,0.100000,False,-0.018532,-0.090700,0.053637,equivalence,-0.240712,0.180965,inconclusive,preliminary (E10)
