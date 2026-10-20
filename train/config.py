@@ -65,6 +65,6 @@ class TrainConfig:
 def load_train_config(path: str | Path = "train_config.yaml") -> TrainConfig:
     """Load train_config.yaml and the audit config it points to (paths relative to the file)."""
     path = Path(path).resolve()
-    raw = yaml.safe_load(path.read_text())
+    raw = yaml.safe_load(path.read_text(encoding="utf-8"))
     audit = load_config(path.parent / raw.get("audit_config", "config.yaml"))
     return TrainConfig(raw=raw, audit=audit, base_dir=path.parent)

@@ -235,10 +235,10 @@ def write_outputs(result: AuditResult) -> List[Path]:
     written += report.make_review_figure(result, out)
     written += report.make_preprocessing_figures(result, out)
     p = out / "summary.json"
-    p.write_text(report.summary_json(result))
+    p.write_text(report.summary_json(result), encoding="utf-8")
     written.append(p)
     p = out / "audit_report.md"
-    p.write_text(report.render_markdown(result))
+    p.write_text(report.render_markdown(result), encoding="utf-8")
     written.append(p)
     for w in written:
         log.info("wrote %s", w.relative_to(result.config.base_dir))

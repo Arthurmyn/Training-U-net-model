@@ -1,0 +1,434 @@
+﻿python : 2026-10-20 03:48:21,025 INFO run kvasir_seed1 on cuda (torch 2.14.1+cu126)
+At line:1 char:431
++ ... ilentlyContinue; python -m train.run_all --no-progress *> run_all.log
++                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026-10-20 03:4...h 2.14.1+cu126):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+C:\Users\Али\OneDrive\Документы\Training-U-net-model\train\engine.py:148: FutureWarning: 
+`torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=amp) if device.type == "cuda" else None
+2026-10-20 03:48:44,803 INFO epoch   1  train loss 1.1957  val loss 1.4270  val Dice 0.4110  (best 0.4110 @ 1)  15.9s
+2026-10-20 03:49:01,003 INFO epoch   2  train loss 1.0234  val loss 1.1752  val Dice 0.1453  (best 0.4110 @ 1)  16.0s
+2026-10-20 03:49:17,515 INFO epoch   3  train loss 0.9522  val loss 0.9601  val Dice 0.5000  (best 0.5000 @ 3)  16.2s
+2026-10-20 03:49:34,527 INFO epoch   4  train loss 0.9120  val loss 1.1087  val Dice 0.4635  (best 0.5000 @ 3)  16.8s
+2026-10-20 03:49:52,365 INFO epoch   5  train loss 0.8867  val loss 0.9971  val Dice 0.3650  (best 0.5000 @ 3)  17.5s
+2026-10-20 03:50:10,235 INFO epoch   6  train loss 0.8520  val loss 1.0299  val Dice 0.3923  (best 0.5000 @ 3)  17.6s
+2026-10-20 03:50:28,514 INFO epoch   7  train loss 0.8282  val loss 0.9067  val Dice 0.5253  (best 0.5253 @ 7)  18.0s
+2026-10-20 03:50:46,496 INFO epoch   8  train loss 0.8187  val loss 0.8313  val Dice 0.5569  (best 0.5569 @ 8)  17.6s
+2026-10-20 03:51:04,384 INFO epoch   9  train loss 0.8069  val loss 0.8162  val Dice 0.5731  (best 0.5731 @ 9)  17.5s
+2026-10-20 03:51:22,019 INFO epoch  10  train loss 0.7777  val loss 0.8550  val Dice 0.5349  (best 0.5731 @ 9)  17.4s
+2026-10-20 03:51:39,990 INFO epoch  11  train loss 0.7376  val loss 0.7473  val Dice 0.6003  (best 0.6003 @ 11)  17.7s
+2026-10-20 03:51:57,654 INFO epoch  12  train loss 0.6993  val loss 0.8889  val Dice 0.5637  (best 0.6003 @ 11)  17.4s
+2026-10-20 03:52:15,464 INFO epoch  13  train loss 0.6734  val loss 0.7319  val Dice 0.5728  (best 0.6003 @ 11)  17.6s
+2026-10-20 03:52:33,227 INFO epoch  14  train loss 0.6558  val loss 0.7918  val Dice 0.5303  (best 0.6003 @ 11)  17.6s
+2026-10-20 03:52:51,168 INFO epoch  15  train loss 0.6040  val loss 0.6411  val Dice 0.6655  (best 0.6655 @ 15)  17.7s
+2026-10-20 03:53:09,044 INFO epoch  16  train loss 0.5796  val loss 0.6079  val Dice 0.6697  (best 0.6697 @ 16)  17.6s
+2026-10-20 03:53:26,832 INFO epoch  17  train loss 0.5383  val loss 0.5788  val Dice 0.6937  (best 0.6937 @ 17)  17.5s
+2026-10-20 03:53:44,604 INFO epoch  18  train loss 0.5280  val loss 0.6144  val Dice 0.6844  (best 0.6937 @ 17)  17.6s
+2026-10-20 03:54:02,896 INFO epoch  19  train loss 0.5075  val loss 0.5505  val Dice 0.7008  (best 0.7008 @ 19)  18.0s
+2026-10-20 03:54:20,780 INFO epoch  20  train loss 0.4941  val loss 0.6608  val Dice 0.6302  (best 0.7008 @ 19)  17.7s
+2026-10-20 03:54:38,697 INFO epoch  21  train loss 0.4728  val loss 0.4920  val Dice 0.7526  (best 0.7526 @ 21)  17.7s
+2026-10-20 03:54:56,521 INFO epoch  22  train loss 0.4639  val loss 0.5567  val Dice 0.7005  (best 0.7526 @ 21)  17.6s
+2026-10-20 03:55:15,773 INFO epoch  23  train loss 0.4689  val loss 0.4685  val Dice 0.7685  (best 0.7685 @ 23)  18.8s
+2026-10-20 03:55:34,247 INFO epoch  24  train loss 0.4504  val loss 0.5254  val Dice 0.7343  (best 0.7685 @ 23)  18.2s
+2026-10-20 03:55:52,169 INFO epoch  25  train loss 0.4296  val loss 0.4808  val Dice 0.7565  (best 0.7685 @ 23)  17.7s
+2026-10-20 03:56:09,970 INFO epoch  26  train loss 0.4152  val loss 0.5342  val Dice 0.7212  (best 0.7685 @ 23)  17.6s
+2026-10-20 03:56:27,768 INFO epoch  27  train loss 0.4209  val loss 0.4468  val Dice 0.7878  (best 0.7878 @ 27)  17.5s
+2026-10-20 03:56:45,589 INFO epoch  28  train loss 0.4174  val loss 0.4336  val Dice 0.7932  (best 0.7932 @ 28)  17.5s
+2026-10-20 03:57:03,381 INFO epoch  29  train loss 0.3818  val loss 0.4249  val Dice 0.7863  (best 0.7932 @ 28)  17.6s
+2026-10-20 03:57:21,063 INFO epoch  30  train loss 0.3863  val loss 0.5243  val Dice 0.7400  (best 0.7932 @ 28)  17.5s
+2026-10-20 03:57:38,640 INFO epoch  31  train loss 0.3905  val loss 0.5218  val Dice 0.7303  (best 0.7932 @ 28)  17.4s
+2026-10-20 03:57:56,300 INFO epoch  32  train loss 0.3673  val loss 0.4473  val Dice 0.7676  (best 0.7932 @ 28)  17.4s
+2026-10-20 03:58:14,040 INFO epoch  33  train loss 0.3593  val loss 0.4473  val Dice 0.7749  (best 0.7932 @ 28)  17.5s
+2026-10-20 03:58:31,729 INFO epoch  34  train loss 0.3678  val loss 0.3929  val Dice 0.8081  (best 0.8081 @ 34)  17.4s
+2026-10-20 03:58:49,694 INFO epoch  35  train loss 0.3481  val loss 0.4681  val Dice 0.7575  (best 0.8081 @ 34)  17.8s
+2026-10-20 03:59:08,026 INFO epoch  36  train loss 0.3509  val loss 0.3940  val Dice 0.8052  (best 0.8081 @ 34)  18.1s
+2026-10-20 03:59:26,549 INFO epoch  37  train loss 0.3536  val loss 0.4035  val Dice 0.7926  (best 0.8081 @ 34)  18.3s
+2026-10-20 03:59:44,999 INFO epoch  38  train loss 0.3415  val loss 0.3557  val Dice 0.8265  (best 0.8265 @ 38)  18.2s
+2026-10-20 04:00:03,539 INFO epoch  39  train loss 0.3367  val loss 0.4158  val Dice 0.7860  (best 0.8265 @ 38)  18.4s
+2026-10-20 04:00:22,325 INFO epoch  40  train loss 0.3408  val loss 0.3643  val Dice 0.8269  (best 0.8269 @ 40)  18.5s
+2026-10-20 04:00:40,864 INFO epoch  41  train loss 0.3338  val loss 0.4539  val Dice 0.7610  (best 0.8269 @ 40)  18.4s
+2026-10-20 04:00:59,402 INFO epoch  42  train loss 0.3248  val loss 0.3566  val Dice 0.8174  (best 0.8269 @ 40)  18.3s
+2026-10-20 04:01:18,287 INFO epoch  43  train loss 0.3116  val loss 0.4022  val Dice 0.7944  (best 0.8269 @ 40)  18.7s
+2026-10-20 04:01:37,088 INFO epoch  44  train loss 0.3189  val loss 0.3598  val Dice 0.8183  (best 0.8269 @ 40)  18.6s
+2026-10-20 04:01:55,857 INFO epoch  45  train loss 0.3194  val loss 0.3867  val Dice 0.8070  (best 0.8269 @ 40)  18.5s
+2026-10-20 04:02:14,538 INFO epoch  46  train loss 0.3075  val loss 0.3607  val Dice 0.8165  (best 0.8269 @ 40)  18.5s
+2026-10-20 04:02:33,029 INFO epoch  47  train loss 0.2691  val loss 0.3371  val Dice 0.8290  (best 0.8290 @ 47)  18.3s
+2026-10-20 04:02:52,026 INFO epoch  48  train loss 0.2619  val loss 0.3271  val Dice 0.8289  (best 0.8290 @ 47)  18.8s
+2026-10-20 04:03:10,884 INFO epoch  49  train loss 0.2650  val loss 0.3226  val Dice 0.8376  (best 0.8376 @ 49)  18.5s
+2026-10-20 04:03:29,653 INFO epoch  50  train loss 0.2561  val loss 0.3274  val Dice 0.8376  (best 0.8376 @ 50)  18.5s
+2026-10-20 04:03:48,684 INFO epoch  51  train loss 0.2436  val loss 0.3201  val Dice 0.8402  (best 0.8402 @ 51)  18.7s
+2026-10-20 04:04:07,566 INFO epoch  52  train loss 0.2326  val loss 0.3060  val Dice 0.8503  (best 0.8503 @ 52)  18.6s
+2026-10-20 04:04:26,412 INFO epoch  53  train loss 0.2417  val loss 0.3439  val Dice 0.8279  (best 0.8503 @ 52)  18.6s
+2026-10-20 04:04:44,955 INFO epoch  54  train loss 0.2285  val loss 0.3227  val Dice 0.8446  (best 0.8503 @ 52)  18.4s
+2026-10-20 04:05:03,442 INFO epoch  55  train loss 0.2338  val loss 0.3546  val Dice 0.8182  (best 0.8503 @ 52)  18.3s
+2026-10-20 04:05:21,884 INFO epoch  56  train loss 0.2396  val loss 0.3758  val Dice 0.8043  (best 0.8503 @ 52)  18.3s
+2026-10-20 04:05:40,099 INFO epoch  57  train loss 0.2221  val loss 0.3210  val Dice 0.8443  (best 0.8503 @ 52)  18.1s
+2026-10-20 04:06:00,180 INFO epoch  58  train loss 0.2310  val loss 0.3415  val Dice 0.8257  (best 0.8503 @ 52)  19.9s
+2026-10-20 04:06:27,809 INFO epoch  59  train loss 0.2092  val loss 0.2940  val Dice 0.8565  (best 0.8565 @ 59)  27.4s
+2026-10-20 04:06:54,814 INFO epoch  60  train loss 0.1913  val loss 0.3087  val Dice 0.8508  (best 0.8565 @ 59)  26.8s
+2026-10-20 04:07:21,697 INFO epoch  61  train loss 0.2053  val loss 0.3085  val Dice 0.8442  (best 0.8565 @ 59)  26.7s
+2026-10-20 04:07:47,813 INFO epoch  62  train loss 0.1965  val loss 0.3247  val Dice 0.8320  (best 0.8565 @ 59)  26.0s
+2026-10-20 04:08:13,747 INFO epoch  63  train loss 0.1979  val loss 0.3189  val Dice 0.8329  (best 0.8565 @ 59)  25.8s
+2026-10-20 04:08:39,542 INFO epoch  64  train loss 0.1890  val loss 0.2926  val Dice 0.8580  (best 0.8580 @ 64)  25.6s
+2026-10-20 04:09:05,378 INFO epoch  65  train loss 0.1858  val loss 0.3105  val Dice 0.8455  (best 0.8580 @ 64)  25.7s
+2026-10-20 04:09:30,792 INFO epoch  66  train loss 0.1755  val loss 0.2951  val Dice 0.8569  (best 0.8580 @ 64)  25.3s
+2026-10-20 04:09:56,453 INFO epoch  67  train loss 0.1800  val loss 0.3209  val Dice 0.8461  (best 0.8580 @ 64)  25.5s
+2026-10-20 04:10:22,165 INFO epoch  68  train loss 0.1872  val loss 0.2906  val Dice 0.8562  (best 0.8580 @ 64)  25.6s
+2026-10-20 04:10:47,178 INFO epoch  69  train loss 0.1740  val loss 0.3212  val Dice 0.8442  (best 0.8580 @ 64)  24.9s
+2026-10-20 04:11:11,899 INFO epoch  70  train loss 0.1775  val loss 0.3167  val Dice 0.8469  (best 0.8580 @ 64)  24.6s
+2026-10-20 04:11:36,883 INFO epoch  71  train loss 0.1694  val loss 0.3062  val Dice 0.8521  (best 0.8580 @ 64)  24.8s
+2026-10-20 04:11:58,594 INFO epoch  72  train loss 0.1648  val loss 0.3012  val Dice 0.8525  (best 0.8580 @ 64)  21.5s
+2026-10-20 04:12:17,522 INFO epoch  73  train loss 0.1618  val loss 0.3028  val Dice 0.8529  (best 0.8580 @ 64)  18.7s
+2026-10-20 04:12:36,243 INFO epoch  74  train loss 0.1602  val loss 0.2993  val Dice 0.8529  (best 0.8580 @ 64)  18.5s
+2026-10-20 04:12:55,570 INFO epoch  75  train loss 0.1628  val loss 0.3072  val Dice 0.8460  (best 0.8580 @ 64)  19.1s
+2026-10-20 04:13:14,586 INFO epoch  76  train loss 0.1586  val loss 0.2989  val Dice 0.8496  (best 0.8580 @ 64)  18.9s
+2026-10-20 04:13:33,567 INFO epoch  77  train loss 0.1512  val loss 0.3037  val Dice 0.8495  (best 0.8580 @ 64)  18.8s
+2026-10-20 04:13:52,591 INFO epoch  78  train loss 0.1530  val loss 0.2975  val Dice 0.8524  (best 0.8580 @ 64)  18.8s
+2026-10-20 04:14:11,803 INFO epoch  79  train loss 0.1526  val loss 0.3041  val Dice 0.8503  (best 0.8580 @ 64)  19.0s
+2026-10-20 04:14:11,812 INFO finished kvasir_seed1: best val Dice 0.8580 at epoch 64 (early_stopping (no val 
+improvement for 15 epochs))
+2026-10-20 04:14:14,617 INFO kvasir_seed1  kvasir_val       n= 100  mean Dice 0.8579
+2026-10-20 04:14:17,271 INFO kvasir_seed1  kvasir_test      n= 100  mean Dice 0.8196
+2026-10-20 04:14:28,969 INFO kvasir_seed1  cvc_external     n= 612  mean Dice 0.6851
+2026-10-20 04:14:29,351 INFO run cvc_seed1 on cuda (torch 2.14.1+cu126)
+C:\Users\Али\OneDrive\Документы\Training-U-net-model\train\engine.py:148: FutureWarning: 
+`torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=amp) if device.type == "cuda" else None
+2026-10-20 04:14:42,826 INFO epoch   1  train loss 1.2551  val loss 1.1984  val Dice 0.0008  (best 0.0008 @ 1)  9.9s
+2026-10-20 04:14:53,168 INFO epoch   2  train loss 1.1084  val loss 1.1419  val Dice 0.1055  (best 0.1055 @ 2)  10.1s
+2026-10-20 04:15:03,455 INFO epoch   3  train loss 1.0424  val loss 1.0848  val Dice 0.3142  (best 0.3142 @ 3)  10.1s
+2026-10-20 04:15:13,606 INFO epoch   4  train loss 0.9499  val loss 1.4986  val Dice 0.2935  (best 0.3142 @ 3)  10.0s
+2026-10-20 04:15:23,931 INFO epoch   5  train loss 0.8824  val loss 0.9634  val Dice 0.3952  (best 0.3952 @ 5)  10.1s
+2026-10-20 04:15:34,388 INFO epoch   6  train loss 0.8280  val loss 0.9282  val Dice 0.4200  (best 0.4200 @ 6)  10.2s
+2026-10-20 04:15:44,687 INFO epoch   7  train loss 0.7737  val loss 1.0468  val Dice 0.3552  (best 0.4200 @ 6)  10.2s
+2026-10-20 04:15:54,884 INFO epoch   8  train loss 0.7402  val loss 1.1007  val Dice 0.3676  (best 0.4200 @ 6)  10.1s
+2026-10-20 04:16:05,117 INFO epoch   9  train loss 0.7287  val loss 0.9231  val Dice 0.3358  (best 0.4200 @ 6)  10.1s
+2026-10-20 04:16:15,406 INFO epoch  10  train loss 0.7028  val loss 1.0531  val Dice 0.3500  (best 0.4200 @ 6)  10.1s
+2026-10-20 04:16:25,788 INFO epoch  11  train loss 0.6998  val loss 1.1860  val Dice 0.3107  (best 0.4200 @ 6)  10.3s
+2026-10-20 04:16:36,089 INFO epoch  12  train loss 0.6695  val loss 0.7828  val Dice 0.4193  (best 0.4200 @ 6)  10.2s
+2026-10-20 04:16:46,319 INFO epoch  13  train loss 0.6383  val loss 0.8477  val Dice 0.3999  (best 0.4200 @ 6)  10.1s
+2026-10-20 04:16:56,752 INFO epoch  14  train loss 0.6146  val loss 0.7976  val Dice 0.4227  (best 0.4227 @ 14)  10.2s
+2026-10-20 04:17:07,115 INFO epoch  15  train loss 0.6052  val loss 0.7878  val Dice 0.4075  (best 0.4227 @ 14)  10.2s
+2026-10-20 04:17:17,436 INFO epoch  16  train loss 0.5958  val loss 0.8416  val Dice 0.3866  (best 0.4227 @ 14)  10.2s
+2026-10-20 04:17:27,789 INFO epoch  17  train loss 0.5827  val loss 0.7767  val Dice 0.4189  (best 0.4227 @ 14)  10.2s
+2026-10-20 04:17:38,104 INFO epoch  18  train loss 0.5712  val loss 0.7953  val Dice 0.4012  (best 0.4227 @ 14)  10.2s
+2026-10-20 04:17:48,370 INFO epoch  19  train loss 0.5719  val loss 0.8417  val Dice 0.3577  (best 0.4227 @ 14)  10.1s
+2026-10-20 04:17:58,748 INFO epoch  20  train loss 0.5750  val loss 0.7857  val Dice 0.3964  (best 0.4227 @ 14)  10.2s
+2026-10-20 04:18:09,042 INFO epoch  21  train loss 0.5345  val loss 0.8010  val Dice 0.3979  (best 0.4227 @ 14)  10.2s
+2026-10-20 04:18:19,466 INFO epoch  22  train loss 0.5243  val loss 0.8002  val Dice 0.3707  (best 0.4227 @ 14)  10.3s
+2026-10-20 04:18:29,989 INFO epoch  23  train loss 0.5058  val loss 0.8062  val Dice 0.3773  (best 0.4227 @ 14)  10.4s
+2026-10-20 04:18:40,464 INFO epoch  24  train loss 0.5016  val loss 0.8257  val Dice 0.3667  (best 0.4227 @ 14)  10.3s
+2026-10-20 04:18:53,684 INFO epoch  25  train loss 0.4918  val loss 0.8170  val Dice 0.3781  (best 0.4227 @ 14)  13.0s
+2026-10-20 04:19:07,032 INFO epoch  26  train loss 0.4822  val loss 0.7795  val Dice 0.4078  (best 0.4227 @ 14)  13.1s
+2026-10-20 04:19:20,340 INFO epoch  27  train loss 0.4827  val loss 0.8105  val Dice 0.3792  (best 0.4227 @ 14)  13.1s
+2026-10-20 04:19:32,726 INFO epoch  28  train loss 0.4547  val loss 0.8112  val Dice 0.3877  (best 0.4227 @ 14)  12.2s
+2026-10-20 04:19:45,494 INFO epoch  29  train loss 0.4551  val loss 0.8074  val Dice 0.3802  (best 0.4227 @ 14)  12.5s
+2026-10-20 04:19:45,500 INFO finished cvc_seed1: best val Dice 0.4227 at epoch 14 (early_stopping (no val improvement 
+for 15 epochs))
+2026-10-20 04:19:48,625 INFO cvc_seed1  cvc_val          n=  92  mean Dice 0.4228
+2026-10-20 04:19:51,257 INFO cvc_seed1  cvc_test         n=  91  mean Dice 0.3437
+2026-10-20 04:20:12,329 INFO cvc_seed1  kvasir_external  n=1000  mean Dice 0.3901
+2026-10-20 04:20:12,824 INFO run kvasir_seed2 on cuda (torch 2.14.1+cu126)
+C:\Users\Али\OneDrive\Документы\Training-U-net-model\train\engine.py:148: FutureWarning: 
+`torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=amp) if device.type == "cuda" else None
+2026-10-20 04:20:40,247 INFO epoch   1  train loss 1.2267  val loss 1.2321  val Dice 0.2301  (best 0.2301 @ 1)  19.9s
+2026-10-20 04:21:02,025 INFO epoch   2  train loss 1.1028  val loss 1.1565  val Dice 0.4173  (best 0.4173 @ 2)  21.6s
+2026-10-20 04:21:24,829 INFO epoch   3  train loss 0.9911  val loss 1.0137  val Dice 0.4716  (best 0.4716 @ 3)  22.6s
+2026-10-20 04:21:46,698 INFO epoch   4  train loss 0.9146  val loss 1.0256  val Dice 0.4864  (best 0.4864 @ 4)  21.6s
+2026-10-20 04:22:10,236 INFO epoch   5  train loss 0.8751  val loss 0.9464  val Dice 0.5177  (best 0.5177 @ 5)  23.3s
+2026-10-20 04:22:32,953 INFO epoch   6  train loss 0.8570  val loss 0.9983  val Dice 0.4956  (best 0.5177 @ 5)  22.5s
+2026-10-20 04:22:56,155 INFO epoch   7  train loss 0.8334  val loss 0.9201  val Dice 0.4052  (best 0.5177 @ 5)  23.0s
+2026-10-20 04:23:18,840 INFO epoch   8  train loss 0.8161  val loss 0.8948  val Dice 0.5168  (best 0.5177 @ 5)  22.5s
+2026-10-20 04:23:41,214 INFO epoch   9  train loss 0.8122  val loss 1.0771  val Dice 0.4329  (best 0.5177 @ 5)  22.2s
+2026-10-20 04:24:04,952 INFO epoch  10  train loss 0.8066  val loss 0.8309  val Dice 0.5102  (best 0.5177 @ 5)  23.4s
+2026-10-20 04:24:27,930 INFO epoch  11  train loss 0.7817  val loss 0.9161  val Dice 0.5435  (best 0.5435 @ 11)  22.7s
+2026-10-20 04:24:50,705 INFO epoch  12  train loss 0.7713  val loss 0.9670  val Dice 0.3727  (best 0.5435 @ 11)  22.6s
+2026-10-20 04:25:14,148 INFO epoch  13  train loss 0.7846  val loss 0.9247  val Dice 0.5479  (best 0.5479 @ 13)  23.2s
+2026-10-20 04:25:37,227 INFO epoch  14  train loss 0.7539  val loss 0.8275  val Dice 0.5292  (best 0.5479 @ 13)  22.9s
+2026-10-20 04:26:00,857 INFO epoch  15  train loss 0.7314  val loss 0.7414  val Dice 0.5800  (best 0.5800 @ 15)  23.4s
+2026-10-20 04:26:24,492 INFO epoch  16  train loss 0.7175  val loss 0.9680  val Dice 0.4166  (best 0.5800 @ 15)  23.4s
+2026-10-20 04:26:48,540 INFO epoch  17  train loss 0.6810  val loss 0.7860  val Dice 0.5924  (best 0.5924 @ 17)  23.6s
+2026-10-20 04:27:12,007 INFO epoch  18  train loss 0.6813  val loss 0.7874  val Dice 0.5542  (best 0.5924 @ 17)  23.1s
+2026-10-20 04:27:37,009 INFO epoch  19  train loss 0.6686  val loss 0.6853  val Dice 0.6050  (best 0.6050 @ 19)  24.5s
+2026-10-20 04:28:00,672 INFO epoch  20  train loss 0.6255  val loss 0.6660  val Dice 0.6154  (best 0.6154 @ 20)  23.0s
+2026-10-20 04:28:23,885 INFO epoch  21  train loss 0.6051  val loss 1.2556  val Dice 0.2706  (best 0.6154 @ 20)  22.9s
+2026-10-20 04:28:48,383 INFO epoch  22  train loss 0.5845  val loss 0.8443  val Dice 0.5063  (best 0.6154 @ 20)  24.3s
+2026-10-20 04:29:12,005 INFO epoch  23  train loss 0.5852  val loss 0.8212  val Dice 0.5036  (best 0.6154 @ 20)  23.4s
+2026-10-20 04:29:34,408 INFO epoch  24  train loss 0.5464  val loss 0.5681  val Dice 0.7036  (best 0.7036 @ 24)  22.0s
+2026-10-20 04:29:53,543 INFO epoch  25  train loss 0.5288  val loss 0.5766  val Dice 0.6892  (best 0.7036 @ 24)  18.9s
+2026-10-20 04:30:12,948 INFO epoch  26  train loss 0.5104  val loss 0.5673  val Dice 0.6937  (best 0.7036 @ 24)  19.0s
+2026-10-20 04:30:31,796 INFO epoch  27  train loss 0.4883  val loss 0.6031  val Dice 0.6817  (best 0.7036 @ 24)  18.6s
+2026-10-20 04:30:50,569 INFO epoch  28  train loss 0.5026  val loss 0.4797  val Dice 0.7517  (best 0.7517 @ 28)  18.4s
+2026-10-20 04:31:08,926 INFO epoch  29  train loss 0.4754  val loss 0.5624  val Dice 0.6961  (best 0.7517 @ 28)  18.1s
+2026-10-20 04:31:27,403 INFO epoch  30  train loss 0.4650  val loss 0.4992  val Dice 0.7309  (best 0.7517 @ 28)  18.1s
+2026-10-20 04:31:45,696 INFO epoch  31  train loss 0.4546  val loss 0.6184  val Dice 0.6705  (best 0.7517 @ 28)  18.0s
+2026-10-20 04:32:04,277 INFO epoch  32  train loss 0.4435  val loss 0.4673  val Dice 0.7615  (best 0.7615 @ 32)  18.2s
+2026-10-20 04:32:22,646 INFO epoch  33  train loss 0.4225  val loss 0.4251  val Dice 0.7783  (best 0.7783 @ 33)  18.0s
+2026-10-20 04:32:40,679 INFO epoch  34  train loss 0.4195  val loss 0.5316  val Dice 0.7157  (best 0.7783 @ 33)  17.8s
+2026-10-20 04:32:59,320 INFO epoch  35  train loss 0.4035  val loss 0.4157  val Dice 0.7922  (best 0.7922 @ 35)  18.0s
+2026-10-20 04:33:17,877 INFO epoch  36  train loss 0.4021  val loss 0.5025  val Dice 0.7373  (best 0.7922 @ 35)  18.3s
+2026-10-20 04:33:36,746 INFO epoch  37  train loss 0.3917  val loss 0.5232  val Dice 0.7271  (best 0.7922 @ 35)  18.1s
+2026-10-20 04:33:55,055 INFO epoch  38  train loss 0.3785  val loss 0.4120  val Dice 0.7922  (best 0.7922 @ 38)  17.9s
+2026-10-20 04:34:13,405 INFO epoch  39  train loss 0.3818  val loss 0.5039  val Dice 0.7303  (best 0.7922 @ 38)  18.1s
+2026-10-20 04:34:31,461 INFO epoch  40  train loss 0.3828  val loss 0.4525  val Dice 0.7627  (best 0.7922 @ 38)  17.8s
+2026-10-20 04:34:49,594 INFO epoch  41  train loss 0.3652  val loss 0.4560  val Dice 0.7669  (best 0.7922 @ 38)  17.9s
+2026-10-20 04:35:07,773 INFO epoch  42  train loss 0.3390  val loss 0.4297  val Dice 0.7828  (best 0.7922 @ 38)  17.9s
+2026-10-20 04:35:25,937 INFO epoch  43  train loss 0.3270  val loss 0.4020  val Dice 0.7972  (best 0.7972 @ 43)  17.8s
+2026-10-20 04:35:44,058 INFO epoch  44  train loss 0.3154  val loss 0.4223  val Dice 0.7848  (best 0.7972 @ 43)  17.9s
+2026-10-20 04:36:02,328 INFO epoch  45  train loss 0.3315  val loss 0.4469  val Dice 0.7710  (best 0.7972 @ 43)  18.0s
+2026-10-20 04:36:20,432 INFO epoch  46  train loss 0.3129  val loss 0.3892  val Dice 0.8058  (best 0.8058 @ 46)  17.8s
+2026-10-20 04:36:38,595 INFO epoch  47  train loss 0.2981  val loss 0.3611  val Dice 0.8221  (best 0.8221 @ 47)  17.8s
+2026-10-20 04:36:56,728 INFO epoch  48  train loss 0.3024  val loss 0.3687  val Dice 0.8088  (best 0.8221 @ 47)  17.9s
+2026-10-20 04:37:14,832 INFO epoch  49  train loss 0.2907  val loss 0.3535  val Dice 0.8219  (best 0.8221 @ 47)  17.9s
+2026-10-20 04:37:33,216 INFO epoch  50  train loss 0.2868  val loss 0.3469  val Dice 0.8255  (best 0.8255 @ 50)  18.1s
+2026-10-20 04:37:51,507 INFO epoch  51  train loss 0.2903  val loss 0.3745  val Dice 0.8205  (best 0.8255 @ 50)  18.1s
+2026-10-20 04:38:09,682 INFO epoch  52  train loss 0.2933  val loss 0.3535  val Dice 0.8188  (best 0.8255 @ 50)  17.9s
+2026-10-20 04:38:27,927 INFO epoch  53  train loss 0.2843  val loss 0.3649  val Dice 0.8174  (best 0.8255 @ 50)  18.0s
+2026-10-20 04:38:46,366 INFO epoch  54  train loss 0.2828  val loss 0.3443  val Dice 0.8381  (best 0.8381 @ 54)  18.1s
+2026-10-20 04:39:04,403 INFO epoch  55  train loss 0.2765  val loss 0.3435  val Dice 0.8251  (best 0.8381 @ 54)  17.8s
+2026-10-20 04:39:23,032 INFO epoch  56  train loss 0.2701  val loss 0.3467  val Dice 0.8177  (best 0.8381 @ 54)  18.4s
+2026-10-20 04:39:41,422 INFO epoch  57  train loss 0.2745  val loss 0.3645  val Dice 0.8118  (best 0.8381 @ 54)  18.1s
+2026-10-20 04:39:59,912 INFO epoch  58  train loss 0.2699  val loss 0.3830  val Dice 0.7927  (best 0.8381 @ 54)  18.2s
+2026-10-20 04:40:18,328 INFO epoch  59  train loss 0.2641  val loss 0.3613  val Dice 0.8109  (best 0.8381 @ 54)  18.2s
+2026-10-20 04:40:36,687 INFO epoch  60  train loss 0.2598  val loss 0.3371  val Dice 0.8313  (best 0.8381 @ 54)  18.1s
+2026-10-20 04:40:55,020 INFO epoch  61  train loss 0.2503  val loss 0.3334  val Dice 0.8347  (best 0.8381 @ 54)  18.0s
+2026-10-20 04:41:13,149 INFO epoch  62  train loss 0.2374  val loss 0.3916  val Dice 0.8017  (best 0.8381 @ 54)  17.9s
+2026-10-20 04:41:31,132 INFO epoch  63  train loss 0.2283  val loss 0.3393  val Dice 0.8244  (best 0.8381 @ 54)  17.8s
+2026-10-20 04:41:49,216 INFO epoch  64  train loss 0.2264  val loss 0.3524  val Dice 0.8227  (best 0.8381 @ 54)  17.9s
+2026-10-20 04:42:07,216 INFO epoch  65  train loss 0.2339  val loss 0.3126  val Dice 0.8414  (best 0.8414 @ 65)  17.7s
+2026-10-20 04:42:25,526 INFO epoch  66  train loss 0.2285  val loss 0.3202  val Dice 0.8431  (best 0.8431 @ 66)  18.0s
+2026-10-20 04:42:43,944 INFO epoch  67  train loss 0.2215  val loss 0.3514  val Dice 0.8245  (best 0.8431 @ 66)  18.2s
+2026-10-20 04:43:02,189 INFO epoch  68  train loss 0.2286  val loss 0.3343  val Dice 0.8248  (best 0.8431 @ 66)  18.0s
+2026-10-20 04:43:20,449 INFO epoch  69  train loss 0.2230  val loss 0.3508  val Dice 0.8301  (best 0.8431 @ 66)  18.0s
+2026-10-20 04:43:38,758 INFO epoch  70  train loss 0.2196  val loss 0.3442  val Dice 0.8258  (best 0.8431 @ 66)  18.1s
+2026-10-20 04:43:57,094 INFO epoch  71  train loss 0.2166  val loss 0.3517  val Dice 0.8174  (best 0.8431 @ 66)  18.1s
+2026-10-20 04:44:15,331 INFO epoch  72  train loss 0.2103  val loss 0.3389  val Dice 0.8290  (best 0.8431 @ 66)  18.0s
+2026-10-20 04:44:33,510 INFO epoch  73  train loss 0.2024  val loss 0.3381  val Dice 0.8311  (best 0.8431 @ 66)  18.0s
+2026-10-20 04:44:51,593 INFO epoch  74  train loss 0.2003  val loss 0.3227  val Dice 0.8420  (best 0.8431 @ 66)  17.9s
+2026-10-20 04:45:09,707 INFO epoch  75  train loss 0.1964  val loss 0.3279  val Dice 0.8326  (best 0.8431 @ 66)  17.9s
+2026-10-20 04:45:28,062 INFO epoch  76  train loss 0.1975  val loss 0.3314  val Dice 0.8294  (best 0.8431 @ 66)  18.1s
+2026-10-20 04:45:46,402 INFO epoch  77  train loss 0.1947  val loss 0.3302  val Dice 0.8305  (best 0.8431 @ 66)  18.1s
+2026-10-20 04:46:05,058 INFO epoch  78  train loss 0.1964  val loss 0.3358  val Dice 0.8291  (best 0.8431 @ 66)  18.4s
+2026-10-20 04:46:23,353 INFO epoch  79  train loss 0.1896  val loss 0.3327  val Dice 0.8292  (best 0.8431 @ 66)  18.1s
+2026-10-20 04:46:41,599 INFO epoch  80  train loss 0.1905  val loss 0.3278  val Dice 0.8306  (best 0.8431 @ 66)  18.0s
+2026-10-20 04:46:59,906 INFO epoch  81  train loss 0.1853  val loss 0.3233  val Dice 0.8333  (best 0.8431 @ 66)  18.1s
+2026-10-20 04:46:59,918 INFO finished kvasir_seed2: best val Dice 0.8431 at epoch 66 (early_stopping (no val 
+improvement for 15 epochs))
+2026-10-20 04:47:03,432 INFO kvasir_seed2  kvasir_val       n= 100  mean Dice 0.8428
+2026-10-20 04:47:06,604 INFO kvasir_seed2  kvasir_test      n= 100  mean Dice 0.8200
+2026-10-20 04:47:22,271 INFO kvasir_seed2  cvc_external     n= 612  mean Dice 0.6151
+2026-10-20 04:47:22,930 INFO run cvc_seed2 on cuda (torch 2.14.1+cu126)
+C:\Users\Али\OneDrive\Документы\Training-U-net-model\train\engine.py:148: FutureWarning: 
+`torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=amp) if device.type == "cuda" else None
+2026-10-20 04:47:39,246 INFO epoch   1  train loss 1.2485  val loss 1.2459  val Dice 0.0011  (best 0.0011 @ 1)  9.8s
+2026-10-20 04:47:49,807 INFO epoch   2  train loss 1.1044  val loss 1.1433  val Dice 0.0931  (best 0.0931 @ 2)  10.2s
+2026-10-20 04:48:00,096 INFO epoch   3  train loss 1.0398  val loss 1.0769  val Dice 0.1866  (best 0.1866 @ 3)  9.9s
+2026-10-20 04:48:10,450 INFO epoch   4  train loss 0.9865  val loss 0.9723  val Dice 0.3726  (best 0.3726 @ 4)  10.0s
+2026-10-20 04:48:20,840 INFO epoch   5  train loss 0.9425  val loss 2.8841  val Dice 0.1925  (best 0.3726 @ 4)  10.2s
+2026-10-20 04:48:31,104 INFO epoch   6  train loss 0.9067  val loss 0.9621  val Dice 0.3081  (best 0.3726 @ 4)  10.0s
+2026-10-20 04:48:41,395 INFO epoch   7  train loss 0.8692  val loss 1.2691  val Dice 0.2909  (best 0.3726 @ 4)  10.0s
+2026-10-20 04:48:51,723 INFO epoch   8  train loss 0.8251  val loss 0.8472  val Dice 0.4410  (best 0.4410 @ 8)  10.0s
+2026-10-20 04:49:02,238 INFO epoch   9  train loss 0.8090  val loss 0.8603  val Dice 0.4422  (best 0.4422 @ 9)  10.2s
+2026-10-20 04:49:12,896 INFO epoch  10  train loss 0.7732  val loss 1.0198  val Dice 0.3775  (best 0.4422 @ 9)  10.3s
+2026-10-20 04:49:23,444 INFO epoch  11  train loss 0.7300  val loss 0.8545  val Dice 0.4178  (best 0.4422 @ 9)  10.3s
+2026-10-20 04:49:33,737 INFO epoch  12  train loss 0.7306  val loss 0.8083  val Dice 0.3792  (best 0.4422 @ 9)  10.0s
+2026-10-20 04:49:44,069 INFO epoch  13  train loss 0.7186  val loss 0.8500  val Dice 0.3772  (best 0.4422 @ 9)  10.1s
+2026-10-20 04:49:54,235 INFO epoch  14  train loss 0.7228  val loss 0.9589  val Dice 0.3243  (best 0.4422 @ 9)  9.9s
+2026-10-20 04:50:04,587 INFO epoch  15  train loss 0.6862  val loss 0.7590  val Dice 0.4554  (best 0.4554 @ 15)  10.0s
+2026-10-20 04:50:14,975 INFO epoch  16  train loss 0.6541  val loss 0.7647  val Dice 0.4624  (best 0.4624 @ 16)  10.1s
+2026-10-20 04:50:25,275 INFO epoch  17  train loss 0.6572  val loss 0.7238  val Dice 0.4307  (best 0.4624 @ 16)  10.1s
+2026-10-20 04:50:35,618 INFO epoch  18  train loss 0.6251  val loss 0.9309  val Dice 0.3587  (best 0.4624 @ 16)  10.1s
+2026-10-20 04:50:45,938 INFO epoch  19  train loss 0.6300  val loss 0.7051  val Dice 0.4619  (best 0.4624 @ 16)  10.1s
+2026-10-20 04:50:56,292 INFO epoch  20  train loss 0.5833  val loss 0.7297  val Dice 0.4537  (best 0.4624 @ 16)  10.1s
+2026-10-20 04:51:06,739 INFO epoch  21  train loss 0.5964  val loss 0.8745  val Dice 0.3536  (best 0.4624 @ 16)  10.2s
+2026-10-20 04:51:17,197 INFO epoch  22  train loss 0.5695  val loss 0.7660  val Dice 0.4022  (best 0.4624 @ 16)  10.2s
+2026-10-20 04:51:27,563 INFO epoch  23  train loss 0.5322  val loss 0.7367  val Dice 0.4216  (best 0.4624 @ 16)  10.2s
+2026-10-20 04:51:38,130 INFO epoch  24  train loss 0.5162  val loss 0.7474  val Dice 0.4039  (best 0.4624 @ 16)  10.3s
+2026-10-20 04:51:48,740 INFO epoch  25  train loss 0.5154  val loss 0.7657  val Dice 0.4195  (best 0.4624 @ 16)  10.3s
+2026-10-20 04:51:59,415 INFO epoch  26  train loss 0.5120  val loss 0.8280  val Dice 0.3932  (best 0.4624 @ 16)  10.4s
+2026-10-20 04:52:09,974 INFO epoch  27  train loss 0.5128  val loss 0.7223  val Dice 0.4303  (best 0.4624 @ 16)  10.3s
+2026-10-20 04:52:20,497 INFO epoch  28  train loss 0.4942  val loss 0.7012  val Dice 0.4377  (best 0.4624 @ 16)  10.3s
+2026-10-20 04:52:30,993 INFO epoch  29  train loss 0.4658  val loss 0.7454  val Dice 0.4301  (best 0.4624 @ 16)  10.2s
+2026-10-20 04:52:41,514 INFO epoch  30  train loss 0.4563  val loss 0.7343  val Dice 0.4282  (best 0.4624 @ 16)  10.3s
+2026-10-20 04:52:52,134 INFO epoch  31  train loss 0.4432  val loss 0.6689  val Dice 0.5138  (best 0.5138 @ 31)  10.3s
+2026-10-20 04:53:02,628 INFO epoch  32  train loss 0.4477  val loss 0.7608  val Dice 0.4326  (best 0.5138 @ 31)  10.3s
+2026-10-20 04:53:13,318 INFO epoch  33  train loss 0.4630  val loss 0.7060  val Dice 0.4662  (best 0.5138 @ 31)  10.4s
+2026-10-20 04:53:23,767 INFO epoch  34  train loss 0.4384  val loss 0.7269  val Dice 0.4385  (best 0.5138 @ 31)  10.2s
+2026-10-20 04:53:34,409 INFO epoch  35  train loss 0.4283  val loss 0.7368  val Dice 0.4733  (best 0.5138 @ 31)  10.4s
+2026-10-20 04:53:45,019 INFO epoch  36  train loss 0.4162  val loss 0.7348  val Dice 0.4451  (best 0.5138 @ 31)  10.4s
+2026-10-20 04:53:55,786 INFO epoch  37  train loss 0.4173  val loss 0.7913  val Dice 0.4509  (best 0.5138 @ 31)  10.5s
+2026-10-20 04:54:06,584 INFO epoch  38  train loss 0.3909  val loss 0.7367  val Dice 0.4681  (best 0.5138 @ 31)  10.5s
+2026-10-20 04:54:17,291 INFO epoch  39  train loss 0.3963  val loss 0.7083  val Dice 0.5027  (best 0.5138 @ 31)  10.4s
+2026-10-20 04:54:27,924 INFO epoch  40  train loss 0.3732  val loss 0.6937  val Dice 0.5007  (best 0.5138 @ 31)  10.4s
+2026-10-20 04:54:38,520 INFO epoch  41  train loss 0.3749  val loss 0.7073  val Dice 0.4925  (best 0.5138 @ 31)  10.4s
+2026-10-20 04:54:49,040 INFO epoch  42  train loss 0.3772  val loss 0.7628  val Dice 0.4696  (best 0.5138 @ 31)  10.3s
+2026-10-20 04:54:59,619 INFO epoch  43  train loss 0.3670  val loss 0.7485  val Dice 0.4822  (best 0.5138 @ 31)  10.3s
+2026-10-20 04:55:10,105 INFO epoch  44  train loss 0.3673  val loss 0.7056  val Dice 0.5011  (best 0.5138 @ 31)  10.3s
+2026-10-20 04:55:20,712 INFO epoch  45  train loss 0.3626  val loss 0.7157  val Dice 0.4919  (best 0.5138 @ 31)  10.4s
+2026-10-20 04:55:31,282 INFO epoch  46  train loss 0.3520  val loss 0.7211  val Dice 0.4982  (best 0.5138 @ 31)  10.3s
+2026-10-20 04:55:31,290 INFO finished cvc_seed2: best val Dice 0.5138 at epoch 31 (early_stopping (no val improvement 
+for 15 epochs))
+2026-10-20 04:55:34,364 INFO cvc_seed2  cvc_val          n=  92  mean Dice 0.5143
+2026-10-20 04:55:37,138 INFO cvc_seed2  cvc_test         n=  91  mean Dice 0.4161
+2026-10-20 04:56:01,850 INFO cvc_seed2  kvasir_external  n=1000  mean Dice 0.4046
+2026-10-20 04:56:02,518 INFO run kvasir_seed3 on cuda (torch 2.14.1+cu126)
+C:\Users\Али\OneDrive\Документы\Training-U-net-model\train\engine.py:148: FutureWarning: 
+`torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=amp) if device.type == "cuda" else None
+2026-10-20 04:56:30,887 INFO epoch   1  train loss 1.2214  val loss 1.1136  val Dice 0.3994  (best 0.3994 @ 1)  18.0s
+2026-10-20 04:56:49,739 INFO epoch   2  train loss 1.0328  val loss 1.0072  val Dice 0.4357  (best 0.4357 @ 2)  18.5s
+2026-10-20 04:57:08,843 INFO epoch   3  train loss 0.9357  val loss 0.9918  val Dice 0.4933  (best 0.4933 @ 3)  18.7s
+2026-10-20 04:57:27,749 INFO epoch   4  train loss 0.8903  val loss 0.9911  val Dice 0.3726  (best 0.4933 @ 3)  18.7s
+2026-10-20 04:57:46,293 INFO epoch   5  train loss 0.8737  val loss 1.1150  val Dice 0.2779  (best 0.4933 @ 3)  18.2s
+2026-10-20 04:58:05,207 INFO epoch   6  train loss 0.8746  val loss 1.0723  val Dice 0.4461  (best 0.4933 @ 3)  18.7s
+2026-10-20 04:58:23,658 INFO epoch   7  train loss 0.8339  val loss 0.8834  val Dice 0.5371  (best 0.5371 @ 7)  18.1s
+2026-10-20 04:58:42,407 INFO epoch   8  train loss 0.8154  val loss 1.1719  val Dice 0.4652  (best 0.5371 @ 7)  18.5s
+2026-10-20 04:59:00,970 INFO epoch   9  train loss 0.7899  val loss 1.0092  val Dice 0.4611  (best 0.5371 @ 7)  18.3s
+2026-10-20 04:59:20,018 INFO epoch  10  train loss 0.7737  val loss 0.8347  val Dice 0.5626  (best 0.5626 @ 10)  18.7s
+2026-10-20 04:59:39,120 INFO epoch  11  train loss 0.7615  val loss 0.7646  val Dice 0.5798  (best 0.5798 @ 11)  18.8s
+2026-10-20 04:59:58,240 INFO epoch  12  train loss 0.7593  val loss 0.8209  val Dice 0.5722  (best 0.5798 @ 11)  18.9s
+2026-10-20 05:00:17,446 INFO epoch  13  train loss 0.7368  val loss 0.7902  val Dice 0.5603  (best 0.5798 @ 11)  18.9s
+2026-10-20 05:00:36,713 INFO epoch  14  train loss 0.7313  val loss 0.8812  val Dice 0.5030  (best 0.5798 @ 11)  19.0s
+2026-10-20 05:00:56,033 INFO epoch  15  train loss 0.6921  val loss 0.8056  val Dice 0.5575  (best 0.5798 @ 11)  19.1s
+2026-10-20 05:01:15,139 INFO epoch  16  train loss 0.6627  val loss 0.7289  val Dice 0.5987  (best 0.5987 @ 16)  18.8s
+2026-10-20 05:01:34,595 INFO epoch  17  train loss 0.6373  val loss 0.6890  val Dice 0.6038  (best 0.6038 @ 17)  19.1s
+2026-10-20 05:01:53,788 INFO epoch  18  train loss 0.6200  val loss 0.6715  val Dice 0.6275  (best 0.6275 @ 18)  18.9s
+2026-10-20 05:02:13,173 INFO epoch  19  train loss 0.5937  val loss 0.5990  val Dice 0.6871  (best 0.6871 @ 19)  19.0s
+2026-10-20 05:02:32,770 INFO epoch  20  train loss 0.5588  val loss 0.6810  val Dice 0.6366  (best 0.6871 @ 19)  19.4s
+2026-10-20 05:02:52,041 INFO epoch  21  train loss 0.5488  val loss 0.5514  val Dice 0.7130  (best 0.7130 @ 21)  18.9s
+2026-10-20 05:03:11,204 INFO epoch  22  train loss 0.5377  val loss 0.5523  val Dice 0.7040  (best 0.7130 @ 21)  18.9s
+2026-10-20 05:03:30,544 INFO epoch  23  train loss 0.5042  val loss 0.5838  val Dice 0.6865  (best 0.7130 @ 21)  19.1s
+2026-10-20 05:03:49,579 INFO epoch  24  train loss 0.5077  val loss 0.5657  val Dice 0.7043  (best 0.7130 @ 21)  18.8s
+2026-10-20 05:04:08,815 INFO epoch  25  train loss 0.4819  val loss 0.5069  val Dice 0.7400  (best 0.7400 @ 25)  18.9s
+2026-10-20 05:04:28,035 INFO epoch  26  train loss 0.4720  val loss 0.5715  val Dice 0.6776  (best 0.7400 @ 25)  19.0s
+2026-10-20 05:04:47,330 INFO epoch  27  train loss 0.4752  val loss 0.4813  val Dice 0.7506  (best 0.7506 @ 27)  19.0s
+2026-10-20 05:05:06,465 INFO epoch  28  train loss 0.4482  val loss 0.5639  val Dice 0.7122  (best 0.7506 @ 27)  18.9s
+2026-10-20 05:05:25,986 INFO epoch  29  train loss 0.4485  val loss 0.5408  val Dice 0.7306  (best 0.7506 @ 27)  19.3s
+2026-10-20 05:05:45,395 INFO epoch  30  train loss 0.4423  val loss 0.4625  val Dice 0.7563  (best 0.7563 @ 30)  19.0s
+2026-10-20 05:06:04,749 INFO epoch  31  train loss 0.4225  val loss 0.5038  val Dice 0.7393  (best 0.7563 @ 30)  19.1s
+2026-10-20 05:06:24,180 INFO epoch  32  train loss 0.4098  val loss 0.4499  val Dice 0.7648  (best 0.7648 @ 32)  19.1s
+2026-10-20 05:06:43,397 INFO epoch  33  train loss 0.4013  val loss 0.4908  val Dice 0.7440  (best 0.7648 @ 32)  19.0s
+2026-10-20 05:07:02,724 INFO epoch  34  train loss 0.4065  val loss 0.4157  val Dice 0.7944  (best 0.7944 @ 34)  19.0s
+2026-10-20 05:07:21,861 INFO epoch  35  train loss 0.3860  val loss 0.5721  val Dice 0.7081  (best 0.7944 @ 34)  18.9s
+2026-10-20 05:07:41,192 INFO epoch  36  train loss 0.3954  val loss 0.4685  val Dice 0.7646  (best 0.7944 @ 34)  19.1s
+2026-10-20 05:08:00,651 INFO epoch  37  train loss 0.3811  val loss 0.4558  val Dice 0.7705  (best 0.7944 @ 34)  19.2s
+2026-10-20 05:08:19,848 INFO epoch  38  train loss 0.3751  val loss 0.4254  val Dice 0.7819  (best 0.7944 @ 34)  19.0s
+2026-10-20 05:08:39,280 INFO epoch  39  train loss 0.3650  val loss 0.4195  val Dice 0.7880  (best 0.7944 @ 34)  19.2s
+2026-10-20 05:08:58,535 INFO epoch  40  train loss 0.3702  val loss 0.4413  val Dice 0.7776  (best 0.7944 @ 34)  19.0s
+2026-10-20 05:09:17,701 INFO epoch  41  train loss 0.3335  val loss 0.3691  val Dice 0.8157  (best 0.8157 @ 41)  18.8s
+2026-10-20 05:09:36,995 INFO epoch  42  train loss 0.3110  val loss 0.3594  val Dice 0.8167  (best 0.8167 @ 42)  19.0s
+2026-10-20 05:09:56,438 INFO epoch  43  train loss 0.3083  val loss 0.3408  val Dice 0.8328  (best 0.8328 @ 43)  19.1s
+2026-10-20 05:10:15,805 INFO epoch  44  train loss 0.3071  val loss 0.3866  val Dice 0.7929  (best 0.8328 @ 43)  19.1s
+2026-10-20 05:10:35,199 INFO epoch  45  train loss 0.3114  val loss 0.3626  val Dice 0.8221  (best 0.8328 @ 43)  19.0s
+2026-10-20 05:10:54,367 INFO epoch  46  train loss 0.3002  val loss 0.4099  val Dice 0.7979  (best 0.8328 @ 43)  18.9s
+2026-10-20 05:11:13,919 INFO epoch  47  train loss 0.3004  val loss 0.3934  val Dice 0.8116  (best 0.8328 @ 43)  19.3s
+2026-10-20 05:11:33,102 INFO epoch  48  train loss 0.2882  val loss 0.3290  val Dice 0.8314  (best 0.8328 @ 43)  19.0s
+2026-10-20 05:11:52,594 INFO epoch  49  train loss 0.2864  val loss 0.3472  val Dice 0.8412  (best 0.8412 @ 49)  19.1s
+2026-10-20 05:12:12,299 INFO epoch  50  train loss 0.2809  val loss 0.3652  val Dice 0.8279  (best 0.8412 @ 49)  19.4s
+2026-10-20 05:12:31,587 INFO epoch  51  train loss 0.2792  val loss 0.3861  val Dice 0.8132  (best 0.8412 @ 49)  19.1s
+2026-10-20 05:12:51,031 INFO epoch  52  train loss 0.2784  val loss 0.3237  val Dice 0.8440  (best 0.8440 @ 52)  19.1s
+2026-10-20 05:13:10,194 INFO epoch  53  train loss 0.2665  val loss 0.3426  val Dice 0.8373  (best 0.8440 @ 52)  18.9s
+2026-10-20 05:13:29,412 INFO epoch  54  train loss 0.2681  val loss 0.3681  val Dice 0.8326  (best 0.8440 @ 52)  19.0s
+2026-10-20 05:13:48,636 INFO epoch  55  train loss 0.2625  val loss 0.3569  val Dice 0.8278  (best 0.8440 @ 52)  19.0s
+2026-10-20 05:14:07,945 INFO epoch  56  train loss 0.2534  val loss 0.3536  val Dice 0.8357  (best 0.8440 @ 52)  19.1s
+2026-10-20 05:14:27,245 INFO epoch  57  train loss 0.2534  val loss 0.3370  val Dice 0.8360  (best 0.8440 @ 52)  19.1s
+2026-10-20 05:14:46,618 INFO epoch  58  train loss 0.2437  val loss 0.3954  val Dice 0.8172  (best 0.8440 @ 52)  19.1s
+2026-10-20 05:15:05,850 INFO epoch  59  train loss 0.2307  val loss 0.3420  val Dice 0.8327  (best 0.8440 @ 52)  19.0s
+2026-10-20 05:15:25,222 INFO epoch  60  train loss 0.2317  val loss 0.3361  val Dice 0.8411  (best 0.8440 @ 52)  19.1s
+2026-10-20 05:15:44,711 INFO epoch  61  train loss 0.2186  val loss 0.3321  val Dice 0.8394  (best 0.8440 @ 52)  19.2s
+2026-10-20 05:16:03,892 INFO epoch  62  train loss 0.2192  val loss 0.3321  val Dice 0.8387  (best 0.8440 @ 52)  18.9s
+2026-10-20 05:16:23,276 INFO epoch  63  train loss 0.2153  val loss 0.3156  val Dice 0.8436  (best 0.8440 @ 52)  19.1s
+2026-10-20 05:16:42,751 INFO epoch  64  train loss 0.2101  val loss 0.3339  val Dice 0.8451  (best 0.8451 @ 64)  19.1s
+2026-10-20 05:17:02,195 INFO epoch  65  train loss 0.2086  val loss 0.3264  val Dice 0.8336  (best 0.8451 @ 64)  19.2s
+2026-10-20 05:17:21,462 INFO epoch  66  train loss 0.2120  val loss 0.3166  val Dice 0.8475  (best 0.8475 @ 66)  19.0s
+2026-10-20 05:17:40,844 INFO epoch  67  train loss 0.2030  val loss 0.3345  val Dice 0.8350  (best 0.8475 @ 66)  19.1s
+2026-10-20 05:18:00,153 INFO epoch  68  train loss 0.2014  val loss 0.3395  val Dice 0.8365  (best 0.8475 @ 66)  19.1s
+2026-10-20 05:18:19,511 INFO epoch  69  train loss 0.2078  val loss 0.3170  val Dice 0.8455  (best 0.8475 @ 66)  19.1s
+2026-10-20 05:18:38,925 INFO epoch  70  train loss 0.1902  val loss 0.3253  val Dice 0.8417  (best 0.8475 @ 66)  19.2s
+2026-10-20 05:18:58,280 INFO epoch  71  train loss 0.2012  val loss 0.3188  val Dice 0.8519  (best 0.8519 @ 71)  19.1s
+2026-10-20 05:19:17,728 INFO epoch  72  train loss 0.2017  val loss 0.3168  val Dice 0.8560  (best 0.8560 @ 72)  19.2s
+2026-10-20 05:19:36,872 INFO epoch  73  train loss 0.1902  val loss 0.3152  val Dice 0.8468  (best 0.8560 @ 72)  18.9s
+2026-10-20 05:19:56,139 INFO epoch  74  train loss 0.1903  val loss 0.3116  val Dice 0.8620  (best 0.8620 @ 74)  19.0s
+2026-10-20 05:20:15,634 INFO epoch  75  train loss 0.1969  val loss 0.3458  val Dice 0.8334  (best 0.8620 @ 74)  19.3s
+2026-10-20 05:20:34,961 INFO epoch  76  train loss 0.1908  val loss 0.3254  val Dice 0.8503  (best 0.8620 @ 74)  19.1s
+2026-10-20 05:20:54,088 INFO epoch  77  train loss 0.1889  val loss 0.3212  val Dice 0.8532  (best 0.8620 @ 74)  18.9s
+2026-10-20 05:21:13,060 INFO epoch  78  train loss 0.1816  val loss 0.3347  val Dice 0.8544  (best 0.8620 @ 74)  18.8s
+2026-10-20 05:21:32,303 INFO epoch  79  train loss 0.1853  val loss 0.3214  val Dice 0.8476  (best 0.8620 @ 74)  19.0s
+2026-10-20 05:21:51,935 INFO epoch  80  train loss 0.1833  val loss 0.3277  val Dice 0.8480  (best 0.8620 @ 74)  19.4s
+2026-10-20 05:22:11,111 INFO epoch  81  train loss 0.1743  val loss 0.3169  val Dice 0.8499  (best 0.8620 @ 74)  18.9s
+2026-10-20 05:22:30,289 INFO epoch  82  train loss 0.1681  val loss 0.3247  val Dice 0.8536  (best 0.8620 @ 74)  18.9s
+2026-10-20 05:22:49,555 INFO epoch  83  train loss 0.1669  val loss 0.3267  val Dice 0.8503  (best 0.8620 @ 74)  19.0s
+2026-10-20 05:23:08,862 INFO epoch  84  train loss 0.1622  val loss 0.3245  val Dice 0.8497  (best 0.8620 @ 74)  19.1s
+2026-10-20 05:23:28,085 INFO epoch  85  train loss 0.1608  val loss 0.3282  val Dice 0.8452  (best 0.8620 @ 74)  19.0s
+2026-10-20 05:23:47,529 INFO epoch  86  train loss 0.1624  val loss 0.3201  val Dice 0.8501  (best 0.8620 @ 74)  19.2s
+2026-10-20 05:24:06,912 INFO epoch  87  train loss 0.1553  val loss 0.3240  val Dice 0.8444  (best 0.8620 @ 74)  19.2s
+2026-10-20 05:24:26,145 INFO epoch  88  train loss 0.1543  val loss 0.3209  val Dice 0.8482  (best 0.8620 @ 74)  19.0s
+2026-10-20 05:24:45,154 INFO epoch  89  train loss 0.1489  val loss 0.3192  val Dice 0.8479  (best 0.8620 @ 74)  18.8s
+2026-10-20 05:24:45,162 INFO finished kvasir_seed3: best val Dice 0.8620 at epoch 74 (early_stopping (no val 
+improvement for 15 epochs))
+2026-10-20 05:24:47,861 INFO kvasir_seed3  kvasir_val       n= 100  mean Dice 0.8616
+2026-10-20 05:24:50,467 INFO kvasir_seed3  kvasir_test      n= 100  mean Dice 0.8255
+2026-10-20 05:25:03,759 INFO kvasir_seed3  cvc_external     n= 612  mean Dice 0.6638
+2026-10-20 05:25:04,325 INFO run cvc_seed3 on cuda (torch 2.14.1+cu126)
+C:\Users\Али\OneDrive\Документы\Training-U-net-model\train\engine.py:148: FutureWarning: 
+`torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=amp) if device.type == "cuda" else None
+2026-10-20 05:25:19,765 INFO epoch   1  train loss 1.2469  val loss 1.2231  val Dice 0.0160  (best 0.0160 @ 1)  9.9s
+2026-10-20 05:25:30,253 INFO epoch   2  train loss 1.1038  val loss 1.1425  val Dice 0.0862  (best 0.0862 @ 2)  10.2s
+2026-10-20 05:25:41,753 INFO epoch   3  train loss 1.0179  val loss 1.1601  val Dice 0.2883  (best 0.2883 @ 3)  11.2s
+2026-10-20 05:25:53,919 INFO epoch   4  train loss 0.9687  val loss 1.0423  val Dice 0.2505  (best 0.2883 @ 3)  11.9s
+2026-10-20 05:26:05,922 INFO epoch   5  train loss 0.9110  val loss 0.9871  val Dice 0.2942  (best 0.2942 @ 5)  11.6s
+2026-10-20 05:26:17,868 INFO epoch   6  train loss 0.8762  val loss 1.1257  val Dice 0.3247  (best 0.3247 @ 6)  11.6s
+2026-10-20 05:26:29,466 INFO epoch   7  train loss 0.8282  val loss 1.2924  val Dice 0.2791  (best 0.3247 @ 6)  11.4s
+2026-10-20 05:26:40,905 INFO epoch   8  train loss 0.8073  val loss 1.2108  val Dice 0.2435  (best 0.3247 @ 6)  11.2s
+2026-10-20 05:26:52,758 INFO epoch   9  train loss 0.7990  val loss 0.9240  val Dice 0.3503  (best 0.3503 @ 9)  11.6s
+2026-10-20 05:27:04,166 INFO epoch  10  train loss 0.7618  val loss 1.3065  val Dice 0.3215  (best 0.3503 @ 9)  11.2s
+2026-10-20 05:27:15,766 INFO epoch  11  train loss 0.7419  val loss 0.8154  val Dice 0.3576  (best 0.3576 @ 11)  11.3s
+2026-10-20 05:27:27,594 INFO epoch  12  train loss 0.7298  val loss 0.9337  val Dice 0.2695  (best 0.3576 @ 11)  11.7s
+2026-10-20 05:27:39,789 INFO epoch  13  train loss 0.7315  val loss 0.9080  val Dice 0.3961  (best 0.3961 @ 13)  11.9s
+2026-10-20 05:27:51,428 INFO epoch  14  train loss 0.6848  val loss 0.8016  val Dice 0.4349  (best 0.4349 @ 14)  11.4s
+2026-10-20 05:28:03,276 INFO epoch  15  train loss 0.6977  val loss 0.8940  val Dice 0.3136  (best 0.4349 @ 14)  11.7s
+2026-10-20 05:28:14,896 INFO epoch  16  train loss 0.7056  val loss 0.9162  val Dice 0.3045  (best 0.4349 @ 14)  11.4s
+2026-10-20 05:28:26,402 INFO epoch  17  train loss 0.6405  val loss 0.7871  val Dice 0.3859  (best 0.4349 @ 14)  11.3s
+2026-10-20 05:28:38,168 INFO epoch  18  train loss 0.6504  val loss 0.8121  val Dice 0.3899  (best 0.4349 @ 14)  11.6s
+2026-10-20 05:28:49,800 INFO epoch  19  train loss 0.6668  val loss 0.7421  val Dice 0.4326  (best 0.4349 @ 14)  11.4s
+2026-10-20 05:29:01,515 INFO epoch  20  train loss 0.6282  val loss 0.7993  val Dice 0.3669  (best 0.4349 @ 14)  11.5s
+2026-10-20 05:29:13,378 INFO epoch  21  train loss 0.6000  val loss 0.7706  val Dice 0.4447  (best 0.4447 @ 21)  11.6s
+2026-10-20 05:29:25,287 INFO epoch  22  train loss 0.5671  val loss 0.7337  val Dice 0.4403  (best 0.4447 @ 21)  11.7s
+2026-10-20 05:29:36,964 INFO epoch  23  train loss 0.5536  val loss 0.7917  val Dice 0.3887  (best 0.4447 @ 21)  11.5s
+2026-10-20 05:29:48,585 INFO epoch  24  train loss 0.5242  val loss 0.7376  val Dice 0.4644  (best 0.4644 @ 24)  11.3s
+2026-10-20 05:30:00,224 INFO epoch  25  train loss 0.5372  val loss 0.8521  val Dice 0.3200  (best 0.4644 @ 24)  11.4s
+2026-10-20 05:30:12,008 INFO epoch  26  train loss 0.5364  val loss 0.7797  val Dice 0.4084  (best 0.4644 @ 24)  11.6s
+2026-10-20 05:30:23,870 INFO epoch  27  train loss 0.5208  val loss 0.9613  val Dice 0.3241  (best 0.4644 @ 24)  11.7s
+2026-10-20 05:30:35,650 INFO epoch  28  train loss 0.5397  val loss 0.7750  val Dice 0.3953  (best 0.4644 @ 24)  11.6s
+2026-10-20 05:30:47,263 INFO epoch  29  train loss 0.5065  val loss 0.7598  val Dice 0.4293  (best 0.4644 @ 24)  11.4s
+2026-10-20 05:30:58,998 INFO epoch  30  train loss 0.5006  val loss 0.8221  val Dice 0.3695  (best 0.4644 @ 24)  11.5s
+2026-10-20 05:31:10,614 INFO epoch  31  train loss 0.4964  val loss 0.8122  val Dice 0.3775  (best 0.4644 @ 24)  11.4s
+2026-10-20 05:31:22,324 INFO epoch  32  train loss 0.4849  val loss 0.7589  val Dice 0.4384  (best 0.4644 @ 24)  11.5s
+2026-10-20 05:31:34,163 INFO epoch  33  train loss 0.4657  val loss 0.8308  val Dice 0.3572  (best 0.4644 @ 24)  11.6s
+2026-10-20 05:31:45,998 INFO epoch  34  train loss 0.4546  val loss 0.8200  val Dice 0.3772  (best 0.4644 @ 24)  11.6s
+2026-10-20 05:31:58,011 INFO epoch  35  train loss 0.4510  val loss 0.8253  val Dice 0.3776  (best 0.4644 @ 24)  11.8s
+2026-10-20 05:32:09,808 INFO epoch  36  train loss 0.4475  val loss 0.7579  val Dice 0.4394  (best 0.4644 @ 24)  11.6s
+2026-10-20 05:32:21,443 INFO epoch  37  train loss 0.4253  val loss 0.7303  val Dice 0.4553  (best 0.4644 @ 24)  11.4s
+2026-10-20 05:32:32,905 INFO epoch  38  train loss 0.4208  val loss 0.7505  val Dice 0.4450  (best 0.4644 @ 24)  11.3s
+2026-10-20 05:32:44,725 INFO epoch  39  train loss 0.4151  val loss 0.7438  val Dice 0.4635  (best 0.4644 @ 24)  11.6s
+2026-10-20 05:32:44,731 INFO finished cvc_seed3: best val Dice 0.4644 at epoch 24 (early_stopping (no val improvement 
+for 15 epochs))
+2026-10-20 05:32:47,322 INFO cvc_seed3  cvc_val          n=  92  mean Dice 0.4647
+2026-10-20 05:32:50,217 INFO cvc_seed3  cvc_test         n=  91  mean Dice 0.3752
+2026-10-20 05:33:11,041 INFO cvc_seed3  kvasir_external  n=1000  mean Dice 0.3958
+device: cuda  torch 2.14.1+cu126  runs folder: runs/
+plan: kvasir_seed1, cvc_seed1, kvasir_seed2, cvc_seed2, kvasir_seed3, cvc_seed3
+
+all done in 104.8 min
+         run  epochs  best_epoch  val_dice  cvc_external  kvasir_test  cvc_test  kvasir_external
+kvasir_seed1      79          64    0.8580        0.6851       0.8196       NaN              NaN
+   cvc_seed1      29          14    0.4227           NaN          NaN    0.3437           0.3901
+kvasir_seed2      81          66    0.8431        0.6151       0.8200       NaN              NaN
+   cvc_seed2      46          31    0.5138           NaN          NaN    0.4161           0.4046
+kvasir_seed3      89          74    0.8620        0.6638       0.8255       NaN              NaN
+   cvc_seed3      39          24    0.4644           NaN          NaN    0.3752           0.3958

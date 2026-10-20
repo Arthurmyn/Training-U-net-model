@@ -39,7 +39,7 @@ def verify(cfg, progress: bool = True) -> bool:
         for name in tqdm(sorted(set(ref) & set(on_disk)), desc=ds.name, disable=not progress, mininterval=2.0):
             if checks.file_md5(on_disk[name]) != ref[name]:
                 bad.append(name)
-        split = json.loads((cfg.splits_dir / f"{key}_split.json").read_text())
+        split = json.loads((cfg.splits_dir / f"{key}_split.json").read_text(encoding="utf-8"))
         listed = {f for part in split["splits"].values() for f in part}
         unlisted = sorted(listed - set(on_disk))
         ok = not (missing or extra or bad or masks_missing or unlisted) and len(ref) == ds.expected_count

@@ -132,7 +132,7 @@ def write_split_files(out_dir: Path, key: str, name: str, split: Mapping[str, Se
             "sizes": {k: len(v) for k, v in split.items()},
             "splits": {k: [images[s].name for s in v] for k, v in split.items()}}
     p = out_dir / f"{key}_split.json"
-    p.write_text(json.dumps(body, indent=2, sort_keys=True) + "\n")
+    p.write_text(json.dumps(body, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     written.append(p)
 
     lines = ["image_file,mask_file,split" + (",sequence_id" if seq_of else "")]
@@ -140,13 +140,13 @@ def write_split_files(out_dir: Path, key: str, name: str, split: Mapping[str, Se
         for s in split[k]:
             lines.append(f"{images[s].name},{masks[s].name},{k}" + (f",{seq_of[s]}" if seq_of else ""))
     p = out_dir / f"{key}_split.csv"
-    p.write_text("\n".join(lines) + "\n")
+    p.write_text("\n".join(lines) + "\n", encoding="utf-8")
     written.append(p)
 
     ext = {"dataset": name, "purpose": "whole dataset used as external test set for a model trained on the other dataset",
            "n_pairs": len(external), "images": [images[s].name for s in external],
            "masks": [masks[s].name for s in external]}
     p = out_dir / f"{key}_external_test.json"
-    p.write_text(json.dumps(ext, indent=2, sort_keys=True) + "\n")
+    p.write_text(json.dumps(ext, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     written.append(p)
     return written

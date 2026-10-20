@@ -118,7 +118,7 @@ def train_run(cfg: TrainConfig, source: str, seed: int, resume: bool = True, pro
     t = cfg.section("training")
     run_dir = cfg.runs_dir / run_name(source, seed)
     meta_path = run_dir / "run.json"
-    if meta_path.is_file() and json.loads(meta_path.read_text()).get("status") == "finished":
+    if meta_path.is_file() and json.loads(meta_path.read_text(encoding="utf-8")).get("status") == "finished":
         log.info("%s already finished, skipping", run_dir.name)
         return run_dir
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -161,7 +161,7 @@ def train_run(cfg: TrainConfig, source: str, seed: int, resume: bool = True, pro
     meta = {"status": "running", "source": source, "seed": seed, "limit": limit, "n_train": len(train_ds), "n_val": len(val_ds),
             "n_parameters": count_parameters(model), "image_size": size, "config": {k: cfg.raw.get(k) for k in ("model", "training", "augmentation")},
             "environment": environment(device)}
-    meta_path.write_text(json.dumps(meta, indent=2, sort_keys=True))
+    meta_path.write_text(json.dumps(meta, indent=2, sort_keys=True), encoding="utf-8")
 
     metrics_path = run_dir / "metrics.csv"
     t0, reason = time.time(), "max_epochs"
@@ -189,6 +189,6 @@ def train_run(cfg: TrainConfig, source: str, seed: int, resume: bool = True, pro
 
     meta.update(status="finished", stop_reason=reason, best_epoch=best_epoch, best_val_dice=best,
                 epochs_run=int(pd.read_csv(metrics_path)["epoch"].max()), train_seconds_this_session=round(time.time() - t0, 1))
-    meta_path.write_text(json.dumps(meta, indent=2, sort_keys=True))
+    meta_path.write_text(json.dumps(meta, indent=2, sort_keys=True), encoding="utf-8")
     log.info("finished %s: best val Dice %.4f at epoch %d (%s)", run_dir.name, best, best_epoch, reason)
     return run_dir
