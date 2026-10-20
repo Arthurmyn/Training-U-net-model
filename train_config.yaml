@@ -35,3 +35,15 @@ analysis:
   seed: 42
   ci_level: 0.95
   practical_thresholds: [0.05, 0.03, 0.10]   # main threshold first, then sensitivity checks
+
+extended:                         # extended per-image metrics, statistics and error analysis (results/extended, error_analysis)
+  output_dir: results/extended
+  error_dir: error_analysis
+  boundary_iou_d: 5               # width in pixels of the boundary band for Boundary IoU
+  device: cpu                     # cpu is deterministic; inference of all runs takes about 10-15 minutes
+  batch_size: 16
+  error_dice_threshold: 0.5       # frames with seed-averaged Dice below this are candidates for the error analysis
+  error_sample_size: 100          # random sample of those frames if there are more
+  error_extra_frames: 50          # additional random frames with Dice >= threshold, for contrast
+  sampling_seed: 42
+  preliminary_label: "preliminary (E10)"   # attached to every CVC-trained result (under-trained, see docs/errors_log.md)
