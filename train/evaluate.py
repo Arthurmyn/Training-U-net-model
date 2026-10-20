@@ -66,7 +66,7 @@ def _qualitative(model, ds: SegDataset, df: pd.DataFrame, device, threshold: flo
 def evaluate_run(cfg: TrainConfig, run_dir: Path, limit: Optional[int] = None, progress: bool = True,
                  examples: bool = True) -> Path:
     """Write ``per_image_dice.csv`` and ``eval_summary.json`` into the run folder (best checkpoint by val Dice)."""
-    meta = json.loads((run_dir / "run.json").read_text())
+    meta = json.loads((run_dir / "run.json").read_text(encoding="utf-8"))
     if meta.get("status") != "finished":
         raise RuntimeError(f"{run_dir.name} has not finished training")
     source, seed = meta["source"], int(meta["seed"])
@@ -112,7 +112,7 @@ def evaluate_run(cfg: TrainConfig, run_dir: Path, limit: Optional[int] = None, p
             _qualitative(model, ds, df, device, thr, f"{run_dir.name} on {name}", run_dir / f"examples_{name}.png")
     out = pd.concat(frames, ignore_index=True)
     out.to_csv(run_dir / "per_image_dice.csv", index=False, float_format="%.6f")
-    (run_dir / "eval_summary.json").write_text(json.dumps({"best_epoch": meta["best_epoch"], "threshold": thr, "sets": summary}, indent=2, sort_keys=True))
+    (run_dir / "eval_summary.json").write_text(json.dumps({"best_epoch": meta["best_epoch"], "threshold": thr, "sets": summary}, indent=2, sort_keys=True), encoding="utf-8")
     return run_dir / "per_image_dice.csv"
 
 

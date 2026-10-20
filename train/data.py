@@ -35,7 +35,7 @@ class Item:
 def _read_json(path: Path) -> dict:
     if not path.is_file():
         raise FileNotFoundError(f"{path} not found. Run `python -m audit.run --config config.yaml` first or copy outputs/splits/.")
-    return json.loads(path.read_text())
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _sequence_ids(cfg: TrainConfig, key: str) -> Dict[str, str]:

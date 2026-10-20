@@ -84,7 +84,7 @@ class AuditConfig:
 def load_config(path: str | Path) -> AuditConfig:
     """Read a YAML config; relative paths resolve against the config file's folder."""
     path = Path(path).resolve()
-    raw = yaml.safe_load(path.read_text())
+    raw = yaml.safe_load(path.read_text(encoding="utf-8"))
     base = path.parent
     thr = raw.get("thresholds", {})
     datasets: Dict[str, DatasetConfig] = {}

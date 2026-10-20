@@ -141,7 +141,7 @@ def analyze(cfg: TrainConfig) -> Path:
     pim.drop(columns=["cluster"]).to_csv(out / "tables" / "per_image_mean_dice.csv", index=False, float_format="%.6f")
 
     _figure(pim, names, out / "fig_dice_distributions.png")
-    (out / "summary.md").write_text(_markdown(cfg, t1, t2, t3, n_boot, level, thresholds))
+    (out / "summary.md").write_text(_markdown(cfg, t1, t2, t3, n_boot, level, thresholds), encoding="utf-8")
     log.info("wrote %s", out)
     return out / "summary.md"
 

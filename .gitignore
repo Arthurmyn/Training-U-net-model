@@ -6,5 +6,5 @@ __pycache__/
 *.pyc
 .DS_Store
 .venv/
-runs/**/*.pt
 *.pt
+!runs/*/best.pt

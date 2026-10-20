@@ -62,7 +62,7 @@ def main(argv=None) -> int:
     for source, seed in plan:
         d = cfg.runs_dir / f"{source}_seed{seed}"
         if (d / "eval_summary.json").is_file():
-            meta, ev = json.loads((d / "run.json").read_text()), json.loads((d / "eval_summary.json").read_text())
+            meta, ev = json.loads((d / "run.json").read_text(encoding="utf-8")), json.loads((d / "eval_summary.json").read_text(encoding="utf-8"))
             rows.append({"run": d.name, "epochs": meta["epochs_run"], "best_epoch": meta["best_epoch"], "val_dice": round(meta["best_val_dice"], 4),
                          **{k: round(v["mean_dice"], 4) for k, v in ev["sets"].items() if not k.endswith("_val")}})
     if rows:
@@ -72,7 +72,7 @@ def main(argv=None) -> int:
         full = load_train_config(args.config)
         for source, seed in plan:
             m = pd.read_csv(cfg.runs_dir / f"{source}_seed{seed}" / "metrics.csv")
-            meta = json.loads((cfg.runs_dir / f"{source}_seed{seed}" / "run.json").read_text())
+            meta = json.loads((cfg.runs_dir / f"{source}_seed{seed}" / "run.json").read_text(encoding="utf-8"))
             from .data import load_items
             parts, _ = load_items(full, source)
             n_small = meta["n_train"] + meta["n_val"]
