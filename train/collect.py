@@ -190,11 +190,14 @@ def main(argv=None) -> int:
     ap.add_argument("--skip-inference", action="store_true", help="reuse an existing per_image_metrics_extended.csv")
     ap.add_argument("--with-weights", action="store_true", help="also copy best.pt of every run")
     ap.add_argument("--with-errors", action="store_true", help="also create the error-analysis material")
+    ap.add_argument("--device", choices=["auto", "cuda", "mps", "cpu"], help="force the device (e.g. cuda: stop with an error instead of silently using the CPU)")
     ap.add_argument("--no-progress", action="store_true")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", stream=sys.stderr)
     config_file = Path(args.config).resolve()
     cfg = load_train_config(config_file)
+    if args.device:
+        cfg = cfg.override(**{"training.device": args.device, "extended.device": args.device})
     out = collect(cfg, config_file, (cfg.base_dir / args.out).resolve(), args.skip_inference, args.with_weights, args.with_errors, True, not args.no_progress)
     log.info("collected results in %s", out.relative_to(cfg.base_dir))
     return 0

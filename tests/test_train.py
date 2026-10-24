@@ -250,3 +250,23 @@ def test_collect_builds_the_whole_folder(tmp_path):
     assert set(gap["n_seeds"]) == {2}
     readme = (out / "README.md").read_text()
     assert "Key numbers" in readme and str(tmp_path) not in readme and str(tmp_path) not in (out / "MANIFEST.json").read_text()
+
+
+# ---------------------------------------------------------------- GPU check
+def test_gpu_check_reports_cpu_only_clearly(tmp_path, capsys):
+    from train.check_gpu import check, report
+    cfg = load_train_config(_project(tmp_path)).override(**{"training.device": "cpu"})
+    info = check(cfg, steps=2)
+    assert info["device_type"] == "cpu" and info["seconds_per_step"] > 0 and set(info["per_source"]) == {"a", "b"}
+    assert info["per_source"]["a"]["train_images"] == 16 and info["per_source"]["a"]["steps_per_epoch"] == 4
+    assert report(info) == 1                                                              # CPU only -> exit code 1
+    out = capsys.readouterr().out
+    assert "NO GPU WILL BE USED" in out and "SETUP_ru.md" in out
+
+
+def test_forcing_an_unavailable_device_fails_loudly(tmp_path):
+    from train.engine import select_device
+    if not torch.cuda.is_available():
+        with pytest.raises(RuntimeError, match="CUDA is not available"):
+            select_device("cuda")
+    assert select_device("cpu").type == "cpu"

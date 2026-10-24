@@ -15,10 +15,13 @@ def main(argv=None) -> int:
     ap.add_argument("--source", required=True, help="dataset key to train on (kvasir or cvc)")
     ap.add_argument("--seed", type=int, required=True)
     ap.add_argument("--no-resume", action="store_true", help="discard an unfinished run and start again")
+    ap.add_argument("--device", choices=["auto", "cuda", "mps", "cpu"], help="force the device (e.g. cuda: stop with an error instead of silently using the CPU)")
     ap.add_argument("--no-progress", action="store_true")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", stream=sys.stderr)
     cfg = load_train_config(args.config)
+    if args.device:
+        cfg = cfg.override(**{"training.device": args.device})
     train_run(cfg, args.source, args.seed, resume=not args.no_resume, progress=not args.no_progress)
     return 0
 

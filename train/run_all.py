@@ -16,7 +16,7 @@ import pandas as pd
 import torch
 
 from .config import load_train_config
-from .engine import environment, select_device, train_run
+from .engine import describe_device, environment, select_device, train_run
 from .evaluate import evaluate_run
 
 log = logging.getLogger("train")
@@ -30,11 +30,14 @@ def main(argv=None) -> int:
     ap.add_argument("--seeds", nargs="+", type=int, help="only these seeds (default: all in the config)")
     ap.add_argument("--dry-run", action="store_true", help="print the plan and stop")
     ap.add_argument("--no-eval", action="store_true", help="train only")
+    ap.add_argument("--device", choices=["auto", "cuda", "mps", "cpu"], help="force the device (e.g. cuda: stop with an error instead of silently using the CPU)")
     ap.add_argument("--no-progress", action="store_true")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", stream=sys.stderr)
 
     cfg = load_train_config(args.config)
+    if args.device:
+        cfg = cfg.override(**{"training.device": args.device, "extended.device": args.device})
     limit = None
     if args.smoke:
         limit = 32
@@ -42,8 +45,14 @@ def main(argv=None) -> int:
     sources = args.sources or cfg.sources
     seeds = args.seeds or (cfg.seeds[:1] if args.smoke else cfg.seeds)
     plan = [(s, seed) for seed in seeds for s in sources]
-    device = select_device(cfg.section("training").get("device", "auto"))
-    print(f"device: {device}  torch {torch.__version__}  runs folder: {cfg.runs_dir.name}/")
+    try:
+        device = select_device(cfg.section("training").get("device", "auto"))
+    except RuntimeError as exc:
+        print(f"ERROR: {exc}\nRun `python -m train.check_gpu` to see what PyTorch can use.")
+        return 2
+    print(f"device: {describe_device(device)}  torch {torch.__version__}  runs folder: {cfg.runs_dir.name}/")
+    if device.type == "cpu":
+        print("WARNING: no GPU is used; training will be many times slower. Run `python -m train.check_gpu` to see why (docs/SETUP_ru.md, section GPU).")
     print("plan: " + ", ".join(f"{s}_seed{seed}" for s, seed in plan))
     if args.dry_run:
         return 0
