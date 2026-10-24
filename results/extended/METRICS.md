@@ -17,7 +17,7 @@ probability threshold 0.5. Distances are in pixels. TP, FP, FN are pixel counts 
 
 ## Statistics
 
-- **Seed-level mean** M_s: mean of a metric over the images of one evaluation set, for seed s. "Mean over seeds" and the sample SD (ddof = 1) are taken over the three M_s.
+- **Seed-level mean** M_s: mean of a metric over the images of one evaluation set, for seed s. "Mean over seeds" and the sample SD (ddof = 1) are taken over the 3 values M_s.
 - **Gap per seed** G_s = M_s(own test) - M_s(external): Kvasir-trained: kvasir_test minus cvc_external; CVC-trained: cvc_test minus kvasir_external. For HD95 and miss lower is better, so a negative gap means the model does better on its own data; `better` states the direction in every table.
 - **Primary CI:** mean(G_s) +/- t * SD(G_s) / sqrt(3), with t = t.ppf(0.975, 2) = 4.303 (df = 2).
 - **Secondary CI:** cluster bootstrap (10 000 resamples, 95%, seed 42, `train/analyze.py`): images are averaged over seeds, whole video sequences are resampled for CVC frames, single images for Kvasir; own and external sets are resampled independently.
