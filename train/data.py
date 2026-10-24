@@ -73,6 +73,8 @@ def load_items(cfg: TrainConfig, key: str) -> Tuple[Dict[str, List[Item]], List[
     if spec:                                           # equal-size training: only the train part is reduced
         from .subset import subset_path
         path = subset_path(cfg, key, int(spec["size"]), int(spec["seed"]))
+        if not path.is_file():
+            raise FileNotFoundError(f"{path.name} not found: create the fixed subset with `python -m train.subset --config <your config>`")
         wanted = _read_json(path)["images"]            # fixed list written by `python -m train.subset`
         by_file = {i.image_file: i for i in parts["train"]}
         missing = [f for f in wanted if f not in by_file]
