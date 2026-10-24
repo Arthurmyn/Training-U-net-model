@@ -7,12 +7,21 @@ The audit itself trains nothing; training is run with `python -m train.run_all` 
 
 ## Layout
 ```
-audit.ipynb          main notebook: runs the audit step by step, shows tables and figures
-config.yaml          dataset paths (relative to this file), expected counts, seed, thresholds
-audit/               package: config, load, checks, splits, report, run (CLI)
-tests/               pytest tests on small synthetic images (corrupt file, JPEG-noisy mask, empty mask, unmatched file, ...)
-outputs/             audit_report.md, per_image_stats_*.csv, summary.json, splits/, figures
-data/                raw data (git-ignored, read-only; never modified by the audit)
+README.md            this file
+config.yaml          audit settings: dataset paths, expected counts, seed, thresholds
+train_config.yaml    training, statistics and extended-analysis settings
+requirements.txt     libraries for the audit and the tests
+requirements/        train.txt (adds PyTorch), lock.txt (exact tested versions)
+audit/               package: dataset audit and fixed splits (python -m audit.run)
+train/               package: training, evaluation, statistics, extended analysis
+tests/               pytest tests on small synthetic data
+notebooks/           audit.ipynb: the audit step by step, with tables and figures
+data/                raw data (git-ignored, read-only) and data_checksums.sha256
+outputs/             audit results: report, per-image CSVs, splits/, figures
+runs/                one folder per trained model (logs, per-image Dice, best.pt) and run_all.log
+results/             statistics over all runs; extended/ has the additional metrics, CIs and figures
+error_analysis/      frames and annotation sheets for the error analysis
+docs/                instructions (Russian: SETUP, RUNBOOK, RUNPOD), research log, error log, results summary
 ```
 
 ## Data
@@ -28,7 +37,7 @@ Images and masks are matched by filename stem. Change folders in `config.yaml` i
 ```bash
 pip install -r requirements.txt
 python -m audit.run --config config.yaml     # terminal
-jupyter notebook audit.ipynb                 # or open the notebook
+jupyter notebook notebooks/audit.ipynb       # or open the notebook
 pytest                                       # tests
 ```
 Running twice gives byte-identical outputs (no timestamps, fixed seed, sorted file order).
