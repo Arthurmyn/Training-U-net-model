@@ -1,5 +1,6 @@
 # Raw data is read-only and large; never commit it
-data/
+data/*
+!data/data_checksums.sha256
 __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/

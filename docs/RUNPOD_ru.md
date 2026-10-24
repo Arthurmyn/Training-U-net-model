@@ -41,7 +41,7 @@ mkdir -p data
 
 Проверка и распаковка (не требуют `unzip`):
 ```bash
-sha256sum -c data_checksums.sha256          # обе строки должны быть OK; на Mac команда называется shasum -a 256 -c
+(cd data && sha256sum -c data_checksums.sha256)   # обе строки должны быть OK; на Mac команда называется shasum -a 256 -c
 mkdir -p data/kvasir_seg data/cvc_clinicdb
 python3 -m zipfile -e data/Kvasir-seg.zip   data/kvasir_seg
 python3 -m zipfile -e data/CVC-ClinicDB.zip data/cvc_clinicdb

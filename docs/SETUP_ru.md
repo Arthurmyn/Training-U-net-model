@@ -26,14 +26,14 @@ cd Training-U-net-model
 **macOS / Linux**
 ```bash
 mkdir -p data/kvasir_seg data/cvc_clinicdb
-shasum -a 256 -c data_checksums.sha256          # обе строки должны быть OK
+(cd data && shasum -a 256 -c data_checksums.sha256)   # обе строки должны быть OK
 unzip -q data/Kvasir-seg.zip      -d data/kvasir_seg
 unzip -q data/CVC-ClinicDB.zip    -d data/cvc_clinicdb
 ```
 **Windows (PowerShell)**
 ```powershell
 New-Item -ItemType Directory -Force data\kvasir_seg, data\cvc_clinicdb | Out-Null
-Get-FileHash -Algorithm SHA256 data\Kvasir-seg.zip, data\CVC-ClinicDB.zip      # сравните с data_checksums.sha256
+Get-FileHash -Algorithm SHA256 data\Kvasir-seg.zip, data\CVC-ClinicDB.zip      # сравните с data\data_checksums.sha256
 Expand-Archive data\Kvasir-seg.zip   -DestinationPath data\kvasir_seg
 Expand-Archive data\CVC-ClinicDB.zip -DestinationPath data\cvc_clinicdb
 ```
