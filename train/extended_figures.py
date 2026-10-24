@@ -73,17 +73,18 @@ def figure_training_curves(cfg: TrainConfig, path: Path) -> None:
 
 
 def figure_gap(cfg: TrainConfig, by_seed: pd.DataFrame, summary: pd.DataFrame, path: Path) -> None:
-    """Dice gap (own test minus external) per seed with the t-based 95% CI (df = 2), both directions."""
+    """Dice gap (own test minus external) per seed with the t-based 95% CI (df = seeds - 1), both directions."""
     d = by_seed[by_seed["metric"] == "dice"]
     s = summary[summary["metric"] == "dice"].reset_index(drop=True)
+    n_seeds = int(d["seed"].nunique())
     deltas = [float(x) for x in cfg.section("analysis").get("practical_thresholds", [0.05])]
     fig, ax = plt.subplots(figsize=(6.4, 5.0), facecolor="white")
     for i, (key, label, own, ext) in enumerate(directions(cfg)):
         g = d[d["direction"] == label]
         r = s[s["direction"] == label].iloc[0]
-        ax.scatter(np.full(len(g), i) + np.array([-0.08, 0, 0.08])[:len(g)], g["gap"], s=45, color=COLORS[i % 2], alpha=0.85, zorder=3, label="seed" if i == 0 else None)
+        ax.scatter(np.full(len(g), i) + np.linspace(-0.1, 0.1, len(g)) if len(g) > 1 else np.zeros(1), g["gap"], s=45, color=COLORS[i % 2], alpha=0.85, zorder=3, label="seed" if i == 0 else None)
         ax.errorbar([i + 0.25], [r["mean_gap"]], yerr=[[r["mean_gap"] - r["ci_t_low"]], [r["ci_t_high"] - r["mean_gap"]]], fmt="D", color="black",
-                    markersize=7, capsize=6, linewidth=1.8, zorder=4, label="mean and t-based 95% CI (df = 2)" if i == 0 else None)
+                    markersize=7, capsize=6, linewidth=1.8, zorder=4, label=f"mean and t-based 95% CI (df = {n_seeds - 1})" if i == 0 else None)
     ax.axhline(0, color="black", linewidth=1.0)
     for delta in deltas[:1]:
         ax.axhline(delta, color="#555555", linestyle=":", linewidth=1.2)
@@ -131,14 +132,15 @@ def figure_distributions(cfg: TrainConfig, df: pd.DataFrame, path: Path) -> None
         ax.set_xticklabels(labels, fontsize=7)
         ax.set_title(title, loc="left", fontsize=10, fontweight="bold")
         _style(ax)
-    fig.text(0.01, 0.005, "box: quartiles and median, diamond: mean, dots: images (each averaged over 3 seeds); filled box = own test, open box = external", fontsize=8, color="black")
+    n = int(df["seed"].nunique())
+    fig.text(0.01, 0.005, f"box: quartiles and median, diamond: mean, dots: images (each averaged over {n} seeds); filled box = own test, open box = external", fontsize=8, color="black")
     fig.tight_layout(rect=(0, 0.02, 1, 1))
     fig.savefig(path, dpi=DPI, facecolor="white", metadata={"Software": None})
     plt.close(fig)
 
 
 def run(cfg: TrainConfig) -> List[str]:
-    """Write the three figures to results/extended/figures/."""
+    """Write the three figures to <extended output>/figures/."""
     fig_dir = out_dir(cfg) / "figures"
     fig_dir.mkdir(parents=True, exist_ok=True)
     df = load_extended(cfg)

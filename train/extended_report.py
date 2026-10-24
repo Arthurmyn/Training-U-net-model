@@ -6,6 +6,7 @@ from typing import List
 
 import numpy as np
 import pandas as pd
+from scipy import stats
 
 from .config import TrainConfig
 from .extended import error_dir, load_extended, out_dir
@@ -30,9 +31,9 @@ probability threshold 0.5. Distances are in pixels. TP, FP, FN are pixel counts 
 
 ## Statistics
 
-- **Seed-level mean** M_s: mean of a metric over the images of one evaluation set, for seed s. "Mean over seeds" and the sample SD (ddof = 1) are taken over the three M_s.
+- **Seed-level mean** M_s: mean of a metric over the images of one evaluation set, for seed s. "Mean over seeds" and the sample SD (ddof = 1) are taken over the {n} values M_s.
 - **Gap per seed** G_s = M_s(own test) - M_s(external): Kvasir-trained: kvasir_test minus cvc_external; CVC-trained: cvc_test minus kvasir_external. For HD95 and miss lower is better, so a negative gap means the model does better on its own data; `better` states the direction in every table.
-- **Primary CI:** mean(G_s) +/- t * SD(G_s) / sqrt(3), with t = t.ppf(0.975, 2) = 4.303 (df = 2).
+- **Primary CI:** mean(G_s) +/- t * SD(G_s) / sqrt({n}), with t = t.ppf(0.975, {df}) = {t:.3f} (df = {df}).
 - **Secondary CI:** cluster bootstrap (10 000 resamples, 95%, seed 42, `train/analyze.py`): images are averaged over seeds, whole video sequences are resampled for CVC frames, single images for Kvasir; own and external sets are resampled independently.
 - **Decision rule (Dice only)** on a CI [L, U] and a practical threshold delta in {0.05 (main), 0.03, 0.10}: L > delta: *meaningful drop*; U < -delta: *meaningful increase*; [L, U] inside [-delta, delta]: *equivalence*; otherwise *inconclusive*.
 - **Spearman correlations** (descriptive): seed-mean Dice per image on the external set against (a) the ground-truth area fraction at 256 px and (b) the mean grey brightness from `outputs/per_image_stats_*.csv`. p-values are descriptive: frames of one video sequence are not independent.
@@ -60,8 +61,11 @@ def pm(mean: float, sd: float, metric: str) -> str:
 def run(cfg: TrainConfig) -> List[str]:
     """Write METRICS.md and README.md from the CSV/JSON files of the previous stages."""
     out = out_dir(cfg)
-    (out / "METRICS.md").write_text(METRICS_MD, encoding="utf-8")
     mbc = pd.read_csv(out / "metrics_by_condition.csv")
+    n_seeds = int(mbc["n_seeds"].max())
+    t_crit = float(stats.t.ppf(0.975, n_seeds - 1))
+    metrics_md = METRICS_MD.replace("{n}", str(n_seeds)).replace("{df}", str(n_seeds - 1)).replace("{t:.3f}", f"{t_crit:.3f}")
+    (out / "METRICS.md").write_text(metrics_md, encoding="utf-8")
     gs = pd.read_csv(out / "gap_summary.csv")
     dec = pd.read_csv(out / "decision_rule.csv")
     sp = pd.read_csv(out / "spearman.csv")
@@ -90,6 +94,9 @@ def run(cfg: TrainConfig) -> List[str]:
                            for k, v in a["by_eval_set"].items()])
     n_runs = len(list(cfg.runs_dir.glob("*/run.json")))
     n_eval = int(load_extended(cfg)[["run", "eval_set"]].drop_duplicates().shape[0])
+    n_datasets = len(cfg.audit.datasets)
+    protocol_seeds = int(cfg.section("extended").get("protocol_seeds", 5))
+    planned_runs = n_datasets * protocol_seeds
 
     text = f"""# Extended analysis
 
@@ -106,7 +113,7 @@ Extended per-image metrics, seed statistics, error-analysis material and figures
 | `METRICS.md` | definitions of all metrics and statistics |
 | `acceptance_checks.json` | checks A and B (below) |
 | `metrics_by_condition.csv` | seed-level means, mean over seeds, sample SD, median over images, per evaluation set and metric |
-| `gap_by_seed.csv`, `gap_summary.csv` | gap per seed; mean gap, SD, t-based 95% CI (df = 2) and cluster-bootstrap 95% CI |
+| `gap_by_seed.csv`, `gap_summary.csv` | gap per seed; mean gap, SD, t-based 95% CI (df = seeds - 1) and cluster-bootstrap 95% CI |
 | `decision_rule.csv` | decision rule for Dice, delta 0.05 (main), 0.03, 0.10, on the t-based and the bootstrap CI |
 | `spearman.csv` | descriptive Spearman correlations of external Dice with polyp size and brightness |
 | `figures/` | training curves, Dice gap per seed, metric distributions |
@@ -132,16 +139,16 @@ python -m pytest -q
 
 ## Numbers for the report
 
-Runs completed: **{n_runs} of 10 planned** (as stated in the assignment). Evaluations completed: **{n_eval} in total (6 validation + 6 own-test + 6 external); 12 of 20 planned counting own-test and external evaluations.**
-In this repository the plan was 2 training datasets x 3 seeds = 6 runs (`train_config.yaml`).
+Runs completed: **{n_runs} of {planned_runs} planned** by the protocol ({n_datasets} training datasets x {protocol_seeds} seeds). Evaluations completed: **{n_eval} in total ({n_runs} validation + {n_runs} own-test + {n_runs} external); {n_runs * 2} of {planned_runs * 2} planned counting own-test and external evaluations.**
+This folder contains {n_seeds} seeds per training dataset.
 
-### Mean +/- SD over the 3 seeds
+### Mean +/- SD over the {n_seeds} seeds
 {md_table(cond)}
 
 HD95 in pixels (lower is better); miss is the share of images with an empty prediction (lower is better); all other metrics: higher is better.
 
 ### Gap = own test minus external (per seed, then summarised)
-Primary CI: t-based, df = 2 (t = 4.303). Secondary CI: cluster bootstrap.
+Primary CI: t-based, df = {n_seeds - 1} (t = {t_crit:.3f}). Secondary CI: cluster bootstrap.
 
 {md_table(gap_t)}
 
@@ -155,7 +162,7 @@ Primary CI: t-based, df = 2 (t = 4.303). Secondary CI: cluster bootstrap.
 {json.dumps(sel, indent=2) if sel else 'not generated yet (python -m train.extended errors)'}
 
 ## Caveats
-- Only 3 seeds: the t multiplier is 4.303, so intervals are wide.
+- {n_seeds} seeds per dataset: the t multiplier is {t_crit:.3f}{', so intervals are wide' if n_seeds < 5 else ''}.
 - The CVC test set has 91 frames from 5 video sequences; the bootstrap CI for CVC resamples these 5 sequences.
 - CVC-ClinicDB is split by video sequence, not by patient (see `outputs/audit_report.md`).
 - An effect measured here is the combined effect of everything that differs between the datasets; it is not attributed to a single factor.

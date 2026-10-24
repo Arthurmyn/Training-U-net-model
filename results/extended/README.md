@@ -13,7 +13,7 @@ Extended per-image metrics, seed statistics, error-analysis material and figures
 | `METRICS.md` | definitions of all metrics and statistics |
 | `acceptance_checks.json` | checks A and B (below) |
 | `metrics_by_condition.csv` | seed-level means, mean over seeds, sample SD, median over images, per evaluation set and metric |
-| `gap_by_seed.csv`, `gap_summary.csv` | gap per seed; mean gap, SD, t-based 95% CI (df = 2) and cluster-bootstrap 95% CI |
+| `gap_by_seed.csv`, `gap_summary.csv` | gap per seed; mean gap, SD, t-based 95% CI (df = seeds - 1) and cluster-bootstrap 95% CI |
 | `decision_rule.csv` | decision rule for Dice, delta 0.05 (main), 0.03, 0.10, on the t-based and the bootstrap CI |
 | `spearman.csv` | descriptive Spearman correlations of external Dice with polyp size and brightness |
 | `figures/` | training curves, Dice gap per seed, metric distributions |
@@ -46,8 +46,8 @@ python -m pytest -q
 
 ## Numbers for the report
 
-Runs completed: **6 of 10 planned** (as stated in the assignment). Evaluations completed: **18 in total (6 validation + 6 own-test + 6 external); 12 of 20 planned counting own-test and external evaluations.**
-In this repository the plan was 2 training datasets x 3 seeds = 6 runs (`train_config.yaml`).
+Runs completed: **6 of 10 planned** by the protocol (2 training datasets x 5 seeds). Evaluations completed: **18 in total (6 validation + 6 own-test + 6 external); 12 of 20 planned counting own-test and external evaluations.**
+This folder contains 3 seeds per training dataset.
 
 ### Mean +/- SD over the 3 seeds
 | evaluation set | images | dice | iou | precision | recall | hd95 | boundary_iou | miss |
@@ -114,7 +114,7 @@ Primary CI: t-based, df = 2 (t = 4.303). Secondary CI: cluster bootstrap.
 }
 
 ## Caveats
-- Only 3 seeds: the t multiplier is 4.303, so intervals are wide.
+- 3 seeds per dataset: the t multiplier is 4.303, so intervals are wide.
 - The CVC test set has 91 frames from 5 video sequences; the bootstrap CI for CVC resamples these 5 sequences.
 - CVC-ClinicDB is split by video sequence, not by patient (see `outputs/audit_report.md`).
 - An effect measured here is the combined effect of everything that differs between the datasets; it is not attributed to a single factor.
