@@ -21,7 +21,7 @@ import torch  # noqa: E402
 from .config import TrainConfig  # noqa: E402
 from .data import SegDataset  # noqa: E402
 from .evaluate import build_eval_sets  # noqa: E402
-from .extended import error_dir, ext_section, load_extended, load_model, predict_masks  # noqa: E402
+from .extended import error_dir, ext_section, get_device, load_extended, load_model, predict_masks  # noqa: E402
 from audit.load import natural_key  # noqa: E402
 
 CATEGORIES_TEXT = """# Error categories
@@ -90,7 +90,7 @@ def select_frames(cfg: TrainConfig, df: pd.DataFrame) -> Dict[str, object]:
 def render_panels(cfg: TrainConfig, frames: pd.DataFrame, src: str, ext: str, out: Path) -> None:
     """One PNG per frame: image, GT overlay, prediction overlay for each seed. No Dice values are drawn."""
     e = ext_section(cfg)
-    device = torch.device(e.get("device", "cpu"))
+    device = get_device(cfg)
     items = next(items for name, _, _, items, _ in build_eval_sets(cfg, src) if name == ext)
     index = {it.stem: i for i, it in enumerate(items)}
     chosen = [items[index[s]] for s in frames["stem"]]

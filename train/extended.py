@@ -50,6 +50,12 @@ def error_dir(cfg: TrainConfig) -> Path:
     return (cfg.base_dir / ext_section(cfg).get("error_dir", "error_analysis")).resolve()
 
 
+def get_device(cfg: TrainConfig) -> torch.device:
+    """Device for the extended analysis: ``extended.device`` (cpu by default; ``auto`` picks cuda, then mps, then cpu)."""
+    from .engine import select_device
+    return select_device(ext_section(cfg).get("device", "cpu"))
+
+
 def load_model(run_dir: Path, base_channels: int, device: torch.device) -> UNet:
     """The best checkpoint (by validation Dice) of a run, in eval mode."""
     model = UNet(3, base_channels).to(device)
@@ -74,7 +80,7 @@ def predict_masks(model: UNet, ds: SegDataset, device: torch.device, batch_size:
 def run_inference(cfg: TrainConfig, progress: bool = True) -> pd.DataFrame:
     """Extended metrics for every run and every evaluation set (same sets, preprocessing and threshold as the original)."""
     e = ext_section(cfg)
-    device = torch.device(e.get("device", "cpu"))
+    device = get_device(cfg)
     batch = int(e.get("batch_size", 16))
     d = float(e.get("boundary_iou_d", 5))
     thr = float(cfg.section("training").get("threshold", 0.5))

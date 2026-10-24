@@ -23,7 +23,7 @@ from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch  # noqa: E402
 
 from .config import TrainConfig  # noqa: E402
-from .extended import load_extended, load_model, out_dir, predict_masks  # noqa: E402
+from .extended import get_device, load_extended, load_model, out_dir, predict_masks  # noqa: E402
 from .extended_figures import COLORS, DPI, _style, figure_gap, figure_training_curves  # noqa: E402
 from .extended_stats import (HIGHER_IS_BETTER, METRICS, decide_delta, directions, gap_tables, preliminary,  # noqa: E402
                              seed_means, t_interval)
@@ -252,7 +252,7 @@ def fig_examples(cfg: TrainConfig, df: pd.DataFrame, cond: Condition, out: Path,
     """Best, median and worst frame (by the Dice of the shown model) of an external set: image, ground truth, prediction, overlay."""
     from .data import SegDataset
     from .evaluate import build_eval_sets
-    device = torch.device(cfg.section("extended").get("device", "cpu"))
+    device = get_device(cfg)
     items = next(it for name, _, _, it, _ in build_eval_sets(cfg, cond.source) if name == cond.eval_set)
     d = df[(df["eval_set"] == cond.eval_set) & (df["seed"] == seed) & (df["source"] == cond.source)].sort_values(["dice", "stem"]).reset_index(drop=True)
     picks = [("worst", d.iloc[0]), ("median", d.iloc[len(d) // 2]), ("best", d.iloc[-1])]
