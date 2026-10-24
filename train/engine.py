@@ -41,6 +41,24 @@ def select_device(preference: str = "auto") -> torch.device:
     return torch.device(pref)
 
 
+def describe_device(device: torch.device) -> str:
+    """One line for logs: 'cuda: NVIDIA ... (6.0 GB, CUDA 12.6)', 'mps' or 'cpu'."""
+    if device.type == "cuda":
+        p = torch.cuda.get_device_properties(device)
+        return f"cuda: {p.name} ({p.total_memory / 1024 ** 3:.1f} GB, CUDA {torch.version.cuda})"
+    return device.type
+
+
+def make_grad_scaler(device: torch.device, enabled: bool):
+    """Mixed-precision gradient scaler for CUDA (None elsewhere); uses torch.amp where available, else the older torch.cuda.amp."""
+    if device.type != "cuda":
+        return None
+    try:
+        return torch.amp.GradScaler("cuda", enabled=enabled)
+    except (AttributeError, TypeError):
+        return torch.cuda.amp.GradScaler(enabled=enabled)
+
+
 def set_seed(seed: int, deterministic: bool = False) -> None:
     """Seed python, numpy and torch (all devices)."""
     random.seed(seed)
@@ -128,7 +146,7 @@ def train_run(cfg: TrainConfig, source: str, seed: int, resume: bool = True, pro
 
     device = select_device(t.get("device", "auto"))
     set_seed(seed, bool(t.get("deterministic", False)))
-    log.info("run %s on %s (torch %s)", run_dir.name, device, torch.__version__)
+    log.info("run %s on %s (torch %s)", run_dir.name, describe_device(device), torch.__version__)
 
     parts, _ = load_items(cfg, source)
     size, thr = cfg.image_size, cfg.mask_threshold
@@ -145,7 +163,9 @@ def train_run(cfg: TrainConfig, source: str, seed: int, resume: bool = True, pro
     optimizer = torch.optim.AdamW(model.parameters(), lr=float(t["lr"]), weight_decay=float(t.get("weight_decay", 0.0)))
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=int(t.get("lr_patience", 5)))
     amp = bool(t.get("amp", False)) and device.type == "cuda"
-    scaler = torch.cuda.amp.GradScaler(enabled=amp) if device.type == "cuda" else None
+    scaler = make_grad_scaler(device, amp)
+    if device.type == "cuda" and not bool(t.get("deterministic", False)):
+        torch.backends.cudnn.benchmark = True        # fixed input size: let cuDNN pick the fastest kernels
 
     start_epoch, best, best_epoch, bad = 1, -1.0, 0, 0
     last_path = run_dir / "last.pt"
