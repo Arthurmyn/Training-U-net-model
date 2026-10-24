@@ -224,3 +224,29 @@ def test_min_epochs_delays_early_stopping(tmp_path):
     assert json.loads((d / "run.json").read_text())["epochs_run"] >= 4                    # patience 1 alone would stop after epoch 2
     d0 = train_run(cfg.override(**{"training.min_epochs": 0, "runs_dir": "runs_nomin"}), "a", 1, progress=False)
     assert json.loads((d0 / "run.json").read_text())["epochs_run"] <= json.loads((d / "run.json").read_text())["epochs_run"]
+
+
+# ---------------------------------------------------------------- end to end: collect everything in one folder (tiny CPU run)
+def test_collect_builds_the_whole_folder(tmp_path):
+    from train.collect import collect
+    from train.evaluate import evaluate_run
+    cfg_file = _project(tmp_path)
+    cfg = load_train_config(cfg_file).override(**{"seeds": [1, 2], "training.max_epochs": 2})
+    for source in ("a", "b"):
+        for seed in (1, 2):
+            evaluate_run(cfg, train_run(cfg, source, seed, progress=False), progress=False, examples=False)
+    out = collect(cfg, cfg_file, tmp_path / "final", skip_inference=False, with_examples=True, progress=False)
+    names = {p.relative_to(out).as_posix() for p in out.rglob("*") if p.is_file()}
+    for need in ("README.md", "MANIFEST.json", "METRICS.md", "tables/gap_summary.csv", "tables/decision_rule.csv", "tables/metrics_by_condition.csv",
+                 "per_image/per_image_metrics_extended.csv", "figures/fig01_study_design.png", "figures/fig03_dice_by_condition.png",
+                 "figures/fig05_all_metrics.png", "figures/fig06_gap_all_metrics.png", "figures/fig07_dice_by_polyp_size.png",
+                 "figures/fig08_examples_E2.png", "figures/fig08_examples_E4.png", "figures/figA1_training_curves.png", "figures/figA2_delta_sensitivity.png",
+                 "runs/a_seed1/metrics.csv", "runs/b_seed2/per_image_dice.csv", "config/train_config.yaml", "config/splits/a_split.json", "audit/audit_report.md"):
+        assert need in names, need
+    assert not any(n.endswith(".pt") for n in names)                       # weights only with --with-weights
+    manifest = json.loads((out / "MANIFEST.json").read_text())
+    assert manifest["n_files"] == len(names) - 1 and set(manifest["runs"]) == {"a_seed1", "a_seed2", "b_seed1", "b_seed2"}
+    gap = pd.read_csv(out / "tables" / "gap_summary.csv")
+    assert set(gap["n_seeds"]) == {2}
+    readme = (out / "README.md").read_text()
+    assert "Key numbers" in readme and str(tmp_path) not in readme and str(tmp_path) not in (out / "MANIFEST.json").read_text()
