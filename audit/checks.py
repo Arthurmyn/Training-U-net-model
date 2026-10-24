@@ -287,7 +287,10 @@ def find_duplicates(frames: Dict[str, pd.DataFrame], max_hamming: int) -> dict:
     exact_groups.sort(key=lambda g: natural_key(g["files"][0]))
 
     bits = hex_to_bits(allimg["phash"].tolist()).astype(np.float32)
-    agree = bits @ bits.T + (1 - bits) @ (1 - bits).T
+    # numpy 2.x with Apple's Accelerate library prints spurious "divide by zero" warnings for matmul even though the
+    # inputs are only 0 and 1 (so overflow and division are impossible); the result is exact, so they are silenced here.
+    with np.errstate(all="ignore"):
+        agree = bits @ bits.T + (1 - bits) @ (1 - bits).T
     dist = (PHASH_BITS - agree).astype(np.int16)
     iu, ju = np.where(np.triu(dist <= max(max_hamming, 8), k=1))
     pairs = []
