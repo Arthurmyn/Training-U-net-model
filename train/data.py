@@ -69,6 +69,16 @@ def load_items(cfg: TrainConfig, key: str) -> Tuple[Dict[str, List[Item]], List[
     parts = {name: [make(f) for f in names] for name, names in split["splits"].items()}
     all_items = [make(f) for f in ext["images"]]
     audit_splits.validate_split({k: [i.stem for i in v] for k, v in parts.items()}, [i.stem for i in all_items])
+    spec = (cfg.section("training").get("train_subset") or {}).get(key)
+    if spec:                                           # equal-size training: only the train part is reduced
+        from .subset import subset_path
+        path = subset_path(cfg, key, int(spec["size"]), int(spec["seed"]))
+        wanted = _read_json(path)["images"]            # fixed list written by `python -m train.make_subset`
+        by_file = {i.image_file: i for i in parts["train"]}
+        missing = [f for f in wanted if f not in by_file]
+        if missing or len(wanted) != int(spec["size"]):
+            raise ValueError(f"{path.name} does not match the train split of {ds.name} ({len(missing)} files not in train)")
+        parts["train"] = [by_file[f] for f in wanted]
     return parts, all_items
 
 
