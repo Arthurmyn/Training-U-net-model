@@ -18,14 +18,15 @@
 ## Порядок действий на ноутбуке, где идёт обучение
 ```bash
 git pull
+python -m train.check_gpu                                           # обязательно: должно быть `GPU OK` (см. docs/SETUP_ru.md, раздел GPU)
 python -m train.verify_data                                     # DATA OK
 python -m pytest -q                                             # необязательно, ~1 мин
 python -m train.run_all --config configs/equal_size.yaml --smoke   # проверка и оценка времени; затем удалите runs_smoke/
-python -m train.run_all --config configs/equal_size.yaml           # 10 запусков (можно прерывать и продолжать)
+python -m train.run_all --config configs/equal_size.yaml --device cuda   # 10 запусков (можно прерывать и продолжать); --device cuda запрещает откат на процессор
 python -m train.collect --config configs/equal_size.yaml           # собирает всё в final_results/
 ```
 - Прикидка времени (по первому эксперименту на RTX 3050): около 10 с на эпоху; один запуск 8-17 минут, всего примерно 1.5-3 часа. Точную оценку даст `--smoke`.
-- `collect` считает метрики заново по сохранённым весам на CPU (около 15-25 минут для 10 запусков), поэтому запускайте его на том же ноутбуке, где лежат `runs_equal/*/best.pt`. Веса в git не попадают.
+- `collect` считает метрики заново по сохранённым весам; в этом конфиге на видеокарте (`extended.device: auto`), поэтому быстро. Запускайте его на том же ноутбуке, где лежат `runs_equal/*/best.pt`. Веса в git не попадают. Мелкие различия в числах с плавающей точкой между GPU и CPU допустимы: проверка A в `collect` сравнивает пересчёт с исходной оценкой.
 - Если нужно проверить только обучение: `python -m train.run_all --config configs/equal_size.yaml --sources cvc --seeds 1`.
 
 ## Что появится
