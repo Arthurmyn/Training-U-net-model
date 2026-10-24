@@ -175,3 +175,52 @@ def test_analysis_on_synthetic_results(project):
     text = summary.read_text()
     assert "Cause" in text and (cfg.results_dir / "fig_dice_distributions.png").is_file()
     assert str(cfg.base_dir) not in text
+
+
+# ---------------------------------------------------------------- equal-size training: config inheritance, subset, min_epochs
+def test_config_inheritance_and_project_root(tmp_path):
+    root = _project(tmp_path)
+    (tmp_path / "configs").mkdir()
+    child = {"project_root": "..", "base": "train_config.yaml", "runs_dir": "runs_equal", "seeds": [1, 2, 3, 4, 5],
+             "training": {"min_epochs": 7}}
+    (tmp_path / "configs" / "equal.yaml").write_text(yaml.safe_dump(child))
+    cfg = load_train_config(tmp_path / "configs" / "equal.yaml")
+    assert cfg.base_dir == tmp_path.resolve() and cfg.runs_dir == (tmp_path / "runs_equal").resolve()
+    assert cfg.seeds == [1, 2, 3, 4, 5]                                                   # lists are replaced
+    assert cfg.section("training")["min_epochs"] == 7 and cfg.section("training")["batch_size"] == 4   # dicts are merged
+    assert cfg.audit.datasets["a"].root == (tmp_path / "data" / "a").resolve()
+    assert root.exists()
+
+
+def test_fixed_subset_is_deterministic_reduces_only_train_and_is_validated(tmp_path):
+    from train.data import load_items
+    from train.subset import make_train_subset, select_subset
+    files = [f"{i}.png" for i in range(1, 41)]
+    a, b, c = select_subset(files, 10, 42), select_subset(list(reversed(files)), 10, 42), select_subset(files, 10, 43)
+    assert a == b and a != c and len(set(a)) == 10 and set(a) <= set(files)
+    with pytest.raises(ValueError):
+        select_subset(files, 41, 1)
+    cfg = load_train_config(_project(tmp_path)).override(**{"training.train_subset": {"a": {"size": 8, "seed": 42}}})
+    parts_full, ext_full = load_items(cfg.override(**{"training.train_subset": {}}), "a")
+    with pytest.raises(FileNotFoundError):
+        load_items(cfg, "a")                                                              # subset list not written yet
+    path = make_train_subset(cfg, "a", 8, 42)
+    parts, ext = load_items(cfg, "a")
+    assert len(parts["train"]) == 8 and len(parts_full["train"]) == 16
+    assert {i.stem for i in parts["train"]} <= {i.stem for i in parts_full["train"]}
+    assert [i.stem for i in parts["val"]] == [i.stem for i in parts_full["val"]] and len(parts["test"]) == len(parts_full["test"])
+    assert len(ext) == len(ext_full) == 24
+    body = json.loads(path.read_text())
+    body["images"][0] = "not_in_train.png"
+    path.write_text(json.dumps(body))
+    with pytest.raises(ValueError):
+        load_items(cfg, "a")                                                              # edited list no longer matches the split
+
+
+def test_min_epochs_delays_early_stopping(tmp_path):
+    cfg = load_train_config(_project(tmp_path)).override(**{"training.max_epochs": 6, "training.patience": 1, "training.lr": 1e-9,
+                                                            "training.min_epochs": 4, "runs_dir": "runs_min"})
+    d = train_run(cfg, "a", 1, progress=False)
+    assert json.loads((d / "run.json").read_text())["epochs_run"] >= 4                    # patience 1 alone would stop after epoch 2
+    d0 = train_run(cfg.override(**{"training.min_epochs": 0, "runs_dir": "runs_nomin"}), "a", 1, progress=False)
+    assert json.loads((d0 / "run.json").read_text())["epochs_run"] <= json.loads((d / "run.json").read_text())["epochs_run"]
