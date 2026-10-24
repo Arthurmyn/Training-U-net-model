@@ -66,20 +66,20 @@ rm -rf runs_smoke
 Запускайте **в фоне**, чтобы закрытая вкладка браузера не остановила обучение:
 ```bash
 cd /workspace/Training-U-net-model
-nohup python3 -m train.run_all > run_all.log 2>&1 &
-tail -f run_all.log          # выход из просмотра: Ctrl+C (обучение продолжится)
+mkdir -p runs && nohup python3 -m train.run_all > runs/run_all.log 2>&1 &
+tail -f runs/run_all.log          # выход из просмотра: Ctrl+C (обучение продолжится)
 ```
 Полезно: `nvidia-smi` (загрузка GPU), `ls runs/` (какие запуски готовы). Чтобы сначала проверить дёшево, запустите один сид:
 `python3 -m train.run_all --seeds 1`, затем остальные.
 
 ## 6. Если пропала связь или закрылась вкладка
 Обучение работает в фоне и продолжается. Если же pod был остановлен (Stop) и диск очищен, придётся повторить шаги 3-4: результаты уже готовых запусков будут потеряны, если вы их не скачали. Если подключён volume, всё лежит в `/workspace`. Снова откройте терминал и запустите ту же команду: завершённые запуски пропустятся, прерванный продолжится с последней эпохи.
-Проверьте командой `tail run_all.log` и `ls runs/`.
+Проверьте командой `tail runs/run_all.log` и `ls runs/`.
 
 ## 7. Скачать результаты (ДО удаления pod)
 ```bash
 cd /workspace/Training-U-net-model
-tar czf runs_results.tar.gz --exclude='*.pt' runs run_all.log        # маленький архив для статистики
+tar czf runs_results.tar.gz --exclude='*.pt' runs        # маленький архив для статистики
 tar czf weights.tar.gz $(find runs -name best.pt)                    # лучшие веса (по желанию, около 30 МБ на запуск)
 ```
 Скачайте через Jupyter (правый клик по файлу -> Download), либо `scp -P <ПОРТ> root@<АДРЕС>:/workspace/Training-U-net-model/runs_results.tar.gz .`.

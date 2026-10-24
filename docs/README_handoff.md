@@ -6,7 +6,7 @@
 | `runs/*/per_image_dice.csv` | то же по запускам (6 запусков) |
 | `runs/*/metrics.csv` | логи обучения по эпохам (train/val loss, train/val Dice, lr, секунды) |
 | `runs/*/run.json`, `eval_summary.json` | настройки, версии, GPU, лучшая эпоха, средние Dice |
-| `run_all.log` | общий лог запуска |
+| `runs/run_all.log` | общий лог запуска |
 | `config.yaml`, `train_config.yaml` | настройки аудита и обучения |
 | `outputs/audit_report.md`, `summary.json` | отчёт аудита |
 | `outputs/splits/` | зафиксированные разбиения и списки внешнего теста |
