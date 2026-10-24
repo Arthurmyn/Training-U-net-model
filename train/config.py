@@ -62,9 +62,26 @@ class TrainConfig:
         return TrainConfig(raw=raw, audit=self.audit, base_dir=self.base_dir)
 
 
+def _merge(base: Dict[str, Any], override: Dict[str, Any]) -> Dict[str, Any]:
+    """Recursive merge: dictionaries are merged key by key, every other value (lists too) is replaced."""
+    out = copy.deepcopy(base)
+    for key, value in override.items():
+        out[key] = _merge(out[key], value) if isinstance(value, dict) and isinstance(out.get(key), dict) else copy.deepcopy(value)
+    return out
+
+
 def load_train_config(path: str | Path = "train_config.yaml") -> TrainConfig:
-    """Load train_config.yaml and the audit config it points to (paths relative to the file)."""
+    """Load a training config and the audit config it points to.
+
+    Optional keys of a config file: ``project_root`` (folder that paths are relative to; default: the file's folder,
+    use ``..`` for a file in ``configs/``) and ``base`` (another config, relative to the project root, whose settings
+    are inherited; only the differences need to be written). ``audit_config`` is relative to the project root.
+    """
     path = Path(path).resolve()
     raw = yaml.safe_load(path.read_text(encoding="utf-8"))
-    audit = load_config(path.parent / raw.get("audit_config", "config.yaml"))
-    return TrainConfig(raw=raw, audit=audit, base_dir=path.parent)
+    base_dir = (path.parent / raw["project_root"]).resolve() if raw.get("project_root") else path.parent
+    if raw.get("base"):
+        base_raw = yaml.safe_load((base_dir / raw["base"]).read_text(encoding="utf-8"))
+        raw = _merge(base_raw, {k: v for k, v in raw.items() if k not in ("base", "project_root")})
+    audit = load_config(base_dir / raw.get("audit_config", "config.yaml"))
+    return TrainConfig(raw=raw, audit=audit, base_dir=base_dir)
