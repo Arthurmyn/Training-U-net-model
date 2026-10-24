@@ -1,7 +1,7 @@
 """Orchestration and CLI: ``python -m audit.run --config config.yaml``.
 
 ``run_audit`` computes everything in memory; ``write_outputs`` writes the files under ``outputs/``.
-The notebook ``audit.ipynb`` uses the same two functions.
+The notebook ``notebooks/audit.ipynb`` uses the same two functions.
 """
 from __future__ import annotations
 
