@@ -71,10 +71,10 @@ python -m pip install --upgrade pip
 
 ## 5. Остальные библиотеки
 ```bash
-pip install -r requirements-train.txt
+pip install -r requirements/train.txt
 ```
 Это numpy, pillow, pandas, scipy, matplotlib, pyyaml, tqdm, pytest, jupyter-инструменты. Если нужны **точно те же версии, что у меня**
-(проверены вместе), используйте вместо этого `pip install -r requirements-lock.txt` (PyTorch вы уже поставили на шаге 4).
+(проверены вместе), используйте вместо этого `pip install -r requirements/lock.txt` (PyTorch вы уже поставили на шаге 4).
 
 ## 6. Проверка установки (по порядку)
 ```bash
@@ -96,4 +96,4 @@ Smoke-тест в конце печатает оценку: «~N секунд н
 - **Windows: зависание или ошибки при `num_workers > 0`.** Оставьте `num_workers: 0` (так и стоит).
 - **DATA PROBLEM в verify_data.** Файлы отличаются от тех, на которых делался аудит: перераспакуйте архивы (шаг 2) и не смешивайте разные копии датасета.
 - **Нет прав / длинные пути на Windows.** Клонируйте в короткий путь, например `C:\work\unet`.
-- **Версия из `requirements-lock.txt` не ставится.** Используйте `requirements-train.txt` (без закрепления версий) и запишите версии: `pip freeze`.
+- **Версия из `requirements/lock.txt` не ставится.** Используйте `requirements/train.txt` (без закрепления версий) и запишите версии: `pip freeze`.

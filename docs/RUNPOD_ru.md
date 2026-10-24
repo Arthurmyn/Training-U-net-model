@@ -50,7 +50,7 @@ python3 -m zipfile -e data/CVC-ClinicDB.zip data/cvc_clinicdb
 ## 4. Окружение и проверки
 PyTorch уже стоит; доставляем остальное **без переустановки PyTorch**:
 ```bash
-python3 -m pip install -r requirements.txt            # не requirements-lock.txt: его закреплённые версии могут конфликтовать с шаблоном
+python3 -m pip install -r requirements.txt            # не requirements/lock.txt: его закреплённые версии могут конфликтовать с шаблоном
 nvidia-smi                                            # видеокарта видна
 python3 -c "import torch; print(torch.__version__, torch.cuda.is_available())"     # ожидаем: ... True
 python3 -m train.verify_data                          # ожидаем: DATA OK
