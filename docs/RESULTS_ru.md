@@ -50,7 +50,7 @@ U-Net (base_channels=32, ~7.8 млн параметров), обучение н�
 - `runs/<датасет>_seed<N>/`: `run.json`, `metrics.csv`, `per_image_dice.csv`, `eval_summary.json`, `examples_*.png`, **`best.pt`** (лучшие веса, 31 МБ).
 - `last.pt` (последняя эпоха, 93 МБ) в репозиторий не включены: они нужны только для продолжения прерванного обучения.
 - `results/`: итоговые таблицы и график (`python -m train.analyze` пересоздаёт их из `runs/`).
-- `run_all.log`: лог обучения.
+- `runs/run_all.log`: лог обучения.
 - Датасеты не в репозитории (`data/`); как их получить и проверить: `docs/SETUP_ru.md`, `python -m train.verify_data`.
 
 ## 7. Как подтянуть на другом ноутбуке
