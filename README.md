@@ -92,6 +92,16 @@ python -m pytest -q
 Definitions and results: `results/extended/METRICS.md` and `results/extended/README.md`. **CVC-trained models are under-trained
 (error E10 in `docs/errors_log.md`); all their results are labelled "preliminary (E10)".**
 
+### Equal-size experiment (429 + 429 training images, 5 seeds)
+`configs/equal_size.yaml` trains both datasets on the same number of images (a fixed random subset of Kvasir-SEG) with 5 seeds;
+results go to `runs_equal/` and `results_equal/`. After training, one command collects everything in `final_results/`:
+```bash
+python -m train.subset --config configs/equal_size.yaml     # fixed 429-image Kvasir subset (already committed)
+python -m train.run_all --config configs/equal_size.yaml
+python -m train.collect --config configs/equal_size.yaml    # statistics, figures, tables, logs, MANIFEST -> final_results/
+```
+See `docs/EQUAL_SIZE_RUNBOOK_ru.md` (steps, differences from the first experiment) and `docs/paper_figures_ru.md` (figure list).
+
 ## Notes on the audit
 - Near-duplicates use a 64-bit DCT perceptual hash (own implementation, `imagehash` not needed); threshold: Hamming <= 4 (`config.yaml`).
 - Masks are binarised with `value > 127`; polyps are counted as 4-connected components.
