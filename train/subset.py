@@ -1,4 +1,4 @@
-"""A fixed random subset of a dataset's training images (for equal-size training): ``python -m train.make_subset``.
+"""A fixed random subset of a dataset's training images (for equal-size training): ``python -m train.subset``.
 
 The subset is drawn once from the train part of the fixed split with a seeded generator, saved to
 ``outputs/splits/<key>_train_subset_<size>_seed<seed>.json`` and committed, so every run and every seed uses the same
