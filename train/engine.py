@@ -183,7 +183,7 @@ def train_run(cfg: TrainConfig, source: str, seed: int, resume: bool = True, pro
                       "epoch": epoch, "best": best, "best_epoch": best_epoch, "bad": bad, "rng_cpu": torch.get_rng_state()}, last_path)
         log.info("epoch %3d  train loss %.4f  val loss %.4f  val Dice %.4f  (best %.4f @ %d)  %.1fs",
                  epoch, tr_loss, va_loss, va_dice, best, best_epoch, row["seconds"])
-        if bad >= int(t["patience"]):
+        if bad >= int(t["patience"]) and epoch >= int(t.get("min_epochs", 0)):
             reason = f"early_stopping (no val improvement for {bad} epochs)"
             break
 
