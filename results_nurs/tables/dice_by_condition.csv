@@ -1,0 +1,7 @@
+trained on,evaluated on,condition,eval_set,images,clusters,seeds,mean Dice,CI95 low,CI95 high,SD across seeds
+CVC-ClinicDB,Kvasir-SEG,external (whole other dataset),kvasir_external,1000,1000,3,0.4248,0.4104,0.4388,0.0046
+CVC-ClinicDB,CVC-ClinicDB,in-domain test,cvc_test,91,5,3,0.3916,0.1849,0.5845,0.0217
+CVC-ClinicDB,CVC-ClinicDB,in-domain test,cvc_val,92,5,3,0.5184,0.4373,0.5968,0.0420
+Kvasir-SEG,CVC-ClinicDB,external (whole other dataset),cvc_external,612,29,3,0.6334,0.5660,0.6970,0.0411
+Kvasir-SEG,Kvasir-SEG,in-domain test,kvasir_test,100,100,3,0.8054,0.7657,0.8417,0.0358
+Kvasir-SEG,Kvasir-SEG,in-domain test,kvasir_val,100,100,3,0.8487,0.8184,0.8762,0.0326
