@@ -8,3 +8,8 @@ __pycache__/
 .venv/
 *.pt
 !runs/*/best.pt
+
+# Experiment outputs and notebooks
+outputs/
+*.ipynb
+runs/*/
