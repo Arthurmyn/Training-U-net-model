@@ -1,0 +1,61 @@
+{
+  "best_epoch": 48,
+  "best_val_dice": 0.4837246407633242,
+  "config": {
+    "augmentation": {
+      "hflip": 0.5,
+      "p_affine": 0.5,
+      "rotation_deg": 15,
+      "scale": [
+        0.9,
+        1.1
+      ],
+      "vflip": 0.5
+    },
+    "model": {
+      "base_channels": 32
+    },
+    "training": {
+      "amp": true,
+      "batch_size": 16,
+      "deterministic": false,
+      "device": "cuda",
+      "loss": "bce_dice",
+      "lr": 0.001,
+      "lr_patience": 5,
+      "max_epochs": 100,
+      "min_epochs": 50,
+      "num_workers": 0,
+      "patience": 15,
+      "threshold": 0.5,
+      "train_subset": {
+        "kvasir": {
+          "seed": 42,
+          "size": 429
+        }
+      },
+      "weight_decay": 0.0001
+    }
+  },
+  "environment": {
+    "device": "cuda",
+    "git_commit": "787989a238246a8f0be9c4b7ee43b910e3e8158f",
+    "git_dirty": true,
+    "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "numpy": "2.4.3",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "python": "3.14.3",
+    "torch": "2.14.1+cu126"
+  },
+  "epochs_run": 63,
+  "image_size": 256,
+  "limit": null,
+  "n_parameters": 7763041,
+  "n_train": 429,
+  "n_val": 92,
+  "seed": 1,
+  "source": "cvc",
+  "status": "finished",
+  "stop_reason": "early_stopping (no val improvement for 15 epochs)",
+  "train_seconds_this_session": 617.1
+}

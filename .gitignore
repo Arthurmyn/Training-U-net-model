@@ -9,3 +9,4 @@ __pycache__/
 .venv/
 *.pt
 !runs/*/best.pt
+!runs_equal/*/best.pt
