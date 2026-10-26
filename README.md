@@ -1,108 +1,266 @@
-# Training-U-net-model
-In this experiment we'll train U-net based models on 2 datasets: Kvasir-SEG and CVC-ClinicDB
-(train on one, test on the other, and the reverse; Dice per image).
+# Cross-Dataset Generalization of U-Net for Colorectal Polyp Segmentation
 
-The project has three parts: the **dataset audit and fixed splits** (`audit/`, `outputs/`), the **training and evaluation of the U-Net models** (`train/`, `runs/`, `results/`), and an **extended analysis** of the saved models (`results/extended/`, `error_analysis/`).
-The audit itself trains nothing; training is run with `python -m train.run_all` (see below).
+> **Status: research code in progress, not peer reviewed.** The first experiment is complete (3 seeds). The follow-up experiment with equal training-set sizes is **incomplete** (2 of 10 runs, see [Results](#12-results)). No claim in this document goes beyond the evidence listed in it.
 
-## Layout
-```
-README.md            this file
-config.yaml          audit settings: dataset paths, expected counts, seed, thresholds
-train_config.yaml    training, statistics and extended-analysis settings
-requirements.txt     libraries for the audit and the tests
-requirements/        train.txt (adds PyTorch), lock.txt (exact tested versions)
-audit/               package: dataset audit and fixed splits (python -m audit.run)
-train/               package: training, evaluation, statistics, extended analysis
-tests/               pytest tests on small synthetic data
-notebooks/           audit.ipynb: the audit step by step, with tables and figures
-data/                raw data (git-ignored, read-only) and data_checksums.sha256
-outputs/             audit results: report, per-image CSVs, splits/, figures
-runs/                one folder per trained model (logs, per-image Dice, best.pt) and run_all.log
-results/             statistics over all runs; extended/ has the additional metrics, CIs and figures
-error_analysis/      frames and annotation sheets for the error analysis
-docs/                instructions (Russian: SETUP, RUNBOOK, RUNPOD), research log, error log, results summary
-```
+## 1. Abstract
 
-## Data
-Extract the two archives so that `config.yaml` finds them:
-```
-data/kvasir_seg/Kvasir-SEG/Kvasir-SEG/{images,masks}      (1000 .jpg each)
-data/cvc_clinicdb/PNG/{Original,"Ground Truth"}            (612 .png each) + metadata.csv (sequence IDs)
-data/cvc_clinicdb/TIF/...                                  (optional second copy, used for a cross-check)
-```
-Images and masks are matched by filename stem. Change folders in `config.yaml` if your layout differs.
+This repository studies how a U-Net trained for binary colorectal polyp segmentation behaves when it is applied, without fine-tuning, to a second public colonoscopy dataset. The two datasets are Kvasir-SEG (1,000 images) and CVC-ClinicDB (612 video frames). Quality is measured by the Dice coefficient per image, together with IoU, precision, recall, HD95 and Boundary IoU.
 
-## Run
+In the first experiment (3 seeds), a model trained on 800 Kvasir-SEG images reached a mean Dice of 0.822 on the Kvasir-SEG test set and 0.655 on the whole CVC-ClinicDB set; the generalization gap is 0.167 (95% t-interval over seeds [0.079, 0.255]). The reverse direction cannot be interpreted yet: the CVC-ClinicDB-trained models (429 training frames) reached only 0.378 Dice on their own test set and are flagged as not converged (error E10). A second experiment with equal training-set size (429 images per dataset) and 5 seeds is planned, and only its first seed has been run.
+
+## 2. Research question
+
+**How much does the per-image Dice of a U-Net change when a model trained on one polyp dataset is evaluated on the other dataset, compared with its performance on held-out data of its own training dataset, and does this change exceed a practically relevant threshold?**
+
+The practical thresholds on the Dice gap are δ = 0.05 (primary), and δ = 0.03 and 0.10 (sensitivity analyses). The thresholds are taken from the project methodology and were fixed before the statistics in this repository were computed. The experiment measures the combined effect of everything that differs between the two datasets; it cannot attribute a change to a single factor such as brightness, resolution or annotation style.
+
+## 3. Motivation and background
+
+Segmentation models for colonoscopy are usually reported on a test split of the dataset they were trained on. Frames from the same patient or the same video sequence are nearly identical, so a within-dataset score can be optimistic, and a model may not transfer to other endoscopes, hospitals or annotation protocols. U-Net [1] is a standard baseline architecture for biomedical segmentation; this project uses it as a controlled baseline to quantify the transfer gap between two widely used polyp datasets [2, 3].
+
+## 4. Experimental objectives
+
+1. Build an auditable, reproducible data pipeline: dataset audit, fixed splits, duplicate and leakage checks (`audit/`, `outputs/`).
+2. Measure within-dataset and cross-dataset Dice per image for both transfer directions (`train/`, `runs/`).
+3. Quantify uncertainty separately between training runs (seeds) and between images (video sequences resampled together).
+4. Check whether the comparison is fair when the training sets differ in size (800 vs 429 images) by repeating training with equal sizes (`configs/equal_size.yaml`, in progress).
+
+## 5. Datasets
+
+| | Kvasir-SEG | CVC-ClinicDB |
+|---|---|---|
+| Content | 1,000 polyp images with binary masks | 612 colonoscopy frames with binary masks |
+| Image size | 333 distinct sizes, 332-1920 px wide and 352-1072 px high | 384 × 288 (single size) |
+| Mask files | JPEG (all 1,000 masks contain values other than 0/255) | PNG (138 of 612 masks contain values other than 0/255) |
+| Grouping | none available | frames from video sequences; the metadata file used here lists **29** sequences (the original description reports 31 sequences from 23 patients [4]; the difference is unresolved) |
+| Official source | https://datasets.simula.no/kvasir-seg/ [2] | https://polyp.grand-challenge.org/CVCClinicDB/ [3] |
+
+Audit results (`outputs/audit_report.md`, `outputs/summary.json`): all 1,000 and 612 image-mask pairs were found, no file is corrupt, no mask is empty, and no image-mask size mismatch exists. After binarisation (`value > 127`) every mask has exactly two classes.
+
+**Data terms.** CVC-ClinicDB is restricted to research and educational use and forbidden for commercial use; the images belong to Hospital Clínic, Barcelona, and the masks to the Computer Vision Center, Barcelona (official page, accessed during preparation of this README). The Kvasir-SEG terms could not be verified automatically; check the official page before redistributing anything derived from it. Raw data is **not** in this repository (`data/` is git-ignored). Derived example figures that show dataset images are committed (`outputs/`, `runs*/*/examples_*.png`, `error_analysis/frames/`, `results/**/figures`); review the dataset terms before making the repository public or reusing them.
+
+**Provenance of the archives used here.** The archives are listed with SHA-256 checksums in `data/data_checksums.sha256`. The CVC-ClinicDB archive contains `metadata.csv` (sequence IDs) and `class_dict.csv` next to the image folders. Their origin is not documented in the archive; they are treated as third-party metadata.
+
+## 6. Methodology and model architecture
+
+- **Model:** U-Net with four down/up-sampling stages, 3×3 convolutions with batch normalisation, transposed-convolution up-sampling and a 1×1 output layer (`train/model.py`); 32 base channels, 7,763,041 trainable parameters; one logit per pixel.
+- **Task:** binary semantic segmentation (polyp / background) at 256 × 256 pixels. Metrics describe pixel overlap and boundary agreement; no object-level detection metric (such as per-polyp hit rate) is computed.
+- **Loss:** binary cross-entropy plus soft Dice (`train/metrics.py`).
+- **Optimiser:** AdamW [5] with a plateau learning-rate scheduler driven by validation Dice.
+
+## 7. Experimental design
+
+| Direction | Training data | Model selection (validation) | Test |
+|---|---|---|---|
+| **A. Within dataset** | train split of dataset X | val split of dataset X | test split of dataset X |
+| **B. Cross dataset (no fine-tuning)** | train split of dataset X | val split of dataset X | **all** images of dataset Y |
+| **C. Reverse transfer** | train split of Y | val split of Y | all images of X |
+
+Within-dataset evaluation (A) answers how well the model works on unseen images from the same source. Cross-dataset evaluation (B, C) applies the frozen model to a different source; it estimates robustness to a change of data source. The generalization gap is **G = Dice(own test) − Dice(external)**. The external dataset is never read during training, checkpoint selection or learning-rate scheduling (`train/engine.py` loads only the train and val parts).
+
+**Conditions.** E1 = Kvasir-SEG → Kvasir-SEG test; E2 = Kvasir-SEG → CVC-ClinicDB (whole set); E3 = CVC-ClinicDB → CVC-ClinicDB test; E4 = CVC-ClinicDB → Kvasir-SEG (whole set).
+
+**Splits** (`outputs/splits/`, fixed seed 42, generated by `python -m audit.run`):
+
+| Dataset | Method | Train / val / test | Notes |
+|---|---|---|---|
+| Kvasir-SEG | random, seeded | 800 / 100 / 100 images | the dataset's own `train.txt` / `val.txt` (880 / 120) are not used |
+| CVC-ClinicDB | whole video sequences assigned to one part | 429 / 92 / 91 frames (19 / 5 / 5 sequences) | no sequence appears in two parts (checked) |
+
+**Experiments**
+
+| | Experiment 1 (complete) | Experiment 2, equal size (in progress) |
+|---|---|---|
+| Training images | Kvasir-SEG 800, CVC-ClinicDB 429 | 429 and 429 (fixed random Kvasir-SEG subset, `outputs/splits/kvasir_train_subset_429_seed42.json`) |
+| Seeds | 1, 2, 3 | 1-5 (only seed 1 run) |
+| Early stopping | patience 15 | patience 15, not before epoch 50 (`min_epochs`, an amendment decided after seeing experiment 1) |
+| Config / output | `train_config.yaml` → `runs/`, `results/` | `configs/equal_size.yaml` → `runs_equal/` |
+
+Results of the two experiments must not be pooled: the training sizes and the stopping rule differ.
+
+## 8. Data preprocessing and augmentation
+
+Preprocessing (`audit/preprocess.py`, identical for both datasets and for training and evaluation): resize to 256 × 256 (Pillow bilinear for images, nearest neighbour for masks), binarise masks with `value > 127`, scale pixels to [0, 1]. No dataset-specific normalisation is used. Resizing to a square changes the aspect ratio (median width/height 1.16 for Kvasir-SEG, 1.33 for CVC-ClinicDB). The preprocessing check (`outputs/fig_preprocessing_*.png`) found a maximum polyp-area change of 0.18 percentage points and no mask that became empty.
+
+Augmentation (training only, applied on the fly, no extra images are stored): horizontal and vertical flip (p = 0.5 each), and with p = 0.5 a random rotation up to ±15° with zoom 0.9-1.1. There is no brightness or colour augmentation.
+
+## 9. Training configuration
+
+| Setting | Value | Setting | Value |
+|---|---|---|---|
+| Optimiser | AdamW, lr 1e-3, weight decay 1e-4 | Batch size | 16 |
+| LR schedule | halve after 5 epochs without val-Dice gain | Max epochs | 100 |
+| Early stopping | patience 15 on val Dice | Threshold | 0.5 |
+| Mixed precision | on (CUDA only) | Selection rule | epoch with highest val Dice |
+
+Hyper-parameters were set by the implementer a priori and were **not tuned**; they are not taken from a published protocol. Every run records its seed, best epoch, configuration, Python and library versions, and the Git commit in `runs*/*/run.json`.
+
+## 10. Evaluation metrics
+
+Computed per image on the 256 × 256 prediction (threshold 0.5) and then averaged (definitions: `results/extended/METRICS.md`): Dice = 2TP/(2TP+FP+FN) (both masks empty → 1), IoU, precision, recall, HD95 between mask boundaries in pixels (362.04 for an empty prediction), Boundary IoU with a 5 px band [6], and the miss rate (share of empty predictions).
+
+**Statistics.** For each condition the mean is first taken over images (per seed). The gap G is computed per seed; the primary 95% interval is t-based over seeds (df = number of seeds − 1), the secondary one is a cluster bootstrap (10,000 resamples) in which whole video sequences are resampled for CVC-ClinicDB. Decision rule on a CI [L, U] and threshold δ: L > δ → meaningful drop; U < −δ → meaningful increase; [L, U] ⊂ [−δ, δ] → equivalence; otherwise inconclusive.
+
+## 11. Training and evaluation commands
+
 ```bash
-pip install -r requirements.txt
-python -m audit.run --config config.yaml     # terminal
-jupyter notebook notebooks/audit.ipynb       # or open the notebook
-pytest                                       # tests
+# environment (Python >= 3.9; PyTorch only for training)
+pip install -r requirements.txt                  # audit and tests
+pip install -r requirements/train.txt            # adds PyTorch; choose the CUDA build for your GPU first, see docs/SETUP_ru.md
+
+# data: place the two archives under data/ as described in "Reproducibility", then verify
+python -m audit.run --config config.yaml         # audit, fixed splits, outputs/
+python -m train.verify_data                      # file hashes equal the audited data
+python -m pytest -q                              # unit tests (CPU only)
+
+# training and evaluation (resumable; results in runs/ or runs_equal/)
+python -m train.check_gpu                        # shows whether a GPU is used
+python -m train.run_all --smoke                  # 2-epoch check, runs_smoke/
+python -m train.run_all                          # experiment 1 (train_config.yaml)
+python -m train.run_all --config configs/equal_size.yaml --device cuda   # experiment 2
+python -m train.run_all --config configs/equal_size.yaml --device cpu    # CPU alternative (much slower)
+python -m train.evaluate --run runs/kvasir_seed1 # evaluate one finished run
+
+# statistics, extended metrics, figures
+python -m train.analyze                          # Dice by condition and drop at transfer -> results/
+python -m train.extended inference               # recompute all metrics from best.pt (aborts if Dice differs from the original)
+python -m train.extended stats && python -m train.extended figures && python -m train.extended report
+python -m train.collect --config configs/equal_size.yaml   # everything of experiment 2 in final_results/
+python -m train.readme_tables                    # checks the tables in this README against results/
 ```
-Running twice gives byte-identical outputs (no timestamps, fixed seed, sorted file order).
 
-## Splits (committed, in `outputs/splits/`)
-- **Kvasir-SEG:** 800/100/100, random with seed 42 (`kvasir_split.json|csv`).
-- **CVC-ClinicDB:** whole video sequences go to one split (about 70/15/15 of frames), sequence IDs from `metadata.csv`.
-  If sequence IDs are missing, the code falls back to contiguous blocks and the report says it is an approximation.
-- `*_external_test.json`: the whole dataset, used when a model trained on the other dataset is tested.
-- The distribution's own `train.txt` / `val.txt` for Kvasir-SEG (880/120) are not used.
+Further instructions (in Russian): [`docs/SETUP_ru.md`](docs/SETUP_ru.md) (installation, GPU), [`docs/RUNBOOK_ru.md`](docs/RUNBOOK_ru.md), [`docs/EQUAL_SIZE_RUNBOOK_ru.md`](docs/EQUAL_SIZE_RUNBOOK_ru.md), [`docs/RUNPOD_ru.md`](docs/RUNPOD_ru.md).
 
-## Preprocessing check
-`audit/preprocess.py` implements the methodology's preprocessing (256x256, bilinear for images, nearest for masks,
-mask threshold > 127, pixels in [0, 1]); augmentation is training-only and not included. The audit writes
-`outputs/fig_preprocessing_<dataset>.png` (original image, original mask, preprocessed result, overlay for five polyp
-sizes) and checks every pair numerically. Look at the figures before training.
+## 12. Results
 
-## CVC-ClinicDB sequences
-The expected 31 sequences come from the original description (Vazquez et al. 2017: 31 sequences, 23 patients);
-`metadata.csv` lists 29 and the origin of the difference is unresolved. The audit checks that no listed sequence crosses
-train/val/test. Sequences are not patients: there is no patient ID, so patient-level leakage cannot be excluded.
+All numbers below are generated from the committed result files (`train/readme_tables.py`) and checked by a test. CVC-ClinicDB-trained rows are marked E10: those models did not reach a usable within-dataset baseline.
 
-## Training on another machine
-Everything for training is in `train/` (settings in `train_config.yaml`). Step-by-step instructions (in Russian):
-`docs/SETUP_ru.md` (install PyTorch and libraries, copy and verify the data) and `docs/RUNBOOK_ru.md` (run the full experiment,
-copy results back). Quick check of any machine: `python -m train.verify_data`, `pytest`, `python -m train.run_all --smoke`.
-Renting a GPU on RunPod instead: `docs/RUNPOD_ru.md`.
-`python -m train.analyze` turns the per-image Dice files into confidence intervals and a figure.
+### Experiment 1 (3 seeds; Kvasir-SEG 800 vs CVC-ClinicDB 429 training images)
 
-## Training, evaluation and extended analysis
-Two U-Net families (trained on Kvasir-SEG and on CVC-ClinicDB, seeds 1-3) are trained with the fixed splits from `outputs/splits/`
-and evaluated per image on their own val/test sets and on the whole other dataset.
-```bash
-python -m train.verify_data            # raw data identical to the audited data
-python -m train.run_all --smoke        # quick check of the setup and a time estimate
-python -m train.run_all                # train and evaluate all runs (resumable); results in runs/
-python -m train.analyze                # Dice by condition, drop at transfer, bootstrap CIs -> results/
-python -m train.export                 # results/per_image_metrics.csv (all runs in one file)
+<!-- BEGIN:exp1_results -->
+| ID | Trained on (images) | Evaluated on (images) | Dice | IoU | Precision | Recall | HD95 [px] | Boundary IoU | Miss rate |
+|---|---|---|---|---|---|---|---|---|---|
+| E1 | Kvasir-SEG (800) | Kvasir-SEG test (100) | 0.822 ± 0.003 | 0.739 ± 0.004 | 0.849 ± 0.010 | 0.845 ± 0.013 | 41.6 ± 3.4 | 0.374 ± 0.015 | 0.007 ± 0.006 |
+| E2 | Kvasir-SEG (800) | CVC-ClinicDB whole set (612) | 0.655 ± 0.036 | 0.562 ± 0.031 | 0.735 ± 0.016 | 0.698 ± 0.054 | 74.5 ± 6.2 | 0.272 ± 0.021 | 0.063 ± 0.036 |
+| E3 | CVC-ClinicDB (429) (under-trained, E10) | CVC-ClinicDB test (91) | 0.378 ± 0.036 | 0.288 ± 0.031 | 0.463 ± 0.065 | 0.411 ± 0.021 | 136.2 ± 10.1 | 0.078 ± 0.018 | 0.212 ± 0.023 |
+| E4 | CVC-ClinicDB (429) (under-trained, E10) | Kvasir-SEG whole set (1000) | 0.397 ± 0.007 | 0.277 ± 0.004 | 0.326 ± 0.011 | 0.780 ± 0.054 | 113.2 ± 3.7 | 0.062 ± 0.007 | 0.001 ± 0.002 |
+
+Mean ± sample SD over 3 seeds; each seed value is the mean over the images of the evaluation set.
+<!-- END:exp1_results -->
+
+Generalization gap (Dice), own test minus external:
+
+<!-- BEGIN:exp1_gap -->
+| Model | Own test | External | Gap G | SD of G | 95% CI (t, df = 2) | 95% CI (cluster bootstrap) | δ = 0.05 | δ = 0.03 | δ = 0.10 |
+|---|---|---|---|---|---|---|---|---|---|
+| Kvasir-SEG-trained | 0.822 | 0.655 | 0.167 | 0.035 | [0.079, 0.255] | [0.087, 0.251] | meaningful drop | meaningful drop | inconclusive |
+| CVC-ClinicDB-trained (E10) | 0.378 | 0.397 | -0.019 | 0.029 | [-0.091, 0.054] | [-0.241, 0.181] | inconclusive | inconclusive | equivalence |
+<!-- END:exp1_gap -->
+
+![Dice by condition](results/extended/paper_figures/fig03_dice_by_condition.png)
+![Dice gap per seed](results/extended/paper_figures/fig04_gap_per_seed_dice.png)
+![All metrics](results/extended/paper_figures/fig05_all_metrics.png)
+
+**Observations (experiment 1).** (i) Kvasir-SEG-trained models score 0.822 on their own test set and 0.655 on CVC-ClinicDB; the gap's t-interval lies entirely above δ = 0.05 and 0.03 and does not decide δ = 0.10. (ii) The CVC-ClinicDB-trained models reach only 0.378 on their own test set, below their score on Kvasir-SEG, so no within-dataset baseline exists for direction C and **no statement about reverse-direction generalization is supported**. (iii) With 3 seeds the t multiplier is 4.303, so intervals are wide. (iv) The two directions are not comparable because the training sizes differ.
+
+### Experiment 2 (equal training size 429 + 429, 5 seeds) — incomplete
+
+<!-- BEGIN:equal_pilot -->
+| Trained on | Seed | Train images | Epochs | Best epoch | Val Dice | Own test Dice (images) | External Dice (images) |
+|---|---|---|---|---|---|---|---|
+| CVC-ClinicDB | 1 | 429 | 63 | 48 | 0.484 | 0.364 (91) | 0.427 (1000) |
+| Kvasir-SEG | 1 | 429 | 100 | 88 | 0.842 | 0.784 (100) | 0.628 (612) |
+
+**Status: 2 of 10 planned runs finished.** Single-seed values; no confidence intervals can be computed yet.
+<!-- END:equal_pilot -->
+
+Pending: seeds 2-5 for both datasets (`python -m train.run_all --config configs/equal_size.yaml --device cuda`), then `python -m train.collect --config configs/equal_size.yaml`. The single-seed values must not be compared with experiment 1 as if the settings were the same (different Kvasir-SEG training size and stopping rule). In seed 1 the CVC-ClinicDB model's best epoch moved from 14-31 (experiment 1) to 48, and its validation Dice (0.484) is still far below its training Dice (see `runs_equal/cvc_seed1/metrics.csv`), so the within-dataset baseline remains weak.
+
+## 13. Error analysis
+
+Quantitative indicators from experiment 1 (nothing here is a manual annotation):
+
+<!-- BEGIN:exp1_errors -->
+- Kvasir-SEG-trained model on CVC-ClinicDB (E2): 165 of 612 frames have seed-averaged Dice < 0.5.
+- Share of images with an empty prediction (miss rate): E1 0.7%, E2 6.3%, E3 21.2%, E4 0.1%.
+- Spearman ρ between per-image Dice and ground-truth polyp area, Kvasir-SEG-trained on CVC-ClinicDB: 0.13 (n = 612; descriptive).
+- Spearman ρ between per-image Dice and ground-truth polyp area, CVC-ClinicDB-trained on Kvasir-SEG: 0.80 (n = 1000; descriptive).
+
+Dice by ground-truth polyp size (bins are quartiles of the area at 256 px over all evaluated images; mean ± SD over seeds; n = images):
+
+| ID | small (< 4.4% of image) | medium (4.4-17.1%) | large (> 17.1%) |
+|---|---|---|---|
+| E1 | 0.721 ± 0.057 (n = 13) | 0.846 ± 0.011 (n = 50) | 0.825 ± 0.014 (n = 37) |
+| E2 | 0.585 ± 0.017 (n = 200) | 0.689 ± 0.050 (n = 320) | 0.687 ± 0.032 (n = 92) |
+| E3 | 0.215 ± 0.040 (n = 34) | 0.446 ± 0.039 (n = 51) | 0.731 ± 0.082 (n = 6) |
+| E4 | 0.137 ± 0.012 (n = 168) | 0.349 ± 0.011 (n = 508) | 0.606 ± 0.017 (n = 324) |
+<!-- END:exp1_errors -->
+
+![Dice by polyp size](results/extended/paper_figures/fig07_dice_by_polyp_size.png)
+![Examples E2](results/extended/paper_figures/fig08_examples_E2.png)
+
+Dice is lowest for small polyps in every condition. The CVC-ClinicDB-trained models are weakest there (0.215 on E3, 0.137 on E4) and return an empty prediction for 21.2% of their own test frames; the Kvasir-SEG-trained models show a smaller size dependence (0.585 on small vs 0.689 on medium polyps in E2). **Manual categorisation of failure cases is pending**: sheets and rules are prepared in `error_analysis/` (150 frames, two blank annotator sheets, `CATEGORIES.md`); after both are filled run `python -m train.analyze_errors` for Cohen's κ.
+
+## 14. Reproducibility
+
+| Item | State |
+|---|---|
+| Seeds | recorded in `run.json`; Python, NumPy, PyTorch seeded; GPU kernels are not bit-deterministic unless `training.deterministic: true` |
+| Checkpoints | best epoch by validation Dice: `runs*/<dataset>_seed<N>/best.pt` (tracked in Git, 31 MB each) |
+| Training environment | Windows 11, RTX 3050 6 GB Laptop GPU, Python 3.14.3, PyTorch 2.14.1+cu126, NumPy 2.4.3 |
+| Analysis environment | macOS (Apple Silicon), Python 3.9.6, PyTorch 2.8.0 (`requirements/lock.txt` documents this set) |
+| Commit of each run | `git_commit` in `run.json`; all runs have `git_dirty: true` (uncommitted changes on the training machine). For `runs/` the recorded hashes refer to the history before it was rewritten; use [`docs/history_rewrite_map.csv`](docs/history_rewrite_map.csv) to find the current hash |
+| Re-computation | recomputed Dice reproduces the stored per-image Dice (max abs. difference 0.0022, `results/extended/acceptance_checks.json`); `train.analyze` reproduces `results/tables/` identically from the stored per-image files |
+| Hardware | training: GPU recommended (about 10-20 s per epoch on the RTX 3050); `--device cpu` works but is much slower |
+
+**Data placement** (paths in `config.yaml`):
+
 ```
-The extended analysis re-runs the saved weights (`runs/*/best.pt`, no retraining) and adds IoU, precision, recall, HD95, Boundary IoU and
-miss, statistics over the 3 seeds (t-based CI with df = 2 and cluster bootstrap), the decision rule for Dice, figures and material for an
-error analysis. Nothing under `runs/`, `outputs/` or the original `results/` files is changed.
-```bash
-python -m train.extended inference     # about 10-15 min on CPU; aborts if the recomputed Dice does not match the original
-python -m train.extended stats
-python -m train.extended figures
-python -m train.extended errors        # error_analysis/: frames, panels, blank sheets annotator_A.csv / annotator_B.csv
-python -m train.extended report        # results/extended/README.md, METRICS.md
-python -m train.analyze_errors         # after both annotation sheets are filled: Cohen's kappa, confusion matrix
-python -m pytest -q
+data/kvasir_seg/Kvasir-SEG/Kvasir-SEG/{images,masks}      1000 .jpg each
+data/cvc_clinicdb/PNG/{Original,"Ground Truth"}            612 .png each, plus metadata.csv
 ```
-Definitions and results: `results/extended/METRICS.md` and `results/extended/README.md`. **CVC-trained models are under-trained
-(error E10 in `docs/errors_log.md`); all their results are labelled "preliminary (E10)".**
 
-### Equal-size experiment (429 + 429 training images, 5 seeds)
-`configs/equal_size.yaml` trains both datasets on the same number of images (a fixed random subset of Kvasir-SEG) with 5 seeds;
-results go to `runs_equal/` and `results_equal/`. After training, one command collects everything in `final_results/`:
-```bash
-python -m train.subset --config configs/equal_size.yaml     # fixed 429-image Kvasir subset (already committed)
-python -m train.run_all --config configs/equal_size.yaml
-python -m train.collect --config configs/equal_size.yaml    # statistics, figures, tables, logs, MANIFEST -> final_results/
+## 15. Repository structure
+
 ```
-See `docs/EQUAL_SIZE_RUNBOOK_ru.md` (steps, differences from the first experiment) and `docs/paper_figures_ru.md` (figure list).
+config.yaml, train_config.yaml, configs/   settings (audit; training; equal-size experiment)
+audit/       dataset audit, fixed splits, duplicate and leakage checks
+train/       model, training, evaluation, statistics, extended metrics, figures, collection
+tests/       unit and end-to-end tests on small synthetic data (CPU)
+notebooks/   audit.ipynb (the audit step by step)
+outputs/     audit report, per-image statistics, fixed splits
+runs/, runs_equal/   one folder per trained model: logs, per-image Dice, best.pt
+results/     statistics, extended metrics, figures;  results/extended/paper_figures/
+error_analysis/   frames and annotation sheets
+docs/        instructions (Russian), research log, error log, validity audit
+```
 
-## Notes on the audit
-- Near-duplicates use a 64-bit DCT perceptual hash (own implementation, `imagehash` not needed); threshold: Hamming <= 4 (`config.yaml`).
-- Masks are binarised with `value > 127`; polyps are counted as 4-connected components.
-- Findings and limitations are written to `outputs/audit_report.md` (section "Problems found").
+## 16. Limitations and threats to validity
+
+The full audit with evidence and recommended fixes is in [`docs/validity_audit.md`](docs/validity_audit.md). The main points:
+
+1. **CVC-ClinicDB-trained models are not usable as a baseline yet** (E10); experiment 1 compares unequal training sizes.
+2. **Leakage control is partial.** Kvasir-SEG has no patient or sequence information; CVC-ClinicDB is split by video sequence, not by patient (23 patients for 29-31 sequences), so patient-level overlap between train and test cannot be excluded. Near-duplicates were checked with a perceptual hash (7 pairs inside Kvasir-SEG, 183 inside CVC-ClinicDB, none between the datasets at a distance of at most 4 bits); only two pairs were reviewed by hand.
+3. **Small and correlated test sets.** The CVC-ClinicDB test set has 91 frames from 5 sequences; its bootstrap interval is very wide.
+4. **Protocol amendment after seeing results.** `min_epochs: 50` in experiment 2 was chosen from the training curves of experiment 1, but after its test and external results were already known; it is documented as an amendment, not as a pre-specified rule.
+5. **Own-test and external sets are different images.** G mixes domain shift with differences in difficulty between the evaluation sets.
+6. **Metrics are computed at 256 × 256** after an aspect-ratio-changing resize, not at the original resolution.
+7. **Three seeds** give wide t-intervals; five are planned.
+8. The sequence count (29 vs 31) and the origin of `metadata.csv` are unresolved.
+
+## 17. References
+
+1. O. Ronneberger, P. Fischer, T. Brox. *U-Net: Convolutional Networks for Biomedical Image Segmentation.* MICCAI 2015, LNCS 9351, pp. 234-241. arXiv:[1505.04597](https://arxiv.org/abs/1505.04597).
+2. D. Jha, P. H. Smedsrud, M. A. Riegler, P. Halvorsen, T. de Lange, D. Johansen, H. D. Johansen. *Kvasir-SEG: A Segmented Polyp Dataset.* MultiMedia Modeling (MMM) 2020, LNCS 11962, pp. 451-462. DOI [10.1007/978-3-030-37734-2_37](https://doi.org/10.1007/978-3-030-37734-2_37); arXiv:[1911.07069](https://arxiv.org/abs/1911.07069).
+3. J. Bernal, F. J. Sánchez, G. Fernández-Esparrach, D. Gil, C. Rodríguez, F. Vilariño. *WM-DOVA maps for accurate polyp highlighting in colonoscopy: Validation vs. saliency maps from physicians.* Computerized Medical Imaging and Graphics 43 (2015) 99-111. DOI [10.1016/j.compmedimag.2015.02.007](https://doi.org/10.1016/j.compmedimag.2015.02.007). The CVC-ClinicDB page asks to cite this paper.
+4. D. Vázquez, J. Bernal, et al. *A Benchmark for Endoluminal Scene Segmentation of Colonoscopy Images.* Journal of Healthcare Engineering 2017, 4037190. DOI [10.1155/2017/4037190](https://doi.org/10.1155/2017/4037190); arXiv:[1612.00799](https://arxiv.org/abs/1612.00799). Source of the figures "31 sequences, 23 patients".
+5. I. Loshchilov, F. Hutter. *Decoupled Weight Decay Regularization.* ICLR 2019. arXiv:[1711.05101](https://arxiv.org/abs/1711.05101).
+6. B. Cheng, R. Girshick, P. Dollár, A. C. Berg, A. Kirillov. *Boundary IoU: Improving Object-Centric Image Segmentation Evaluation.* CVPR 2021. DOI [10.1109/CVPR46437.2021.01508](https://doi.org/10.1109/CVPR46437.2021.01508); arXiv:[2103.16562](https://arxiv.org/abs/2103.16562).
+
+## 18. Citation
+
+If you use this code, cite the repository using [`CITATION.cff`](CITATION.cff) (GitHub shows a "Cite this repository" button), and cite the dataset publications [2, 3] and U-Net [1]. The repository has no DOI and has not been published in a peer-reviewed venue.
+
+## 19. License
+
+No license file is present at the time of writing, so all rights are reserved by default. The datasets have their own terms (see [Datasets](#5-datasets)).

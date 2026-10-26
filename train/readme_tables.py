@@ -131,10 +131,10 @@ def build_blocks() -> Dict[str, str]:
 def apply_blocks(text: str, blocks: Dict[str, str]) -> str:
     """Replace the content between the BEGIN/END markers of each block."""
     for name, body in blocks.items():
-        pattern = re.compile(rf"(<!-- BEGIN:{name} -->\n).*?(\n<!-- END:{name} -->)", re.S)
+        pattern = re.compile(rf"(<!-- BEGIN:{name} -->\n)(?:.*?\n)?(<!-- END:{name} -->)", re.S)
         if not pattern.search(text):
             raise ValueError(f"README.md has no block '{name}'")
-        text = pattern.sub(lambda m: m.group(1) + body + m.group(2), text)
+        text = pattern.sub(lambda m: m.group(1) + body + "\n" + m.group(2), text)
     return text
 
 
