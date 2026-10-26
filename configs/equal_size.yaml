@@ -21,4 +21,4 @@ extended:
   output_dir: results_equal/extended
   error_dir: error_analysis_equal
   device: auto                    # use the GPU for the metric re-computation too (small float differences are covered by acceptance check A)
-  preliminary_sources: []         # CVC-trained results are no longer labelled preliminary once training is checked (see docs)
+  preliminary_sources: [cvc]      # Retained after five seeds: weak CVC baseline; completing training does not resolve E10.

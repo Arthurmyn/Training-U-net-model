@@ -1,6 +1,6 @@
 # Cross-Dataset Generalization of U-Net for Colorectal Polyp Segmentation
 
-> **Status: research code in progress, not peer reviewed.** The first experiment is complete (3 seeds). The follow-up experiment with equal training-set sizes is **incomplete** (2 of 10 runs, see [Results](#12-results)). No claim in this document goes beyond the evidence listed in it.
+> **Status: research code in progress, not peer reviewed.** The first experiment is complete (3 seeds). The follow-up experiment with equal training-set sizes is **trained for all five seeds** (10 of 10 runs; CVC results remain preliminary, see [Results](#12-results)). No claim in this document goes beyond the evidence listed in it.
 
 ## 1. Abstract
 
@@ -69,10 +69,10 @@ Within-dataset evaluation (A) answers how well the model works on unseen images 
 
 **Experiments**
 
-| | Experiment 1 (complete) | Experiment 2, equal size (in progress) |
+| | Experiment 1 (complete) | Experiment 2, equal size (5 seeds trained) |
 |---|---|---|
 | Training images | Kvasir-SEG 800, CVC-ClinicDB 429 | 429 and 429 (fixed random Kvasir-SEG subset, `outputs/splits/kvasir_train_subset_429_seed42.json`) |
-| Seeds | 1, 2, 3 | 1-5 (only seed 1 run) |
+| Seeds | 1, 2, 3 | 1-5 (all completed) |
 | Early stopping | patience 15 | patience 15, not before epoch 50 (`min_epochs`, an amendment decided after seeing experiment 1) |
 | Config / output | `train_config.yaml` → `runs/`, `results/` | `configs/equal_size.yaml` → `runs_equal/` |
 
@@ -163,18 +163,26 @@ Generalization gap (Dice), own test minus external:
 
 **Observations (experiment 1).** (i) Kvasir-SEG-trained models score 0.822 on their own test set and 0.655 on CVC-ClinicDB; the gap's t-interval lies entirely above δ = 0.05 and 0.03 and does not decide δ = 0.10. (ii) The CVC-ClinicDB-trained models reach only 0.378 on their own test set, below their score on Kvasir-SEG, so no within-dataset baseline exists for direction C and **no statement about reverse-direction generalization is supported**. (iii) With 3 seeds the t multiplier is 4.303, so intervals are wide. (iv) The two directions are not comparable because the training sizes differ.
 
-### Experiment 2 (equal training size 429 + 429, 5 seeds) — incomplete
+### Experiment 2 (equal training size 429 + 429, 5 seeds)
 
 <!-- BEGIN:equal_pilot -->
 | Trained on | Seed | Train images | Epochs | Best epoch | Val Dice | Own test Dice (images) | External Dice (images) |
 |---|---|---|---|---|---|---|---|
 | CVC-ClinicDB | 1 | 429 | 63 | 48 | 0.484 | 0.364 (91) | 0.427 (1000) |
+| CVC-ClinicDB | 2 | 429 | 50 | 7 | 0.460 | 0.273 (91) | 0.385 (1000) |
+| CVC-ClinicDB | 3 | 429 | 74 | 59 | 0.481 | 0.380 (91) | 0.424 (1000) |
+| CVC-ClinicDB | 4 | 429 | 50 | 16 | 0.461 | 0.332 (91) | 0.403 (1000) |
+| CVC-ClinicDB | 5 | 429 | 63 | 48 | 0.482 | 0.389 (91) | 0.425 (1000) |
 | Kvasir-SEG | 1 | 429 | 100 | 88 | 0.842 | 0.784 (100) | 0.628 (612) |
+| Kvasir-SEG | 2 | 429 | 100 | 85 | 0.764 | 0.741 (100) | 0.576 (612) |
+| Kvasir-SEG | 3 | 429 | 85 | 70 | 0.709 | 0.703 (100) | 0.506 (612) |
+| Kvasir-SEG | 4 | 429 | 87 | 72 | 0.825 | 0.795 (100) | 0.645 (612) |
+| Kvasir-SEG | 5 | 429 | 99 | 84 | 0.792 | 0.760 (100) | 0.597 (612) |
 
-**Status: 2 of 10 planned runs finished.** Single-seed values; no confidence intervals can be computed yet.
+**Status: 10 of 10 planned runs finished.** Per-run values; aggregate intervals are computed separately from all available seeds.
 <!-- END:equal_pilot -->
 
-Pending: seeds 2-5 for both datasets (`python -m train.run_all --config configs/equal_size.yaml --device cuda`), then `python -m train.collect --config configs/equal_size.yaml`. The single-seed values must not be compared with experiment 1 as if the settings were the same (different Kvasir-SEG training size and stopping rule). In seed 1 the CVC-ClinicDB model's best epoch moved from 14-31 (experiment 1) to 48, and its validation Dice (0.484) is still far below its training Dice (see `runs_equal/cvc_seed1/metrics.csv`), so the within-dataset baseline remains weak.
+All ten runs are complete. Seed 1 was trained on an RTX 3050 under Windows; seeds 2-5 were run by Nursultan Beisenbek in Kaggle on a Tesla T4 under Linux. Training settings and fixed data splits were retained; hardware and software environments differ and are recorded in each run.json. CVC-trained results remain preliminary: validation Dice remains below 0.5 for every seed, and seeds 2 and 4 select epochs 7 and 16 despite running for 50 epochs. Equal training size and a minimum epoch count have not resolved the weak within-dataset baseline. This experiment changes both Kvasir training size and the stopping rule relative to experiment 1; it does not isolate the effect of training size alone.
 
 ## 13. Error analysis
 
@@ -206,10 +214,10 @@ Dice is lowest for small polyps in every condition. The CVC-ClinicDB-trained mod
 | Item | State |
 |---|---|
 | Seeds | recorded in `run.json`; Python, NumPy, PyTorch seeded; GPU kernels are not bit-deterministic unless `training.deterministic: true` |
-| Checkpoints | best epoch by validation Dice: `runs*/<dataset>_seed<N>/best.pt` (tracked in Git, 31 MB each) |
-| Training environment | Windows 11, RTX 3050 6 GB Laptop GPU, Python 3.14.3, PyTorch 2.14.1+cu126, NumPy 2.4.3 |
-| Analysis environment | macOS (Apple Silicon), Python 3.9.6, PyTorch 2.8.0 (`requirements/lock.txt` documents this set) |
-| Commit of each run | `git_commit` in `run.json`; all runs have `git_dirty: true` (uncommitted changes on the training machine). For `runs/` the recorded hashes refer to the history before it was rewritten; use [`docs/history_rewrite_map.csv`](docs/history_rewrite_map.csv) to find the current hash |
+| Checkpoints | best epoch by validation Dice: `runs*/<dataset>_seed<N>/best.pt`; retained locally for every run. Newly imported weights are ignored by Git; preserve the downloaded archives or distribute weights separately. |
+| Training environment | Experiment 1 and equal-size seed 1: Windows 11, RTX 3050, Python 3.14.3, PyTorch 2.14.1+cu126, NumPy 2.4.3. Equal-size seeds 2-5: Kaggle Linux, Tesla T4, Python 3.13.15, PyTorch 2.11.0+cu128, NumPy 2.1.3. |
+| Analysis environment | Original analysis: macOS (Apple Silicon), Python 3.9.6, PyTorch 2.8.0 (`requirements/lock.txt`). Equal-size analysis on 2026-10-27: Linux CPU; exact versions are recorded in `final_results/MANIFEST.json`. |
+| Commit of each run | `git_commit` in `run.json`; original runs and equal-size seed 1 have `git_dirty: true`. In Kaggle, `kvasir_seed2` has `git_dirty: false`, and subsequent runs have `true`; that flag alone does not establish which files changed. For `runs/` the recorded hashes refer to the history before it was rewritten; use [`docs/history_rewrite_map.csv`](docs/history_rewrite_map.csv) to find the current hash |
 | Re-computation | recomputed Dice reproduces the stored per-image Dice (max abs. difference 0.0022, `results/extended/acceptance_checks.json`); `train.analyze` reproduces `results/tables/` identically from the stored per-image files |
 | Hardware | training: GPU recommended (about 10-20 s per epoch on the RTX 3050); `--device cpu` works but is much slower |
 
@@ -245,7 +253,7 @@ The full audit with evidence and recommended fixes is in [`docs/validity_audit.m
 4. **Protocol amendment after seeing results.** `min_epochs: 50` in experiment 2 was chosen from the training curves of experiment 1, but after its test and external results were already known; it is documented as an amendment, not as a pre-specified rule.
 5. **Own-test and external sets are different images.** G mixes domain shift with differences in difficulty between the evaluation sets.
 6. **Metrics are computed at 256 × 256** after an aspect-ratio-changing resize, not at the original resolution.
-7. **Three seeds** give wide t-intervals; five are planned.
+7. **Experiment 1 has three seeds; experiment 2 has five.** Both use the same fixed test splits, and uncertainty from correlated images and small sequence counts remains.
 8. The sequence count (29 vs 31) and the origin of `metadata.csv` are unresolved.
 
 ## 17. References

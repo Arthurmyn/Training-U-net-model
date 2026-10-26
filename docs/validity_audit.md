@@ -40,3 +40,9 @@ Scope: does the protocol implemented in this repository support the research que
 5. Evaluate at the original resolution as a robustness check of the 256 × 256 metrics.
 6. Complete the manual error categorisation (`error_analysis/`) and report Cohen's κ.
 7. If transfer is to be studied further: a fine-tuning arm and an intensity-normalisation ablation (a controlled test of brightness as a cause); detection-level metrics if polyp finding is of interest.
+
+## Update: 2026-10-27
+
+All ten equal-size runs are now finished (seeds 1-5 for each source). The table above records the 26 October audit; its one-seed completion statements are historical. Seeds 2-5 were run in Kaggle on Tesla T4/Linux by Nursultan Beisenbek; seed 1 used RTX 3050/Windows. The configuration files in the four imported archives match the repository at import. All runs use 429 training images, but the training environments differ.
+
+Completing the planned runs does not resolve the weak CVC baseline: best validation Dice is below 0.5 for all five seeds, and seeds 2 and 4 select epochs 7 and 16. The CVC preliminary flag is retained. No causal claim is made that more epochs, training size, or one dataset property explains the observed performance. Patient-level separation, sequence-count discrepancy, image permissions and independent manual error annotations remain unresolved.

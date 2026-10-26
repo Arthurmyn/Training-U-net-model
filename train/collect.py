@@ -100,9 +100,8 @@ def gather(cfg: TrainConfig, config_file: Path, out: Path, with_weights: bool = 
             written.append(_copy(png, out / "runs" / run.name / png.name))
         if with_weights and (run / "best.pt").is_file():
             written.append(_copy(run / "best.pt", out / "weights" / f"{run.name}.pt"))
-    log_file = cfg.runs_dir / "run_all.log"
-    if log_file.is_file():
-        written.append(_copy(log_file, out / "runs" / "run_all.log"))
+    for log_file in sorted(cfg.runs_dir.rglob("*.log")):
+        written.append(_copy(log_file, out / "runs" / log_file.relative_to(cfg.runs_dir)))
 
     # configuration, splits and audit
     for f in (config_file, cfg.base_dir / "train_config.yaml", cfg.base_dir / "config.yaml"):

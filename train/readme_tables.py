@@ -119,7 +119,7 @@ def equal_pilot(cfg_equal: TrainConfig) -> str:
                      f"{own['mean_dice']:.3f} ({own['n_images']})", f"{ext['mean_dice']:.3f} ({ext['n_images']})"])
     planned = len(cfg_equal.sources) * len(cfg_equal.seeds)
     return (_table(rows, ["Trained on", "Seed", "Train images", "Epochs", "Best epoch", "Val Dice", "Own test Dice (images)", "External Dice (images)"])
-            + f"\n\n**Status: {len(rows)} of {planned} planned runs finished.** Single-seed values; no confidence intervals can be computed yet.")
+            + f"\n\n**Status: {len(rows)} of {planned} planned runs finished.** Per-run values; aggregate intervals are computed separately from all available seeds.")
 
 
 def build_blocks() -> Dict[str, str]:
