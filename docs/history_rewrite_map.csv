@@ -1,0 +1,70 @@
+old_short_hash,new_short_hash,subject
+c05e2d9,fc9e65d,Initial commit
+2873f5f,981a06f,Add dataset audit and fixed splits for Kvasir-SEG and CVC-ClinicDB
+e7d8433,66545b3,Ignore .DS_Store
+7d41416,cae426e,Let the random split keep reviewed near-duplicates together
+6edb7a5,872d2d3,Record manual near-duplicate review and use it in the Kvasir split
+fb84492,a65a662,Add similarity numbers and a figure for reviewed near-duplicate pairs
+beee981,16d2c35,Freeze final Kvasir-SEG split lists
+966619a,7572f68,"Regenerate audit report, summary and review figure"
+57b20e2,7692fe4,Show the near-duplicate review in the notebook and re-run it
+c46ad0a,5a63bb4,Check that no CVC sequence crosses splits and document where 31 comes from
+76b3567,7c9efe6,Regenerate outputs with the sequence integrity check
+f871e28,50feb94,Add the methodology's preprocessing with a numeric self-check
+5b0af70,da1b15e,Add the mandatory preprocessing check to the audit and report
+f4a41b4,c677e98,"Fix pipeline test: synthetic data has no reviewed pairs, so no review figure"
+be127cf,4b871ff,Regenerate outputs with the preprocessing check and figures
+b227034,1f55d35,Show sequence check and preprocessing figures in the notebook and re-run it
+98b04f7,6cf7230,Document the preprocessing check and the CVC sequence caveats in the README
+3a6bd54,dc88131,Add training configuration and PyTorch requirements
+e7c62bd,031d909,"Add U-Net, Dice metric, training-only augmentation and split-based datasets"
+2a26a11,31ab4d4,"Add training loop, evaluation, run-all driver and data verification"
+deb9160,ab73ec3,Add statistics: cluster bootstrap CIs and practical-threshold readings
+330f93b,8d7ec32,Add tests for the training package
+50d48ed,533f9f3,Add tested package versions and checksums of the data archives
+65cfcc1,8147f61,Add installation instructions for the training laptop (Russian)
+1385183,4ae2804,Add the experiment runbook and link the docs from the README
+97ff1d5,da86edb,Add RunPod instructions (Russian)
+a9f97c6,c0bf23d,Link the RunPod instructions from the runbook and README
+d3f715d,eed9660,"Add experiment results, best weights and analysis; read/write text files as UTF-8"
+bf9204c,53b0716,"Align the RunPod guide with the current console (A40, 50 GB container disk)"
+1193ca6,e628c31,Add a combined per-image metrics file over all runs
+bdfa2f7,56d347c,"Add research log, error list and a guide to the handoff files"
+f87054b,f400245,Ignore the handoff archive
+ebeb786,a4ace88,"Add extended per-image metrics (IoU, precision, recall, HD95, Boundary IoU, miss)"
+e6a629f,57cd036,Expose build_eval_sets so other analyses reuse the same evaluation sets
+dd9e72d,affb66f,Add extended inference from saved weights with acceptance checks A and B
+3aa1eba,3243cfc,"Add seed statistics: gaps with t-based and bootstrap CIs, decision rule, Spearman"
+0ecd986,183cac2,"Add figures: training curves, Dice gap per seed, metric distributions"
+1bf5774,3bc482f,"Add error-analysis tooling: frame selection, panels, sheets, kappa"
+f80ae37,c0a9b11,Add error-analysis material for the main direction
+2da74f0,20c45bc,Describe training and extended analysis in the README
+06a8be3,7511600,Add the extended README with numbers for the report and METRICS.md
+24b2811,a6f754e,"Log the extended analysis: findings and two new error-log rows (E16, E17)"
+a8fb2d9,4912f78,Remove the stale handoff archive entry from .gitignore
+30dce32,debc183,Move requirements-train.txt and requirements-lock.txt into requirements/
+22182b4,dadf800,Move the training log into runs/ and fix the commands that write it
+593a68a,8787a03,Move data_checksums.sha256 into data/ next to the archives
+075d1e3,2967bf1,Move RESULTS_ru.md into docs/
+c0b3d07,f2ed202,Silence spurious matmul warnings in the duplicate search
+1065ab2,126944d,Move audit.ipynb into notebooks/ and let it find the project root
+74487f9,9ee4deb,Update the README layout for the new folder structure
+fa96eba,a18dfbe,Let a training config inherit another one and live in configs/
+5435846,64555a3,Add a fixed random subset of the training images (equal-size training)
+8114052,aefcdcd,Add training.min_epochs: early stopping cannot fire before it
+00c3471,c22c42b,"Test config inheritance, the fixed subset and min_epochs"
+f6d034a,6c63a4e,Fix the command name in the subset docs: python -m train.subset
+57945cb,51445c1,Point to python -m train.subset when the subset list is missing
+6160dff,c24f781,"Add the equal-size experiment config (429 images each, 5 seeds)"
+0ff7635,5a54d44,Add the fixed 429-image Kvasir-SEG training subset
+39c2d2c,2fcefd6,Make the extended report and figures depend on the actual number of seeds
+dd7374f,ee969b0,"Add the paper figure set (study design, dataset differences, Dice by condition, all metrics, gaps, polyp size, examples, equal-size comparison)"
+9830799,7ef0aae,Add python -m train.collect: run the analysis and gather all results in one folder
+af5c183,25dd9af,Test the full collection chain on tiny data
+5df25f1,0f45b0b,Add the equal-size runbook and the paper figure list (Russian)
+71c00a3,714c952,Document the equal-size experiment in the README and the research log
+49976e7,c4e5476,Regenerate METRICS.md with the seed count computed from the data
+c528614,579569c,"Use the current mixed-precision scaler, enable cuDNN autotune, describe the GPU in logs"
+63c5d4f,4868ba7,Let the extended analysis run on the GPU (extended.device: auto)
+c82d5b3,bc1eb02,Add python -m train.check_gpu and a --device flag; warn when training would use the CPU
+dc88d1e,787989a,Add the GPU section to the setup guide and the check to the runbook
