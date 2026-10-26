@@ -1,0 +1,23 @@
+# Citation metadata for this repository.
+# TODO (authors): replace the alias by full author names (given-names / family-names, optionally ORCID) and update
+# repository-code if the repository is renamed. No DOI, version or release date exists yet; do not add them until a release is made.
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below. Please also cite the dataset publications and the U-Net paper listed in the README."
+type: software
+title: "Cross-Dataset Generalization of U-Net for Colorectal Polyp Segmentation"
+abstract: >-
+  Research code for a controlled study of how a U-Net trained on one public colonoscopy dataset (Kvasir-SEG or CVC-ClinicDB)
+  performs on the other without fine-tuning: dataset audit, fixed splits, training, evaluation, statistics and figures.
+  Research code in progress; not peer reviewed.
+authors:
+  - alias: "Arthurmyn"
+repository-code: "https://github.com/Arthurmyn/Training-U-net-model"
+keywords:
+  - polyp segmentation
+  - colorectal polyp
+  - U-Net
+  - medical image segmentation
+  - cross-dataset generalization
+  - domain shift
+  - Kvasir-SEG
+  - CVC-ClinicDB
