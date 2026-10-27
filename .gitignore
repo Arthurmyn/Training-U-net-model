@@ -10,3 +10,12 @@ __pycache__/
 *.pt
 !runs/*/best.pt
 !runs_equal/*/best.pt
+
+# Figures that show frames of the datasets. CVC-ClinicDB is restricted to research and education and the Kvasir-SEG terms are
+# unverified, so these are kept out of the repository. Regenerate them locally (see README, section 13).
+error_analysis/frames/
+runs*/*/examples_*.png
+final_results/**/examples_*.png
+**/fig08_examples_*.png
+outputs/fig_preprocessing_*.png
+outputs/review_near_duplicates.png
