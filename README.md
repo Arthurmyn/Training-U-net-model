@@ -317,7 +317,7 @@ The full audit with evidence and recommended fixes is in [`docs/validity_audit.m
 
 ## 18. Citation
 
-Authors: Артур Джаксыгалиев, Нурсултан Бейсенбек. If you use this code, cite the repository using [`CITATION.cff`](CITATION.cff) (GitHub shows a "Cite this repository" button), and cite the dataset publications [2, 3] and U-Net [1]. The repository has no DOI and has not been published in a peer-reviewed venue.
+Authors: Artur Jaxygaliyev, Nursultan Beisenbek. If you use this code, cite the repository using [`CITATION.cff`](CITATION.cff) (GitHub shows a "Cite this repository" button), and cite the dataset publications [2, 3] and U-Net [1]. The repository has no DOI and has not been published in a peer-reviewed venue.
 
 ## 19. License
 
