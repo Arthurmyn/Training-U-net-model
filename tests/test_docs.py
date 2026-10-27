@@ -69,8 +69,10 @@ def test_citation_file_has_required_fields_and_no_invented_identifiers():
     cff = yaml.safe_load((ROOT / "CITATION.cff").read_text(encoding="utf-8"))
     assert cff["cff-version"] == "1.2.0" and cff["title"] and cff["authors"] and cff["message"]
     assert cff["repository-code"].startswith("https://github.com/")
-    for forbidden in ("doi", "version", "date-released", "license"):
+    for forbidden in ("doi", "version", "date-released"):
         assert forbidden not in cff, f"{forbidden} must not be invented"
+    assert cff.get("license") == "MIT" and "MIT License" in (ROOT / "LICENSE").read_text(encoding="utf-8")   # declared license must match the file
+    assert all("family-names" in a and "given-names" in a for a in cff["authors"])
 
 
 def test_no_private_paths_in_tracked_text_files():

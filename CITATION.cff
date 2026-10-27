@@ -1,6 +1,6 @@
 # Citation metadata for this repository.
-# TODO (authors): replace the alias by full author names (given-names / family-names, optionally ORCID) and update
-# repository-code if the repository is renamed. No DOI, version or release date exists yet; do not add them until a release is made.
+# Names are given in Cyrillic as provided by the authors; add Latin spellings (and ORCID) before a journal submission.
+# No DOI, version or release date exists yet; do not add them until a release is made.
 cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below. Please also cite the dataset publications and the U-Net paper listed in the README."
 type: software
@@ -10,7 +10,11 @@ abstract: >-
   performs on the other without fine-tuning: dataset audit, fixed splits, training, evaluation, statistics and figures.
   Research code in progress; not peer reviewed.
 authors:
-  - alias: "Arthurmyn"
+  - family-names: "Джаксыгалиев"
+    given-names: "Артур"
+  - family-names: "Бейсенбек"
+    given-names: "Нурсултан"
+license: MIT
 repository-code: "https://github.com/Arthurmyn/polyp-segmentation-generalization"
 keywords:
   - polyp segmentation
