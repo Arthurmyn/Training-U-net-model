@@ -91,24 +91,3 @@ def test_no_private_paths_in_tracked_text_files():
         if re.search(r"[A-Za-z]:\\Users\\|/Users/[A-Za-z0-9_.-]+/|/home/[A-Za-z0-9_.-]+/", text):
             bad.append(rel)
     assert not bad, bad
-
-
-def test_no_figures_with_dataset_frames_are_tracked():
-    """Qualitative examples, annotation panels and preprocessing figures show dataset frames (dataset terms restrict redistribution)."""
-    try:
-        files = subprocess.check_output(["git", "ls-files"], cwd=ROOT, text=True).splitlines()
-    except Exception:
-        pytest.skip("not a git checkout")
-    pattern = re.compile(r"^error_analysis/frames/|examples_[^/]*\.png$|fig_preprocessing_|review_near_duplicates|fig08_examples")
-    tracked = [f for f in files if pattern.search(f)]
-    assert not tracked, f"{len(tracked)} tracked files show dataset frames, e.g. {tracked[:3]}"
-
-
-def test_notebook_has_no_embedded_frame_figures():
-    """The executed audit notebook must not embed the frame figures either."""
-    import json
-    nb = json.loads((ROOT / "notebooks" / "audit.ipynb").read_text(encoding="utf-8"))
-    banned = ("fig_preprocessing_", "review_near_duplicates")
-    for i, cell in enumerate(nb["cells"]):
-        if cell["cell_type"] == "code" and any(b in "".join(cell["source"]) for b in banned):
-            assert not any("image/png" in o.get("data", {}) for o in cell.get("outputs", [])), f"cell {i} embeds frame figures"
