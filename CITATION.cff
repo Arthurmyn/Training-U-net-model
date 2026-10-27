@@ -10,10 +10,10 @@ abstract: >-
   performs on the other without fine-tuning: dataset audit, fixed splits, training, evaluation, statistics and figures.
   Research code in progress; not peer reviewed.
 authors:
-  - family-names: "Джаксыгалиев"
-    given-names: "Артур"
-  - family-names: "Бейсенбек"
-    given-names: "Нурсултан"
+  - family-names: "Jaxygaliyev"
+    given-names: "Artur"
+  - family-names: "Beisenbek"
+    given-names: "Nursultan"
 license: MIT
 repository-code: "https://github.com/Arthurmyn/polyp-segmentation-generalization"
 keywords:
