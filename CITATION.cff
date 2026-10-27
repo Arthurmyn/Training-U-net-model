@@ -1,5 +1,5 @@
 # Citation metadata for this repository.
-# Names are given in Cyrillic as provided by the authors; add Latin spellings (and ORCID) before a journal submission.
+# Names are given in Latin script as chosen by the authors; add ORCID identifiers before a journal submission if available.
 # No DOI, version or release date exists yet; do not add them until a release is made.
 cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below. Please also cite the dataset publications and the U-Net paper listed in the README."
