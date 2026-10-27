@@ -125,6 +125,7 @@ python -m train.evaluate --config configs/equal_size.yaml --run runs_equal/kvasi
 # statistics, extended metrics, figures, robustness checks
 python -m train.collect --config configs/equal_size.yaml                  # statistics, figures, tables -> final_results/
 python -m train.original_resolution --config configs/equal_size.yaml      # metrics at the original image size
+python -m train.figure_gallery --config configs/equal_size.yaml           # every figure of the experiment -> all_figures/
 python -m train.readme_tables                    # checks the tables in this README against final_results/
 ```
 
@@ -254,6 +255,7 @@ notebooks/   audit.ipynb (the audit step by step)
 outputs/     audit report, per-image statistics, fixed splits
 runs_equal/  one folder per trained model of the experiment: logs, per-image Dice, best.pt
 results_equal/, final_results/   statistics, figures, tables and the manifest of the experiment
+all_figures/ every figure of the experiment sorted by topic, with an index ([`all_figures/README.md`](all_figures/README.md))
 runs/, results/, error_analysis/   an earlier preliminary run set, kept for the record (see Limitations); not used for the conclusions
 docs/        instructions (Russian), research log, error log, validity audit, task plan
 ```
