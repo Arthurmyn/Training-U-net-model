@@ -65,8 +65,12 @@ def _export(cfg: TrainConfig) -> None:
     df.to_csv(cfg.results_dir / "per_image_metrics.csv", index=False, float_format="%.6f")
 
 
-def gather(cfg: TrainConfig, config_file: Path, out: Path, with_weights: bool = False, with_examples: bool = True) -> List[Path]:
-    """Copy the results into ``out`` and build the paper figures there. Returns all files written."""
+def gather(cfg: TrainConfig, config_file: Path, out: Path, with_weights: bool = False, with_examples: bool = False) -> List[Path]:
+    """Copy the results into ``out`` and build the paper figures there. Returns all files written.
+
+    Figures that show frames of the datasets (qualitative examples) are skipped unless ``with_examples`` is set:
+    the dataset terms restrict redistribution (CVC-ClinicDB: research and education only), so they are kept out of the repository.
+    """
     if out.exists():
         shutil.rmtree(out)                      # the folder is rebuilt from scratch so that it never mixes two states
     written: List[Path] = []
@@ -96,8 +100,9 @@ def gather(cfg: TrainConfig, config_file: Path, out: Path, with_weights: bool = 
         for name in ("metrics.csv", "run.json", "eval_summary.json", "per_image_dice.csv"):
             if (run / name).is_file():
                 written.append(_copy(run / name, out / "runs" / run.name / name))
-        for png in sorted(run.glob("examples_*.png")):
-            written.append(_copy(png, out / "runs" / run.name / png.name))
+        if with_examples:
+            for png in sorted(run.glob("examples_*.png")):
+                written.append(_copy(png, out / "runs" / run.name / png.name))
         if with_weights and (run / "best.pt").is_file():
             written.append(_copy(run / "best.pt", out / "weights" / f"{run.name}.pt"))
     for log_file in sorted(cfg.runs_dir.rglob("*.log")):
@@ -174,7 +179,7 @@ Dice gaps are reported with the t-based 95% CI over seeds as primary interval. A
 
 
 def collect(cfg: TrainConfig, config_file: Path, out: Path, skip_inference: bool = False, with_weights: bool = False,
-            with_errors: bool = False, with_examples: bool = True, progress: bool = True) -> Path:
+            with_errors: bool = False, with_examples: bool = False, progress: bool = True) -> Path:
     """Run the analysis chain and build the collected folder. Returns the folder."""
     run_analysis_chain(cfg, skip_inference, with_errors, progress)
     files = gather(cfg, config_file, out, with_weights, with_examples)
@@ -189,6 +194,7 @@ def main(argv=None) -> int:
     ap.add_argument("--skip-inference", action="store_true", help="reuse an existing per_image_metrics_extended.csv")
     ap.add_argument("--with-weights", action="store_true", help="also copy best.pt of every run")
     ap.add_argument("--with-errors", action="store_true", help="also create the error-analysis material")
+    ap.add_argument("--with-frames", action="store_true", help="also build and copy figures that show dataset frames (qualitative examples); keep them out of public repositories")
     ap.add_argument("--device", choices=["auto", "cuda", "mps", "cpu"], help="force the device (e.g. cuda: stop with an error instead of silently using the CPU)")
     ap.add_argument("--no-progress", action="store_true")
     args = ap.parse_args(argv)
@@ -197,7 +203,7 @@ def main(argv=None) -> int:
     cfg = load_train_config(config_file)
     if args.device:
         cfg = cfg.override(**{"training.device": args.device, "extended.device": args.device})
-    out = collect(cfg, config_file, (cfg.base_dir / args.out).resolve(), args.skip_inference, args.with_weights, args.with_errors, True, not args.no_progress)
+    out = collect(cfg, config_file, (cfg.base_dir / args.out).resolve(), args.skip_inference, args.with_weights, args.with_errors, args.with_frames, not args.no_progress)
     log.info("collected results in %s", out.relative_to(cfg.base_dir))
     return 0
 
