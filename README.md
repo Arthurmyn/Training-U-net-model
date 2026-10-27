@@ -6,7 +6,7 @@
 
 This repository studies how a U-Net trained for binary colorectal polyp segmentation behaves when it is applied, without fine-tuning, to a second public colonoscopy dataset. The two datasets are Kvasir-SEG (1,000 images) and CVC-ClinicDB (612 video frames). Quality is measured by the Dice coefficient per image, together with IoU, precision, recall, HD95 and Boundary IoU.
 
-In the first experiment (3 seeds), a model trained on 800 Kvasir-SEG images reached a mean Dice of 0.822 on the Kvasir-SEG test set and 0.655 on the whole CVC-ClinicDB set; the generalization gap is 0.167 (95% t-interval over seeds [0.079, 0.255]). The reverse direction cannot be interpreted yet: the CVC-ClinicDB-trained models (429 training frames) reached only 0.378 Dice on their own test set and are flagged as not converged (error E10). A second experiment with equal training-set size (429 images per dataset) and 5 seeds is planned, and only its first seed has been run.
+In the first experiment (3 seeds), a model trained on 800 Kvasir-SEG images reached a mean Dice of 0.822 on the Kvasir-SEG test set and 0.655 on the whole CVC-ClinicDB set; the generalization gap is 0.167 (95% t-interval over seeds [0.079, 0.255]). In the second experiment, both datasets were trained on the same number of images (429) with 5 seeds: the Kvasir-SEG-trained model reached 0.757 on its own test set and 0.590 on CVC-ClinicDB, a gap of 0.166 (95% t-interval over seeds [0.143, 0.189]), so equalising the training size lowered both scores but left the gap unchanged. The reverse direction cannot be interpreted: the CVC-ClinicDB-trained models reached only 0.348 on their own test set and 0.413 on Kvasir-SEG (gap −0.065), and their validation Dice stayed below 0.5 for every seed (error E10), so no reliable within-dataset baseline exists.
 
 ## 2. Research question
 
@@ -187,6 +187,52 @@ All ten runs are complete. Seed 1 was trained on an RTX 3050 under Windows; seed
 The five-seed CPU re-evaluation is collected in [`final_results/README.md`](final_results/README.md), with 9,975 image-run records and all seven metrics. Both numerical acceptance checks passed; maximum absolute Dice deviation from the saved GPU evaluations is below 0.002. At delta 0.05, the Kvasir-trained drop is supported by both the seed-based t interval and the cluster bootstrap; the CVC-trained direction is inconclusive and remains preliminary.
 
 
+### Experiment 2: aggregate results over 5 seeds
+
+<!-- BEGIN:exp2_results -->
+| ID | Trained on (images) | Evaluated on (images) | Dice | IoU | Precision | Recall | HD95 [px] | Boundary IoU | Miss rate |
+|---|---|---|---|---|---|---|---|---|---|
+| E1 | Kvasir-SEG (429) | Kvasir-SEG test (100) | 0.757 ± 0.036 | 0.656 ± 0.040 | 0.780 ± 0.035 | 0.806 ± 0.029 | 54.2 ± 5.8 | 0.289 ± 0.041 | 0.020 ± 0.010 |
+| E2 | Kvasir-SEG (429) | CVC-ClinicDB whole set (612) | 0.590 ± 0.054 | 0.498 ± 0.063 | 0.667 ± 0.085 | 0.639 ± 0.028 | 83.2 ± 6.5 | 0.218 ± 0.053 | 0.091 ± 0.026 |
+| E3 | CVC-ClinicDB (429) (under-trained, E10) | CVC-ClinicDB test (91) | 0.348 ± 0.047 | 0.261 ± 0.045 | 0.484 ± 0.049 | 0.353 ± 0.050 | 126.6 ± 13.5 | 0.072 ± 0.020 | 0.180 ± 0.052 |
+| E4 | CVC-ClinicDB (429) (under-trained, E10) | Kvasir-SEG whole set (1000) | 0.413 ± 0.018 | 0.291 ± 0.016 | 0.352 ± 0.003 | 0.762 ± 0.041 | 109.9 ± 1.7 | 0.065 ± 0.012 | 0.001 ± 0.001 |
+
+Mean ± sample SD over 5 seeds; each seed value is the mean over the images of the evaluation set.
+<!-- END:exp2_results -->
+
+Generalization gap (Dice), own test minus external:
+
+<!-- BEGIN:exp2_gap -->
+| Model | Own test | External | Gap G | SD of G | 95% CI (t, df = 4) | 95% CI (cluster bootstrap) | δ = 0.05 | δ = 0.03 | δ = 0.10 |
+|---|---|---|---|---|---|---|---|---|---|
+| Kvasir-SEG-trained | 0.757 | 0.590 | 0.166 | 0.018 | [0.143, 0.189] | [0.084, 0.252] | meaningful drop | meaningful drop | meaningful drop |
+| CVC-ClinicDB-trained (E10) | 0.348 | 0.413 | -0.065 | 0.030 | [-0.102, -0.029] | [-0.256, 0.131] | inconclusive | inconclusive | inconclusive |
+<!-- END:exp2_gap -->
+
+Gap of every seed, with the machine that trained it (seed 1 on a laptop GPU under Windows, seeds 2-5 on Kaggle under Linux; the machine is therefore confounded with seed 1 only):
+
+<!-- BEGIN:exp2_gap_by_seed -->
+| Seed | Trained on | Kvasir-SEG-trained | CVC-ClinicDB-trained |
+|---|---|---|---|
+| 1 | RTX 3050 6GB | 0.157 | -0.063 |
+| 2 | Tesla T4 | 0.165 | -0.112 |
+| 3 | Tesla T4 | 0.198 | -0.044 |
+| 4 | Tesla T4 | 0.150 | -0.072 |
+| 5 | Tesla T4 | 0.162 | -0.036 |
+| mean of seeds 2, 3, 4, 5 | same machine for all of them | 0.169 | -0.066 |
+<!-- END:exp2_gap_by_seed -->
+
+Kvasir-SEG-trained model in the two experiments (not a clean comparison: experiment 2 changes the training size, the stopping rule, the number of seeds and, for seeds 2-5, the hardware):
+
+<!-- BEGIN:size_comparison -->
+|  | Kvasir-SEG training images | Seeds | Own test Dice | CVC-ClinicDB Dice | Gap G | 95% CI (t over seeds) |
+|---|---|---|---|---|---|---|
+| Experiment 1 | 800 | 3 | 0.822 | 0.655 | 0.167 | [0.079, 0.255] |
+| Experiment 2 | 429 | 5 | 0.757 | 0.590 | 0.166 | [0.143, 0.189] |
+<!-- END:size_comparison -->
+
+**Observations (experiment 2).** (i) Equalising the training sizes lowered both Kvasir-SEG-trained scores (own test 0.822 → 0.757, external 0.655 → 0.590) but left the gap at 0.166 (experiment 1: 0.167). This is consistent with the gap not being caused by the 800 vs 429 difference in training size alone; it does not isolate that factor, because the stopping rule and the hardware also changed. The gap's t-interval [0.143, 0.189] lies entirely above δ = 0.10. (ii) The CVC-ClinicDB-trained models score 0.348 on their own test set and 0.413 on Kvasir-SEG; they do better on the other dataset than on their own test set. This points to a weak within-dataset baseline (validation Dice 0.460-0.484 for all seeds, selected epochs between 7 and 59), not to good generalization; **no statement about reverse-direction generalization is supported.** (iii) The t-interval over seeds describes variation between training runs for fixed test sets. The cluster bootstrap, which also resamples images and video sequences, is wider ([0.084, 0.252] for the Kvasir-SEG-trained model, [-0.256, 0.131] for the CVC-ClinicDB-trained models) and does not decide the CVC-ClinicDB direction.
+
 ## 13. Error analysis
 
 Quantitative indicators from experiment 1 (nothing here is a manual annotation):
@@ -217,7 +263,7 @@ Dice is lowest for small polyps in every condition. The CVC-ClinicDB-trained mod
 | Item | State |
 |---|---|
 | Seeds | recorded in `run.json`; Python, NumPy, PyTorch seeded; GPU kernels are not bit-deterministic unless `training.deterministic: true` |
-| Checkpoints | best epoch by validation Dice: `runs*/<dataset>_seed<N>/best.pt`; retained locally for every run. Newly imported weights are ignored by Git; preserve the downloaded archives or distribute weights separately. |
+| Checkpoints | best epoch by validation Dice: `runs*/<dataset>_seed<N>/best.pt` (16 files of 31 MB, tracked in Git; the repository pack is about 293 MB, so consider Git LFS or release assets before publishing) |
 | Training environment | Experiment 1 and equal-size seed 1: Windows 11, RTX 3050, Python 3.14.3, PyTorch 2.14.1+cu126, NumPy 2.4.3. Equal-size seeds 2-5: Kaggle Linux, Tesla T4, Python 3.13.15, PyTorch 2.11.0+cu128, NumPy 2.1.3. |
 | Analysis environment | Original analysis: macOS (Apple Silicon), Python 3.9.6, PyTorch 2.8.0 (`requirements/lock.txt`). Equal-size analysis on 2026-10-27: Linux CPU; exact versions are recorded in `final_results/MANIFEST.json`. |
 | Commit of each run | `git_commit` in `run.json`; original runs and equal-size seed 1 have `git_dirty: true`. In Kaggle, `kvasir_seed2` has `git_dirty: false`, and subsequent runs have `true`; that flag alone does not establish which files changed. For `runs/` the recorded hashes refer to the history before it was rewritten; use [`docs/history_rewrite_map.csv`](docs/history_rewrite_map.csv) to find the current hash |
@@ -250,13 +296,13 @@ docs/        instructions (Russian), research log, error log, validity audit
 
 The full audit with evidence and recommended fixes is in [`docs/validity_audit.md`](docs/validity_audit.md). The main points:
 
-1. **CVC-ClinicDB-trained models are not usable as a baseline yet** (E10); experiment 1 compares unequal training sizes.
+1. **CVC-ClinicDB-trained models are not usable as a baseline** (E10): in both experiments their own-test Dice is below their Dice on the other dataset, and validation Dice stays below 0.5. Experiment 1 compares unequal training sizes; experiment 2 equalises them but also changes the stopping rule and the hardware.
 2. **Leakage control is partial.** Kvasir-SEG has no patient or sequence information; CVC-ClinicDB is split by video sequence, not by patient (23 patients for 29-31 sequences), so patient-level overlap between train and test cannot be excluded. Near-duplicates were checked with a perceptual hash (7 pairs inside Kvasir-SEG, 183 inside CVC-ClinicDB, none between the datasets at a distance of at most 4 bits); only two pairs were reviewed by hand.
 3. **Small and correlated test sets.** The CVC-ClinicDB test set has 91 frames from 5 sequences; its bootstrap interval is very wide.
 4. **Protocol amendment after seeing results.** `min_epochs: 50` in experiment 2 was chosen from the training curves of experiment 1, but after its test and external results were already known; it is documented as an amendment, not as a pre-specified rule.
 5. **Own-test and external sets are different images.** G mixes domain shift with differences in difficulty between the evaluation sets.
 6. **Metrics are computed at 256 × 256** after an aspect-ratio-changing resize, not at the original resolution.
-7. **Experiment 1 has three seeds; experiment 2 has five.** Both use the same fixed test splits, and uncertainty from correlated images and small sequence counts remains.
+7. **Experiment 1 has three seeds; experiment 2 has five, trained on two different machines** (seed 1: RTX 3050 under Windows, seeds 2-5: Tesla T4 under Linux, different Python and PyTorch versions). Excluding seed 1 changes the gaps by less than 0.005 (table above), but hardware and seed cannot be separated for seed 1. The t-interval over seeds ignores the finite size of the test sets; the cluster bootstrap is the more conservative statement.
 8. The sequence count (29 vs 31) and the origin of `metadata.csv` are unresolved.
 
 ## 17. References

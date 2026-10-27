@@ -40,9 +40,9 @@ def _n_train(cfg: TrainConfig, source: str) -> int:
     return int(json.loads(next(cfg.runs_dir.glob(f"{source}_seed*/run.json")).read_text(encoding="utf-8"))["n_train"])
 
 
-def exp1_results(cfg: TrainConfig) -> str:
-    """E1-E4 of the first experiment: mean ± SD over seeds for every metric."""
-    ext = cfg.base_dir / "results" / "extended"
+def exp1_results(cfg: TrainConfig, ext: Path = None) -> str:
+    """E1-E4: mean ± SD over seeds for every metric (``ext`` = folder with metrics_by_condition.csv)."""
+    ext = ext or cfg.base_dir / "results" / "extended"
     mbc = pd.read_csv(ext / "metrics_by_condition.csv")
     names = _names(cfg)
     rows = []
@@ -62,9 +62,10 @@ def exp1_results(cfg: TrainConfig) -> str:
             + f"\n\nMean ± sample SD over {seeds} seeds; each seed value is the mean over the images of the evaluation set.")
 
 
-def exp1_gap(cfg: TrainConfig) -> str:
+def exp1_gap(cfg: TrainConfig, ext: Path = None) -> str:
     """Generalization gap G = Dice(own test) - Dice(external) with both confidence intervals and the decision rule."""
-    ext = cfg.base_dir / "results" / "extended"
+    ext = ext or cfg.base_dir / "results" / "extended"
+    n_seeds = int(pd.read_csv(ext / "gap_summary.csv")["n_seeds"].max())
     gap = pd.read_csv(ext / "gap_summary.csv")
     dec = pd.read_csv(ext / "decision_rule.csv")
     rows = []
@@ -72,7 +73,7 @@ def exp1_gap(cfg: TrainConfig) -> str:
         d = dec[dec["direction"] == r["direction"]].set_index("delta")["decision_t_ci"]
         rows.append([r["direction"] + (" (E10)" if isinstance(r["status"], str) and r["status"] else ""), f"{r['own_mean']:.3f}", f"{r['external_mean']:.3f}", f"{r['mean_gap']:.3f}", f"{r['sd_gap']:.3f}",
                      f"[{r['ci_t_low']:.3f}, {r['ci_t_high']:.3f}]", f"[{r['ci_boot_low']:.3f}, {r['ci_boot_high']:.3f}]", d[0.05], d[0.03], d[0.10]])
-    return _table(rows, ["Model", "Own test", "External", "Gap G", "SD of G", "95% CI (t, df = 2)", "95% CI (cluster bootstrap)", "δ = 0.05", "δ = 0.03", "δ = 0.10"])
+    return _table(rows, ["Model", "Own test", "External", "Gap G", "SD of G", f"95% CI (t, df = {n_seeds - 1})", "95% CI (cluster bootstrap)", "δ = 0.05", "δ = 0.03", "δ = 0.10"])
 
 
 def exp1_errors(cfg: TrainConfig) -> str:
@@ -122,10 +123,54 @@ def equal_pilot(cfg_equal: TrainConfig) -> str:
             + f"\n\n**Status: {len(rows)} of {planned} planned runs finished.** Per-run values; aggregate intervals are computed separately from all available seeds.")
 
 
+def _gpu(run_dir: Path) -> str:
+    env = json.loads((run_dir / "run.json").read_text(encoding="utf-8"))["environment"]
+    return env.get("gpu", env.get("device", "?")).replace("NVIDIA GeForce ", "").replace(" Laptop GPU", "")
+
+
+def exp2_results(cfg_equal: TrainConfig) -> str:
+    return exp1_results(cfg_equal, cfg_equal.base_dir / "final_results" / "tables")
+
+
+def exp2_gap(cfg_equal: TrainConfig) -> str:
+    return exp1_gap(cfg_equal, cfg_equal.base_dir / "final_results" / "tables")
+
+
+def exp2_gap_by_seed(cfg_equal: TrainConfig) -> str:
+    """Dice gap of every seed of experiment 2 with the machine that trained it (the machine is confounded with the seed)."""
+    t = pd.read_csv(cfg_equal.base_dir / "final_results" / "tables" / "gap_by_seed.csv")
+    t = t[t["metric"] == "dice"]
+    names = _names(cfg_equal)
+    dirs = list(t["direction"].unique())
+    rows, per_dir = [], {d: [] for d in dirs}
+    for seed in sorted(t["seed"].unique()):
+        machine = _gpu(cfg_equal.runs_dir / f"{cfg_equal.sources[0]}_seed{seed}")
+        cells = []
+        for d in dirs:
+            g = float(t[(t["direction"] == d) & (t["seed"] == seed)]["gap"].iloc[0])
+            cells.append(f"{g:.3f}")
+            per_dir[d].append((seed, g))
+        rows.append([seed, machine] + cells)
+    first = sorted(t["seed"].unique())[0]
+    rows.append(["mean of seeds " + ", ".join(str(x) for x in sorted(t["seed"].unique()) if x != first), "same machine for all of them"] + [f"{np.mean([g for sd, g in per_dir[d] if sd != first]):.3f}" for d in dirs])
+    return _table(rows, ["Seed", "Trained on"] + dirs)
+
+
+def size_comparison(cfg: TrainConfig, cfg_equal: TrainConfig) -> str:
+    """Kvasir-SEG-trained model: experiment 1 (800 images) vs experiment 2 (429 images)."""
+    rows = []
+    for label, c, ext in (("Experiment 1", cfg, cfg.base_dir / "results" / "extended"), ("Experiment 2", cfg_equal, cfg_equal.base_dir / "final_results" / "tables")):
+        g = pd.read_csv(ext / "gap_summary.csv")
+        r = g[(g["metric"] == "dice") & (g["direction"].str.startswith("Kvasir"))].iloc[0]
+        rows.append([label, _n_train(c, "kvasir"), int(r["n_seeds"]), f"{r['own_mean']:.3f}", f"{r['external_mean']:.3f}", f"{r['mean_gap']:.3f}", f"[{r['ci_t_low']:.3f}, {r['ci_t_high']:.3f}]"])
+    return _table(rows, ["", "Kvasir-SEG training images", "Seeds", "Own test Dice", "CVC-ClinicDB Dice", "Gap G", "95% CI (t over seeds)"])
+
+
 def build_blocks() -> Dict[str, str]:
     cfg = load_train_config(ROOT / "train_config.yaml")
     cfg_equal = load_train_config(ROOT / "configs" / "equal_size.yaml")
-    return {"exp1_results": exp1_results(cfg), "exp1_gap": exp1_gap(cfg), "exp1_errors": exp1_errors(cfg), "equal_pilot": equal_pilot(cfg_equal)}
+    return {"exp1_results": exp1_results(cfg), "exp1_gap": exp1_gap(cfg), "exp1_errors": exp1_errors(cfg), "equal_pilot": equal_pilot(cfg_equal),
+            "exp2_results": exp2_results(cfg_equal), "exp2_gap": exp2_gap(cfg_equal), "exp2_gap_by_seed": exp2_gap_by_seed(cfg_equal), "size_comparison": size_comparison(cfg, cfg_equal)}
 
 
 def apply_blocks(text: str, blocks: Dict[str, str]) -> str:
