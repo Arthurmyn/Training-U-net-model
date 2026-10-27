@@ -1,6 +1,6 @@
 # Cross-Dataset Generalization of U-Net for Colorectal Polyp Segmentation
 
-> **Status: research code in progress, not peer reviewed.** The first experiment is complete (3 seeds). The follow-up experiment with equal training-set sizes is **trained for all five seeds** (10 of 10 runs; CVC results remain preliminary, see [Results](#12-results)). No claim in this document goes beyond the evidence listed in it.
+> **Status: research code in progress, not peer reviewed.** The experiment is complete (5 seeds). The experiment with equal training-set sizes is **trained for all five seeds** (10 of 10 runs; CVC results remain preliminary, see [Results](#12-results)). No claim in this document goes beyond the evidence listed in it.
 
 ## 1. Abstract
 
