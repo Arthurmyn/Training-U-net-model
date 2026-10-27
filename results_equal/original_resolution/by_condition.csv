@@ -1,0 +1,7 @@
+trained_on,eval_set,images,seeds,dice_256,dice_original,difference,mean_abs_image_difference,max_abs_image_difference,iou_original,miss_rate_original
+CVC-ClinicDB,cvc_test,91,5,0.347526,0.347688,0.000162,0.000786,0.007059,0.261102,0.184615
+CVC-ClinicDB,cvc_val,92,5,0.473466,0.473486,0.000021,0.001058,0.006693,0.358680,0.097826
+CVC-ClinicDB,kvasir_external,1000,5,0.412958,0.413048,0.000090,0.000362,0.004067,0.291009,0.000600
+Kvasir-SEG,cvc_external,612,5,0.590391,0.590559,0.000168,0.000991,0.017339,0.498644,0.094118
+Kvasir-SEG,kvasir_test,100,5,0.756746,0.756929,0.000183,0.000663,0.008454,0.655952,0.020000
+Kvasir-SEG,kvasir_val,100,5,0.786333,0.786512,0.000179,0.000669,0.004005,0.693882,0.022000

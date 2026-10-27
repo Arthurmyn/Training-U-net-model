@@ -1,0 +1,5 @@
+trained_on,resolution,seeds,own_test,external,gap,ci_t_low,ci_t_high
+Kvasir-SEG,256 x 256,5,0.756746,0.590391,0.166355,0.143475,0.189234
+Kvasir-SEG,original resolution,5,0.756929,0.590559,0.166370,0.143481,0.189258
+CVC-ClinicDB,256 x 256,5,0.347526,0.412958,-0.065432,-0.102187,-0.028676
+CVC-ClinicDB,original resolution,5,0.347688,0.413048,-0.065359,-0.102154,-0.028565
