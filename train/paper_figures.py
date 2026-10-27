@@ -368,8 +368,11 @@ def fig_error_categories(cfg: TrainConfig, path: Path) -> Optional[Path]:
 
 
 # ---------------------------------------------------------------- driver
-def write_all(cfg: TrainConfig, target: Path, with_examples: bool = True) -> List[Path]:
-    """Build the whole figure set into ``target``; returns the files written."""
+def write_all(cfg: TrainConfig, target: Path, with_examples: bool = True, with_comparison: bool = True) -> List[Path]:
+    """Build the whole figure set into ``target``; returns the files written.
+
+    ``with_comparison`` adds the comparison with an earlier experiment (``extended.compare_to``) when such a file exists.
+    """
     target.mkdir(parents=True, exist_ok=True)
     df = load_extended(cfg)
     by_seed, summary = gap_tables(df, cfg)
@@ -388,7 +391,7 @@ def write_all(cfg: TrainConfig, target: Path, with_examples: bool = True) -> Lis
         for c in conds:
             if not c.own:
                 written.append(fig_examples(cfg, df, c, target / f"fig08_examples_{c.code}.png"))
-    eq = fig_equal_size(cfg, df, target / "fig09_equal_size_comparison.png")
+    eq = fig_equal_size(cfg, df, target / "fig09_equal_size_comparison.png") if with_comparison else None
     if eq:
         written.append(eq)
     figure_training_curves(cfg, target / "figA1_training_curves.png")
