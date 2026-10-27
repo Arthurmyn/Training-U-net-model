@@ -1,0 +1,43 @@
+train_dataset,test_dataset,eval_set,condition,status,metric,better,n_images,n_seeds,seed_1,seed_2,seed_3,seed_4,seed_5,mean_over_seeds,sd_over_seeds,median_over_images_mean_over_seeds
+CVC-ClinicDB,CVC-ClinicDB,cvc_test,own test/val,preliminary (E10),dice,higher,91,5,0.363808,0.273235,0.380378,0.331574,0.388668,0.347533,0.046933,0.325425
+CVC-ClinicDB,CVC-ClinicDB,cvc_test,own test/val,preliminary (E10),iou,higher,91,5,0.276996,0.191127,0.293926,0.242334,0.300046,0.260886,0.044987,0.195648
+CVC-ClinicDB,CVC-ClinicDB,cvc_test,own test/val,preliminary (E10),precision,higher,91,5,0.485547,0.413286,0.478689,0.489920,0.550605,0.483610,0.048738,0.484215
+CVC-ClinicDB,CVC-ClinicDB,cvc_test,own test/val,preliminary (E10),recall,higher,91,5,0.395362,0.269440,0.381715,0.343179,0.375386,0.353017,0.050495,0.305873
+CVC-ClinicDB,CVC-ClinicDB,cvc_test,own test/val,preliminary (E10),hd95,lower,91,5,141.463660,109.364482,138.865125,119.380827,123.842107,126.583240,13.492088,87.632230
+CVC-ClinicDB,CVC-ClinicDB,cvc_test,own test/val,preliminary (E10),boundary_iou,higher,91,5,0.072827,0.045552,0.086147,0.057909,0.095891,0.071665,0.020427,0.062251
+CVC-ClinicDB,CVC-ClinicDB,cvc_test,own test/val,preliminary (E10),miss,lower,91,5,0.219780,0.109890,0.230769,0.142857,0.197802,0.180220,0.051893,0.000000
+CVC-ClinicDB,CVC-ClinicDB,cvc_val,own test/val,preliminary (E10),dice,higher,92,5,0.483666,0.459915,0.481113,0.460840,0.481790,0.473465,0.011988,0.546908
+CVC-ClinicDB,CVC-ClinicDB,cvc_val,own test/val,preliminary (E10),iou,higher,92,5,0.358742,0.349331,0.363503,0.341118,0.380244,0.358588,0.014866,0.377666
+CVC-ClinicDB,CVC-ClinicDB,cvc_val,own test/val,preliminary (E10),precision,higher,92,5,0.510625,0.627662,0.522096,0.528201,0.499856,0.537688,0.051459,0.566695
+CVC-ClinicDB,CVC-ClinicDB,cvc_val,own test/val,preliminary (E10),recall,higher,92,5,0.650130,0.457214,0.621633,0.590576,0.586144,0.581139,0.073944,0.694722
+CVC-ClinicDB,CVC-ClinicDB,cvc_val,own test/val,preliminary (E10),hd95,lower,92,5,84.846681,71.345553,109.873023,83.258423,106.444866,91.153709,16.421856,66.725194
+CVC-ClinicDB,CVC-ClinicDB,cvc_val,own test/val,preliminary (E10),boundary_iou,higher,92,5,0.087266,0.104679,0.106467,0.077237,0.109596,0.097049,0.014076,0.083800
+CVC-ClinicDB,CVC-ClinicDB,cvc_val,own test/val,preliminary (E10),miss,lower,92,5,0.065217,0.076087,0.119565,0.065217,0.152174,0.095652,0.038736,0.000000
+CVC-ClinicDB,Kvasir-SEG,kvasir_external,external,preliminary (E10),dice,higher,1000,5,0.427063,0.384972,0.424426,0.403497,0.424829,0.412957,0.018331,0.396069
+CVC-ClinicDB,Kvasir-SEG,kvasir_external,external,preliminary (E10),iou,higher,1000,5,0.302622,0.265773,0.300131,0.284218,0.301822,0.290913,0.015953,0.247073
+CVC-ClinicDB,Kvasir-SEG,kvasir_external,external,preliminary (E10),precision,higher,1000,5,0.353038,0.347652,0.354874,0.355177,0.350729,0.352294,0.003143,0.279706
+CVC-ClinicDB,Kvasir-SEG,kvasir_external,external,preliminary (E10),recall,higher,1000,5,0.793444,0.713277,0.780359,0.722237,0.801719,0.762207,0.041407,0.847681
+CVC-ClinicDB,Kvasir-SEG,kvasir_external,external,preliminary (E10),hd95,lower,1000,5,110.880611,109.205261,110.939734,107.351310,111.334159,109.942215,1.663507,109.091908
+CVC-ClinicDB,Kvasir-SEG,kvasir_external,external,preliminary (E10),boundary_iou,higher,1000,5,0.067740,0.047781,0.070839,0.057973,0.079845,0.064836,0.012326,0.050844
+CVC-ClinicDB,Kvasir-SEG,kvasir_external,external,preliminary (E10),miss,lower,1000,5,0.000000,0.000000,0.001000,0.002000,0.000000,0.000600,0.000894,0.000000
+Kvasir-SEG,CVC-ClinicDB,cvc_external,external,,dice,higher,612,5,0.627607,0.575934,0.505933,0.645281,0.597214,0.590394,0.054283,0.721435
+Kvasir-SEG,CVC-ClinicDB,cvc_external,external,,iou,higher,612,5,0.546379,0.473824,0.403998,0.561836,0.505625,0.498332,0.063036,0.569928
+Kvasir-SEG,CVC-ClinicDB,cvc_external,external,,precision,higher,612,5,0.741820,0.626055,0.539760,0.737958,0.687014,0.666521,0.084998,0.804470
+Kvasir-SEG,CVC-ClinicDB,cvc_external,external,,recall,higher,612,5,0.639336,0.665534,0.591580,0.653426,0.643387,0.638653,0.028194,0.821151
+Kvasir-SEG,CVC-ClinicDB,cvc_external,external,,hd95,lower,612,5,79.748821,78.298524,94.572333,81.376133,82.022078,83.203578,6.518800,46.506545
+Kvasir-SEG,CVC-ClinicDB,cvc_external,external,,boundary_iou,higher,612,5,0.271716,0.187062,0.148947,0.270137,0.213963,0.218365,0.053256,0.199568
+Kvasir-SEG,CVC-ClinicDB,cvc_external,external,,miss,lower,612,5,0.107843,0.050654,0.081699,0.117647,0.096405,0.090850,0.026159,0.000000
+Kvasir-SEG,Kvasir-SEG,kvasir_test,own test/val,,dice,higher,100,5,0.784167,0.741354,0.703471,0.795087,0.759651,0.756746,0.036420,0.835841
+Kvasir-SEG,Kvasir-SEG,kvasir_test,own test/val,,iou,higher,100,5,0.685412,0.638355,0.597229,0.698723,0.658535,0.655651,0.040192,0.718614
+Kvasir-SEG,Kvasir-SEG,kvasir_test,own test/val,,precision,higher,100,5,0.810287,0.758534,0.740102,0.821151,0.768409,0.779696,0.034631,0.879874
+Kvasir-SEG,Kvasir-SEG,kvasir_test,own test/val,,recall,higher,100,5,0.833293,0.807301,0.758020,0.819458,0.812205,0.806055,0.028584,0.921406
+Kvasir-SEG,Kvasir-SEG,kvasir_test,own test/val,,hd95,lower,100,5,48.980698,54.934156,63.750224,50.941860,52.428181,54.207024,5.760673,43.852358
+Kvasir-SEG,Kvasir-SEG,kvasir_test,own test/val,,boundary_iou,higher,100,5,0.327744,0.263773,0.232759,0.324637,0.294388,0.288660,0.040617,0.266839
+Kvasir-SEG,Kvasir-SEG,kvasir_test,own test/val,,miss,lower,100,5,0.010000,0.010000,0.030000,0.030000,0.020000,0.020000,0.010000,0.000000
+Kvasir-SEG,Kvasir-SEG,kvasir_val,own test/val,,dice,higher,100,5,0.841736,0.763518,0.708798,0.825320,0.792287,0.786332,0.052813,0.862994
+Kvasir-SEG,Kvasir-SEG,kvasir_val,own test/val,,iou,higher,100,5,0.757630,0.669509,0.605075,0.742590,0.693159,0.693593,0.061068,0.761173
+Kvasir-SEG,Kvasir-SEG,kvasir_val,own test/val,,precision,higher,100,5,0.889370,0.817016,0.749469,0.887612,0.835356,0.835764,0.057794,0.942703
+Kvasir-SEG,Kvasir-SEG,kvasir_val,own test/val,,recall,higher,100,5,0.831688,0.783351,0.739912,0.812045,0.804587,0.794317,0.034987,0.901714
+Kvasir-SEG,Kvasir-SEG,kvasir_val,own test/val,,hd95,lower,100,5,46.995399,55.616867,63.887453,43.893137,50.230941,52.124759,7.877377,33.005577
+Kvasir-SEG,Kvasir-SEG,kvasir_val,own test/val,,boundary_iou,higher,100,5,0.391750,0.317234,0.246403,0.380250,0.320118,0.331151,0.058268,0.319665
+Kvasir-SEG,Kvasir-SEG,kvasir_val,own test/val,,miss,lower,100,5,0.020000,0.020000,0.020000,0.030000,0.020000,0.022000,0.004472,0.000000

@@ -1,0 +1,15 @@
+direction,metric,better,own_test,external,n_seeds,own_mean,external_mean,mean_gap,sd_gap,t_crit,ci_t_low,ci_t_high,ci_boot_low,ci_boot_high,boot_samples,boot_clusters_own,boot_clusters_external,status
+Kvasir-SEG-trained,dice,higher,kvasir_test,cvc_external,5,0.756746,0.590394,0.166352,0.018428,2.776445,0.143471,0.189234,0.083560,0.251832,10000,100,29,
+Kvasir-SEG-trained,iou,higher,kvasir_test,cvc_external,5,0.655651,0.498332,0.157319,0.022984,2.776445,0.128780,0.185857,0.074010,0.242631,10000,100,29,
+Kvasir-SEG-trained,precision,higher,kvasir_test,cvc_external,5,0.779696,0.666521,0.113175,0.054494,2.776445,0.045512,0.180838,0.040960,0.187956,10000,100,29,
+Kvasir-SEG-trained,recall,higher,kvasir_test,cvc_external,5,0.806055,0.638653,0.167403,0.018487,2.776445,0.144447,0.190358,0.069668,0.268911,10000,100,29,
+Kvasir-SEG-trained,hd95,lower,kvasir_test,cvc_external,5,54.207024,83.203578,-28.996554,3.186553,2.776445,-32.953183,-25.039926,-46.950654,-11.281182,10000,100,29,
+Kvasir-SEG-trained,boundary_iou,higher,kvasir_test,cvc_external,5,0.288660,0.218365,0.070295,0.013960,2.776445,0.052962,0.087629,0.025067,0.115851,10000,100,29,
+Kvasir-SEG-trained,miss,lower,kvasir_test,cvc_external,5,0.020000,0.090850,-0.070850,0.024084,2.776445,-0.100754,-0.040945,-0.112228,-0.031793,10000,100,29,
+CVC-ClinicDB-trained,dice,higher,cvc_test,kvasir_external,5,0.347533,0.412957,-0.065425,0.029602,2.776445,-0.102181,-0.028669,-0.255757,0.131364,10000,5,1000,preliminary (E10)
+CVC-ClinicDB-trained,iou,higher,cvc_test,kvasir_external,5,0.260886,0.290913,-0.030027,0.029650,2.776445,-0.066842,0.006788,-0.185176,0.143249,10000,5,1000,preliminary (E10)
+CVC-ClinicDB-trained,precision,higher,cvc_test,kvasir_external,5,0.483610,0.352294,0.131315,0.047655,2.776445,0.072144,0.190487,-0.093085,0.330845,10000,5,1000,preliminary (E10)
+CVC-ClinicDB-trained,recall,higher,cvc_test,kvasir_external,5,0.353017,0.762207,-0.409191,0.025675,2.776445,-0.441071,-0.377311,-0.603319,-0.227933,10000,5,1000,preliminary (E10)
+CVC-ClinicDB-trained,hd95,lower,cvc_test,kvasir_external,5,126.583240,109.942215,16.641025,12.566972,2.776445,1.037069,32.244982,-32.415536,86.224821,10000,5,1000,preliminary (E10)
+CVC-ClinicDB-trained,boundary_iou,higher,cvc_test,kvasir_external,5,0.071665,0.064836,0.006830,0.008507,2.776445,-0.003733,0.017392,-0.031688,0.037489,10000,5,1000,preliminary (E10)
+CVC-ClinicDB-trained,miss,lower,cvc_test,kvasir_external,5,0.180220,0.000600,0.179620,0.052017,2.776445,0.115032,0.244208,0.041518,0.417178,10000,5,1000,preliminary (E10)

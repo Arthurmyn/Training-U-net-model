@@ -1,0 +1,24 @@
+{
+  "best_epoch": 72,
+  "sets": {
+    "cvc_external": {
+      "kind": "external",
+      "mean_dice": 0.6452808412961971,
+      "median_dice": 0.7966038286685944,
+      "n_images": 612
+    },
+    "kvasir_test": {
+      "kind": "in_domain",
+      "mean_dice": 0.7950870731472969,
+      "median_dice": 0.8637721836566925,
+      "n_images": 100
+    },
+    "kvasir_val": {
+      "kind": "in_domain",
+      "mean_dice": 0.8253196553885936,
+      "median_dice": 0.8994874358177185,
+      "n_images": 100
+    }
+  },
+  "threshold": 0.5
+}

@@ -1,0 +1,24 @@
+# Equal-size experiment: both datasets are trained on the same number of images (429 = size of the CVC-ClinicDB train split),
+# 5 seeds, identical hyper-parameters for both. Everything not listed here is inherited from train_config.yaml.
+# Run:  python -m train.run_all --config configs/equal_size.yaml
+project_root: ..
+base: train_config.yaml
+
+runs_dir: runs_equal              # separate from runs/ (first experiment: 800 vs 429 images, 3 seeds), which stays unchanged
+results_dir: results_equal
+seeds: [1, 2, 3, 4, 5]
+
+training:
+  # Amendment to the first protocol, decided from the training curves of the first experiment (not from test results):
+  # early stopping (patience 15) ended the CVC runs after 29-46 epochs while their training Dice was still rising.
+  # Early stopping may now fire only after epoch 50 for BOTH datasets; best epoch is still chosen on validation Dice.
+  # Set 0 to restore the original rule.
+  min_epochs: 50
+  train_subset:                   # one fixed random subset of the Kvasir-SEG train split, used for every seed
+    kvasir: {size: 429, seed: 42}
+
+extended:
+  output_dir: results_equal/extended
+  error_dir: error_analysis_equal
+  device: auto                    # use the GPU for the metric re-computation too (small float differences are covered by acceptance check A)
+  preliminary_sources: [cvc]      # Retained after five seeds: weak CVC baseline; completing training does not resolve E10.

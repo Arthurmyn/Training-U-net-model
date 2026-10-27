@@ -1,0 +1,71 @@
+direction,metric,better,seed,own_test,external,own_mean,external_mean,gap,status
+Kvasir-SEG-trained,dice,higher,1,kvasir_test,cvc_external,0.784167,0.627607,0.156560,
+Kvasir-SEG-trained,dice,higher,2,kvasir_test,cvc_external,0.741354,0.575934,0.165421,
+Kvasir-SEG-trained,dice,higher,3,kvasir_test,cvc_external,0.703471,0.505933,0.197538,
+Kvasir-SEG-trained,dice,higher,4,kvasir_test,cvc_external,0.795087,0.645281,0.149807,
+Kvasir-SEG-trained,dice,higher,5,kvasir_test,cvc_external,0.759651,0.597214,0.162436,
+Kvasir-SEG-trained,iou,higher,1,kvasir_test,cvc_external,0.685412,0.546379,0.139033,
+Kvasir-SEG-trained,iou,higher,2,kvasir_test,cvc_external,0.638355,0.473824,0.164531,
+Kvasir-SEG-trained,iou,higher,3,kvasir_test,cvc_external,0.597229,0.403998,0.193232,
+Kvasir-SEG-trained,iou,higher,4,kvasir_test,cvc_external,0.698723,0.561836,0.136887,
+Kvasir-SEG-trained,iou,higher,5,kvasir_test,cvc_external,0.658535,0.505625,0.152909,
+Kvasir-SEG-trained,precision,higher,1,kvasir_test,cvc_external,0.810287,0.741820,0.068467,
+Kvasir-SEG-trained,precision,higher,2,kvasir_test,cvc_external,0.758534,0.626055,0.132478,
+Kvasir-SEG-trained,precision,higher,3,kvasir_test,cvc_external,0.740102,0.539760,0.200342,
+Kvasir-SEG-trained,precision,higher,4,kvasir_test,cvc_external,0.821151,0.737958,0.083193,
+Kvasir-SEG-trained,precision,higher,5,kvasir_test,cvc_external,0.768409,0.687014,0.081395,
+Kvasir-SEG-trained,recall,higher,1,kvasir_test,cvc_external,0.833293,0.639336,0.193957,
+Kvasir-SEG-trained,recall,higher,2,kvasir_test,cvc_external,0.807301,0.665534,0.141767,
+Kvasir-SEG-trained,recall,higher,3,kvasir_test,cvc_external,0.758020,0.591580,0.166440,
+Kvasir-SEG-trained,recall,higher,4,kvasir_test,cvc_external,0.819458,0.653426,0.166032,
+Kvasir-SEG-trained,recall,higher,5,kvasir_test,cvc_external,0.812205,0.643387,0.168818,
+Kvasir-SEG-trained,hd95,lower,1,kvasir_test,cvc_external,48.980698,79.748821,-30.768123,
+Kvasir-SEG-trained,hd95,lower,2,kvasir_test,cvc_external,54.934156,78.298524,-23.364368,
+Kvasir-SEG-trained,hd95,lower,3,kvasir_test,cvc_external,63.750224,94.572333,-30.822110,
+Kvasir-SEG-trained,hd95,lower,4,kvasir_test,cvc_external,50.941860,81.376133,-30.434273,
+Kvasir-SEG-trained,hd95,lower,5,kvasir_test,cvc_external,52.428181,82.022078,-29.593898,
+Kvasir-SEG-trained,boundary_iou,higher,1,kvasir_test,cvc_external,0.327744,0.271716,0.056029,
+Kvasir-SEG-trained,boundary_iou,higher,2,kvasir_test,cvc_external,0.263773,0.187062,0.076711,
+Kvasir-SEG-trained,boundary_iou,higher,3,kvasir_test,cvc_external,0.232759,0.148947,0.083812,
+Kvasir-SEG-trained,boundary_iou,higher,4,kvasir_test,cvc_external,0.324637,0.270137,0.054500,
+Kvasir-SEG-trained,boundary_iou,higher,5,kvasir_test,cvc_external,0.294388,0.213963,0.080426,
+Kvasir-SEG-trained,miss,lower,1,kvasir_test,cvc_external,0.010000,0.107843,-0.097843,
+Kvasir-SEG-trained,miss,lower,2,kvasir_test,cvc_external,0.010000,0.050654,-0.040654,
+Kvasir-SEG-trained,miss,lower,3,kvasir_test,cvc_external,0.030000,0.081699,-0.051699,
+Kvasir-SEG-trained,miss,lower,4,kvasir_test,cvc_external,0.030000,0.117647,-0.087647,
+Kvasir-SEG-trained,miss,lower,5,kvasir_test,cvc_external,0.020000,0.096405,-0.076405,
+CVC-ClinicDB-trained,dice,higher,1,cvc_test,kvasir_external,0.363808,0.427063,-0.063255,preliminary (E10)
+CVC-ClinicDB-trained,dice,higher,2,cvc_test,kvasir_external,0.273235,0.384972,-0.111737,preliminary (E10)
+CVC-ClinicDB-trained,dice,higher,3,cvc_test,kvasir_external,0.380378,0.424426,-0.044048,preliminary (E10)
+CVC-ClinicDB-trained,dice,higher,4,cvc_test,kvasir_external,0.331574,0.403497,-0.071923,preliminary (E10)
+CVC-ClinicDB-trained,dice,higher,5,cvc_test,kvasir_external,0.388668,0.424829,-0.036160,preliminary (E10)
+CVC-ClinicDB-trained,iou,higher,1,cvc_test,kvasir_external,0.276996,0.302622,-0.025627,preliminary (E10)
+CVC-ClinicDB-trained,iou,higher,2,cvc_test,kvasir_external,0.191127,0.265773,-0.074646,preliminary (E10)
+CVC-ClinicDB-trained,iou,higher,3,cvc_test,kvasir_external,0.293926,0.300131,-0.006205,preliminary (E10)
+CVC-ClinicDB-trained,iou,higher,4,cvc_test,kvasir_external,0.242334,0.284218,-0.041883,preliminary (E10)
+CVC-ClinicDB-trained,iou,higher,5,cvc_test,kvasir_external,0.300046,0.301822,-0.001775,preliminary (E10)
+CVC-ClinicDB-trained,precision,higher,1,cvc_test,kvasir_external,0.485547,0.353038,0.132508,preliminary (E10)
+CVC-ClinicDB-trained,precision,higher,2,cvc_test,kvasir_external,0.413286,0.347652,0.065634,preliminary (E10)
+CVC-ClinicDB-trained,precision,higher,3,cvc_test,kvasir_external,0.478689,0.354874,0.123815,preliminary (E10)
+CVC-ClinicDB-trained,precision,higher,4,cvc_test,kvasir_external,0.489920,0.355177,0.134743,preliminary (E10)
+CVC-ClinicDB-trained,precision,higher,5,cvc_test,kvasir_external,0.550605,0.350729,0.199877,preliminary (E10)
+CVC-ClinicDB-trained,recall,higher,1,cvc_test,kvasir_external,0.395362,0.793444,-0.398082,preliminary (E10)
+CVC-ClinicDB-trained,recall,higher,2,cvc_test,kvasir_external,0.269440,0.713277,-0.443837,preliminary (E10)
+CVC-ClinicDB-trained,recall,higher,3,cvc_test,kvasir_external,0.381715,0.780359,-0.398644,preliminary (E10)
+CVC-ClinicDB-trained,recall,higher,4,cvc_test,kvasir_external,0.343179,0.722237,-0.379057,preliminary (E10)
+CVC-ClinicDB-trained,recall,higher,5,cvc_test,kvasir_external,0.375386,0.801719,-0.426333,preliminary (E10)
+CVC-ClinicDB-trained,hd95,lower,1,cvc_test,kvasir_external,141.463660,110.880611,30.583049,preliminary (E10)
+CVC-ClinicDB-trained,hd95,lower,2,cvc_test,kvasir_external,109.364482,109.205261,0.159221,preliminary (E10)
+CVC-ClinicDB-trained,hd95,lower,3,cvc_test,kvasir_external,138.865125,110.939734,27.925391,preliminary (E10)
+CVC-ClinicDB-trained,hd95,lower,4,cvc_test,kvasir_external,119.380827,107.351310,12.029517,preliminary (E10)
+CVC-ClinicDB-trained,hd95,lower,5,cvc_test,kvasir_external,123.842107,111.334159,12.507948,preliminary (E10)
+CVC-ClinicDB-trained,boundary_iou,higher,1,cvc_test,kvasir_external,0.072827,0.067740,0.005087,preliminary (E10)
+CVC-ClinicDB-trained,boundary_iou,higher,2,cvc_test,kvasir_external,0.045552,0.047781,-0.002229,preliminary (E10)
+CVC-ClinicDB-trained,boundary_iou,higher,3,cvc_test,kvasir_external,0.086147,0.070839,0.015309,preliminary (E10)
+CVC-ClinicDB-trained,boundary_iou,higher,4,cvc_test,kvasir_external,0.057909,0.057973,-0.000064,preliminary (E10)
+CVC-ClinicDB-trained,boundary_iou,higher,5,cvc_test,kvasir_external,0.095891,0.079845,0.016046,preliminary (E10)
+CVC-ClinicDB-trained,miss,lower,1,cvc_test,kvasir_external,0.219780,0.000000,0.219780,preliminary (E10)
+CVC-ClinicDB-trained,miss,lower,2,cvc_test,kvasir_external,0.109890,0.000000,0.109890,preliminary (E10)
+CVC-ClinicDB-trained,miss,lower,3,cvc_test,kvasir_external,0.230769,0.001000,0.229769,preliminary (E10)
+CVC-ClinicDB-trained,miss,lower,4,cvc_test,kvasir_external,0.142857,0.002000,0.140857,preliminary (E10)
+CVC-ClinicDB-trained,miss,lower,5,cvc_test,kvasir_external,0.197802,0.000000,0.197802,preliminary (E10)

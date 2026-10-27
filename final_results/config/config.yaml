@@ -1,0 +1,63 @@
+# Dataset audit configuration. All paths are relative to this file's folder.
+seed: 42
+output_dir: outputs
+
+thresholds:
+  mask_binarize: 127          # a pixel is polyp if value > 127
+  full_mask_fraction: 0.90    # flag masks covering more than this fraction
+  near_duplicate_hamming: 4   # pHash (64 bit) Hamming distance <= 4 counts as near-duplicate
+
+preprocessing:                # the methodology's preprocessing; checked visually and numerically
+  size: 256                   # images and masks are resized to size x size
+  n_examples: 5               # examples per dataset in the preprocessing figure
+
+datasets:
+  kvasir:
+    name: Kvasir-SEG
+    root: data/kvasir_seg
+    image_dir: Kvasir-SEG/Kvasir-SEG/images
+    mask_dir: Kvasir-SEG/Kvasir-SEG/masks
+    expected_count: 1000
+    split:
+      method: random          # random, seeded, sizes below
+      sizes: {train: 800, val: 100, test: 100}
+    # Near-duplicate candidates (pHash) that were looked at by hand. Evidence: outputs/review_near_duplicates.png
+    # verdict "duplicate" -> both images are forced into the same split; "different_images" -> no action.
+    reviewed_near_duplicates:
+      - a: cju30bmab08bi0835mvlr6e0r
+        b: cju77k828z46w0871r0avuoo9
+        verdict: duplicate
+        note: adjacent frames of the same polyp (same overlay timestamp, 2 s apart); image correlation 0.9997, mask IoU 0.95
+      - a: cju8c5223s8j80850b4kealt4
+        b: cju8dpa89u6l80818dj6lldh9
+        verdict: different_images
+        note: pHash false positive caused by the shared black octagonal border; different patients and polyps (2012 vs 2013), image correlation 0.75, mask IoU 0.05
+
+  cvc:
+    name: CVC-ClinicDB
+    root: data/cvc_clinicdb
+    image_dir: PNG/Original
+    mask_dir: PNG/Ground Truth
+    expected_count: 612
+    expected_sequences: 31
+    expected_sequences_note: >-
+      31 comes from the original description of the database (Vazquez et al. 2017, arXiv:1612.00799: "612 images ...
+      31 polyp video sequences acquired from 23 patients"). metadata.csv in this copy, and public mirrors of the dataset
+      (e.g. Dataset Ninja, Hugging Face), list 29 sequences. The origin of the difference could not be resolved from
+      the available metadata.
+    limitations:
+      - >-
+        Sequences are not patients. The original description reports 23 patients for 31 sequences and metadata.csv has no
+        patient ID, so frames of the same patient can appear in different splits; patient-level leakage cannot be excluded.
+    # Sequence IDs (frame_id -> sequence_id). If missing, the split falls back to contiguous blocks.
+    sequence_metadata:
+      file: metadata.csv
+      stem_column: frame_id
+      sequence_column: sequence_id
+    # Optional: second copy of the same frames (TIFF); pixels are compared against the main copy.
+    crosscheck:
+      image_dir: TIF/Original
+      mask_dir: TIF/Ground Truth
+    split:
+      method: sequence        # whole sequences go to one split; falls back to "block" without IDs
+      fractions: {train: 0.70, val: 0.15, test: 0.15}

@@ -184,6 +184,9 @@ Generalization gap (Dice), own test minus external:
 
 All ten runs are complete. Seed 1 was trained on an RTX 3050 under Windows; seeds 2-5 were run by Nursultan Beisenbek in Kaggle on a Tesla T4 under Linux. Training settings and fixed data splits were retained; hardware and software environments differ and are recorded in each run.json. CVC-trained results remain preliminary: validation Dice remains below 0.5 for every seed, and seeds 2 and 4 select epochs 7 and 16 despite running for 50 epochs. Equal training size and a minimum epoch count have not resolved the weak within-dataset baseline. This experiment changes both Kvasir training size and the stopping rule relative to experiment 1; it does not isolate the effect of training size alone.
 
+The five-seed CPU re-evaluation is collected in [`final_results/README.md`](final_results/README.md), with 9,975 image-run records and all seven metrics. Both numerical acceptance checks passed; maximum absolute Dice deviation from the saved GPU evaluations is below 0.002. At delta 0.05, the Kvasir-trained drop is supported by both the seed-based t interval and the cluster bootstrap; the CVC-trained direction is inconclusive and remains preliminary.
+
+
 ## 13. Error analysis
 
 Quantitative indicators from experiment 1 (nothing here is a manual annotation):
