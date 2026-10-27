@@ -56,7 +56,7 @@ U-Net (base_channels=32, ~7.8 млн параметров), обучение н�
 ## 7. Как подтянуть на другом ноутбуке
 
 ```bash
-git clone https://github.com/Arthurmyn/Training-U-net-model.git
-cd Training-U-net-model
+git clone https://github.com/Arthurmyn/polyp-segmentation-generalization.git
+cd polyp-segmentation-generalization
 ```
 Установить зависимости и PyTorch (`docs/SETUP_ru.md`), положить данные в `data/`, затем `python -m train.analyze` для повторного анализа.

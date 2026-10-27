@@ -14,8 +14,8 @@
 
 ## 1. Получить код
 ```bash
-git clone https://github.com/Arthurmyn/Training-U-net-model
-cd Training-U-net-model
+git clone https://github.com/Arthurmyn/polyp-segmentation-generalization
+cd polyp-segmentation-generalization
 ```
 В репозитории уже лежат код, настройки, **зафиксированные списки train/val/test** (`outputs/splits/`) и отчёт аудита.
 Переобучать или пересоздавать разбиения не нужно.

@@ -11,7 +11,7 @@ abstract: >-
   Research code in progress; not peer reviewed.
 authors:
   - alias: "Arthurmyn"
-repository-code: "https://github.com/Arthurmyn/Training-U-net-model"
+repository-code: "https://github.com/Arthurmyn/polyp-segmentation-generalization"
 keywords:
   - polyp segmentation
   - colorectal polyp

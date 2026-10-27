@@ -29,14 +29,14 @@ Pods -> Deploy:
 Откройте терминал pod (Connect -> Jupyter Lab -> Terminal, либо SSH):
 ```bash
 cd /workspace
-git clone https://github.com/Arthurmyn/Training-U-net-model
-cd Training-U-net-model
+git clone https://github.com/Arthurmyn/polyp-segmentation-generalization
+cd polyp-segmentation-generalization
 mkdir -p data
 ```
-Загрузите два архива в `/workspace/Training-U-net-model/data/`. Любой способ:
-- **Jupyter Lab:** слева откройте папку `Training-U-net-model/data`, кнопка Upload (стрелка вверх), выберите оба zip (около 290 МБ).
+Загрузите два архива в `/workspace/polyp-segmentation-generalization/data/`. Любой способ:
+- **Jupyter Lab:** слева откройте папку `polyp-segmentation-generalization/data`, кнопка Upload (стрелка вверх), выберите оба zip (около 290 МБ).
 - **scp с ноутбука** (адрес и порт смотрите в Connect -> SSH over exposed TCP):
-  `scp -P <ПОРТ> data/Kvasir-seg.zip data/CVC-ClinicDB.zip root@<АДРЕС>:/workspace/Training-U-net-model/data/`
+  `scp -P <ПОРТ> data/Kvasir-seg.zip data/CVC-ClinicDB.zip root@<АДРЕС>:/workspace/polyp-segmentation-generalization/data/`
 - **runpodctl** (если установлен в pod): на ноутбуке `runpodctl send data/Kvasir-seg.zip`, на pod выполните выданную команду `runpodctl receive <код>`.
 
 Проверка и распаковка (не требуют `unzip`):
@@ -65,7 +65,7 @@ rm -rf runs_smoke
 ## 5. Запуск
 Запускайте **в фоне**, чтобы закрытая вкладка браузера не остановила обучение:
 ```bash
-cd /workspace/Training-U-net-model
+cd /workspace/polyp-segmentation-generalization
 mkdir -p runs && nohup python3 -m train.run_all > runs/run_all.log 2>&1 &
 tail -f runs/run_all.log          # выход из просмотра: Ctrl+C (обучение продолжится)
 ```
@@ -78,11 +78,11 @@ tail -f runs/run_all.log          # выход из просмотра: Ctrl+C (
 
 ## 7. Скачать результаты (ДО удаления pod)
 ```bash
-cd /workspace/Training-U-net-model
+cd /workspace/polyp-segmentation-generalization
 tar czf runs_results.tar.gz --exclude='*.pt' runs        # маленький архив для статистики
 tar czf weights.tar.gz $(find runs -name best.pt)                    # лучшие веса (по желанию, около 30 МБ на запуск)
 ```
-Скачайте через Jupyter (правый клик по файлу -> Download), либо `scp -P <ПОРТ> root@<АДРЕС>:/workspace/Training-U-net-model/runs_results.tar.gz .`.
+Скачайте через Jupyter (правый клик по файлу -> Download), либо `scp -P <ПОРТ> root@<АДРЕС>:/workspace/polyp-segmentation-generalization/runs_results.tar.gz .`.
 На своём ноутбуке в корне проекта: `tar xzf runs_results.tar.gz` и `python -m train.analyze`.
 
 ## 8. Остановить списание денег
