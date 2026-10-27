@@ -90,6 +90,14 @@
       "bytes": 120795,
       "sha256": "01fa07c7f19f572635186c07306f43d569e1a1af0c2be64786c6878d37e2b19c"
     },
+    "figures/fig08_examples_E2.png": {
+      "bytes": 1253781,
+      "sha256": "a68af48aa7e627dac8896acb3ee5f65d19cb2fbd4eee7df29fddf7f84eb4345b"
+    },
+    "figures/fig08_examples_E4.png": {
+      "bytes": 1667614,
+      "sha256": "5ce1de5426fcc2a6c86352d19c3d335f53d307d1be77c98ca1df474965a9195a"
+    },
     "figures/fig09_equal_size_comparison.png": {
       "bytes": 134076,
       "sha256": "66d2119db1658414421512f27b60e279dcb055cf68b2afda95187d9630b42a05"
@@ -118,6 +126,18 @@
       "bytes": 525,
       "sha256": "2c2c1667ee157a0c73cef7b14de8d32e1cc6871d010edbf5a03d060c47bc0b18"
     },
+    "runs/cvc_seed1/examples_cvc_test.png": {
+      "bytes": 235616,
+      "sha256": "58849d08ef3112aada1d488e38c32419fa066f8058a8b148e266c605eaf89b43"
+    },
+    "runs/cvc_seed1/examples_cvc_val.png": {
+      "bytes": 218419,
+      "sha256": "502fc0734d98fab7f6b4f58e56d968bd53f27f8fcf22ab2274885394a119ab10"
+    },
+    "runs/cvc_seed1/examples_kvasir_external.png": {
+      "bytes": 312428,
+      "sha256": "e64a283fcb7fb2c219892a3d817d481ad015e84ed6d00b63cfbdf4a0e452350c"
+    },
     "runs/cvc_seed1/metrics.csv": {
       "bytes": 3646,
       "sha256": "0e37e097c30e35b76105d11ffe47bf85a8bae01960edf2c9e188caf4d79b5bd0"
@@ -133,6 +153,18 @@
     "runs/cvc_seed2/eval_summary.json": {
       "bytes": 522,
       "sha256": "8d2773381549cbd6865e0a62bc58fed792abcec01c9a3fd006e8c0c2422200ac"
+    },
+    "runs/cvc_seed2/examples_cvc_test.png": {
+      "bytes": 222070,
+      "sha256": "815f001cdad0525c1906b7d740b12f588f8a1820c62b78dc35bfdb1454d2a3db"
+    },
+    "runs/cvc_seed2/examples_cvc_val.png": {
+      "bytes": 214385,
+      "sha256": "6f61438e2021d5a77876b04d97d8e000c9651cec7e6d419e1a7cdf18d09ebd68"
+    },
+    "runs/cvc_seed2/examples_kvasir_external.png": {
+      "bytes": 325103,
+      "sha256": "6f4840ec38e12816589c41698198bd19729006023d7a27213de3b7717c3c6a8c"
     },
     "runs/cvc_seed2/metrics.csv": {
       "bytes": 2898,
@@ -150,6 +182,18 @@
       "bytes": 524,
       "sha256": "76e84917e74e86a870c9be96b03912faf4a951235e97e31a20ee5e40a04e7a25"
     },
+    "runs/cvc_seed3/examples_cvc_test.png": {
+      "bytes": 228574,
+      "sha256": "a24ed0232eb5b96f046fd90f98b0973549bc2b25484fbf4693daefe51b528c2e"
+    },
+    "runs/cvc_seed3/examples_cvc_val.png": {
+      "bytes": 216092,
+      "sha256": "b407a052911cbb7dd48f188263ae8cbc3d8e62f618eea1a273288e7b23117362"
+    },
+    "runs/cvc_seed3/examples_kvasir_external.png": {
+      "bytes": 274984,
+      "sha256": "030a357173d877d7aad01a119ade69dc86a561eec1e501677d3e32e71e6763a8"
+    },
     "runs/cvc_seed3/metrics.csv": {
       "bytes": 4266,
       "sha256": "978dfa4544184afbcb01b8d71afcf1aa2c19dd7d070ef4981b0a31f7530564a8"
@@ -166,6 +210,18 @@
       "bytes": 525,
       "sha256": "8e91f003fc2604f21b78849aafb7d39c5ba375c518dd7dce07fa2b7394e4706c"
     },
+    "runs/cvc_seed4/examples_cvc_test.png": {
+      "bytes": 230874,
+      "sha256": "486fb58ad2271b9f7508f9d93d51d13ee07598d6a3866dc34d85d8129a47d2cf"
+    },
+    "runs/cvc_seed4/examples_cvc_val.png": {
+      "bytes": 220297,
+      "sha256": "cdfe084e23dfedaf8b00713c2aa54a7eabcf1c9c0c54ed5f114f8b4abf6320ee"
+    },
+    "runs/cvc_seed4/examples_kvasir_external.png": {
+      "bytes": 264203,
+      "sha256": "8e1c1d4a94921de46de853eb1225bc1c72a0bb44cf1300ffb8f1ff28754188db"
+    },
     "runs/cvc_seed4/metrics.csv": {
       "bytes": 2898,
       "sha256": "bef18afc70141917617e51c114d2ea360d012fab04269240b77a00eb58dc6a53"
@@ -181,6 +237,18 @@
     "runs/cvc_seed5/eval_summary.json": {
       "bytes": 525,
       "sha256": "97c150e28b43a68e3415d6e0f714dd95dbb681b8db322cc8b16158bc48855fda"
+    },
+    "runs/cvc_seed5/examples_cvc_test.png": {
+      "bytes": 222811,
+      "sha256": "31329604c5b29853301dbc428baece9f2e127c785e1beaf5f32b26abb1e2eda0"
+    },
+    "runs/cvc_seed5/examples_cvc_val.png": {
+      "bytes": 223220,
+      "sha256": "f1dd044a0d3fef79b72c9d68c18676ef3924a8a51e763893ad0c702defdb15ff"
+    },
+    "runs/cvc_seed5/examples_kvasir_external.png": {
+      "bytes": 324024,
+      "sha256": "30b24c284c60655b7bc586bc289ab890051a4009e7ff48ddb5aa429e9c11e064"
     },
     "runs/cvc_seed5/metrics.csv": {
       "bytes": 3639,
@@ -214,6 +282,18 @@
       "bytes": 525,
       "sha256": "7b48f1ad1a78a5a828e29b1ad35f8ab8ba6e2d9914086da341a49bc412053c3b"
     },
+    "runs/kvasir_seed1/examples_cvc_external.png": {
+      "bytes": 227589,
+      "sha256": "5adea22ee5c5b8180bdc95df4c8d5c1d3135d2b3bee0b89297812bc94d6e2438"
+    },
+    "runs/kvasir_seed1/examples_kvasir_test.png": {
+      "bytes": 286595,
+      "sha256": "47df04dfd39d78d99b79b56048eb78c09e0ed047b84e786e0870d02e8d84939f"
+    },
+    "runs/kvasir_seed1/examples_kvasir_val.png": {
+      "bytes": 308038,
+      "sha256": "6cd8e621ef0ecf2a4de383025cf8e97e91fb3ed3535bcbbcce937b55441a0db8"
+    },
     "runs/kvasir_seed1/metrics.csv": {
       "bytes": 5749,
       "sha256": "66993e323aae1fe6af0975ab60dae77c7334ff41007c4ed6127b4e0756bbfdc1"
@@ -229,6 +309,18 @@
     "runs/kvasir_seed2/eval_summary.json": {
       "bytes": 528,
       "sha256": "576b9cd40239b42677e737bdaf483f0a253acd547c5715c9b749cc41c55c5888"
+    },
+    "runs/kvasir_seed2/examples_cvc_external.png": {
+      "bytes": 216760,
+      "sha256": "2a4b93d04f488f52cb09094a7cfcf8a833c322285a72025739f7b856adf88c51"
+    },
+    "runs/kvasir_seed2/examples_kvasir_test.png": {
+      "bytes": 284635,
+      "sha256": "68d07047610e9d95b3683d64db485cba8008701b42cdfc63163147e345a2d7a8"
+    },
+    "runs/kvasir_seed2/examples_kvasir_val.png": {
+      "bytes": 284558,
+      "sha256": "7cdc140e50a6e4cf34157ba88303faad7a3bfa3e29aa2431de08320a2600e21d"
     },
     "runs/kvasir_seed2/metrics.csv": {
       "bytes": 5750,
@@ -246,6 +338,18 @@
       "bytes": 528,
       "sha256": "319f31ef1141c995b1908f418ad456098ddf293817443505cb3bdb0a93d9422a"
     },
+    "runs/kvasir_seed3/examples_cvc_external.png": {
+      "bytes": 228426,
+      "sha256": "8afb7302b91d8654941deed952fb5443bdcf268c3fee72cc254fa01a9ddd5315"
+    },
+    "runs/kvasir_seed3/examples_kvasir_test.png": {
+      "bytes": 296279,
+      "sha256": "f5783c6bf3e3b386bc9a5403abcbf5b8c35200771a3449690ec22a1e527d8855"
+    },
+    "runs/kvasir_seed3/examples_kvasir_val.png": {
+      "bytes": 279360,
+      "sha256": "188f7d54f1d49471c2c3f443fa67bfef52120c33c29430c15c3db48472adc5cf"
+    },
     "runs/kvasir_seed3/metrics.csv": {
       "bytes": 4894,
       "sha256": "41c803f4ea7a24416b5654f19e0ed3189c3947d6161d214ec29ce877d721a2a2"
@@ -262,6 +366,18 @@
       "bytes": 528,
       "sha256": "85ca88dbbc2b472fdf1e71f10d59dee0d978beaa52824cb1f48d80a9c9a5e150"
     },
+    "runs/kvasir_seed4/examples_cvc_external.png": {
+      "bytes": 229688,
+      "sha256": "adde7be1489a7aa6db999e67b1af185a8b1f7358f3dc5d22c7bf07738527a3ac"
+    },
+    "runs/kvasir_seed4/examples_kvasir_test.png": {
+      "bytes": 288955,
+      "sha256": "d6e829ce64d401f48fd13369ac68bb9fe52ec0ff8dd7a5af67df5d05f7ae14cb"
+    },
+    "runs/kvasir_seed4/examples_kvasir_val.png": {
+      "bytes": 263695,
+      "sha256": "3d14687eb0d34e1e5a2fb5244f20ce12404a30fc8897a83f9c9c28cf383f646a"
+    },
     "runs/kvasir_seed4/metrics.csv": {
       "bytes": 5008,
       "sha256": "22cca1864754c47d7ab13e0a05ac50abe0931ce3775a1516b3c9019ea0531884"
@@ -277,6 +393,18 @@
     "runs/kvasir_seed5/eval_summary.json": {
       "bytes": 528,
       "sha256": "32f8f76958dba35eb5ddccd9362ccb335632caf22373e79dbf9cadbe265f3975"
+    },
+    "runs/kvasir_seed5/examples_cvc_external.png": {
+      "bytes": 236080,
+      "sha256": "663f739531d2edb5acb8ca8fc6a30a7c86f7f564e0cad3e9fa51db17020cf2f1"
+    },
+    "runs/kvasir_seed5/examples_kvasir_test.png": {
+      "bytes": 260452,
+      "sha256": "442d4ee71a044efb0009367bcd659ecb36b51140126925ca70edd1384fe6092f"
+    },
+    "runs/kvasir_seed5/examples_kvasir_val.png": {
+      "bytes": 301135,
+      "sha256": "e32b82a1f45e3cff91145d418f507eae9b150d9aca2e3482e4b601453c2f12c5"
     },
     "runs/kvasir_seed5/metrics.csv": {
       "bytes": 5692,
@@ -343,7 +471,7 @@
       "sha256": "9bf6d1b57fce2c7fe9dff4abc60d1b077bf83130fa042e2416ff53d5a2eda71c"
     }
   },
-  "n_files": 83,
+  "n_files": 115,
   "runs": [
     "cvc_seed1",
     "cvc_seed2",

@@ -8,10 +8,10 @@ Everything in this folder was produced from `equal_size.yaml` by `python -m trai
 ## Contents
 | Folder or file | Content |
 |---|---|
-| `figures/` | figures for the paper: fig01 study design, fig02 dataset differences, fig03 Dice by condition, fig04 gap per seed, fig05 all metrics, fig06 gap for all metrics, fig07 Dice by polyp size, fig08 qualitative examples (not stored: they show dataset frames; build with `--with-frames`), fig09 equal-size comparison (if an earlier experiment exists), fig10 metric distributions, figA* appendix |
+| `figures/` | figures for the paper: fig01 study design, fig02 dataset differences, fig03 Dice by condition, fig04 gap per seed, fig05 all metrics, fig06 gap for all metrics, fig07 Dice by polyp size, fig08 qualitative examples, fig09 equal-size comparison (if an earlier experiment exists), fig10 metric distributions, figA* appendix |
 | `tables/` | `metrics_by_condition.csv` (mean and SD over seeds, every metric), `gap_by_seed.csv`, `gap_summary.csv` (t-based and bootstrap CI), `decision_rule.csv`, `spearman.csv`, `acceptance_checks.json`, `original_analysis/` |
 | `per_image/` | one row per run, evaluation set and image with Dice, IoU, precision, recall, HD95, Boundary IoU, miss |
-| `runs/` | per run: training log per epoch (`metrics.csv`), settings and environment (`run.json`), evaluation summary, per-image Dice |
+| `runs/` | per run: training log per epoch (`metrics.csv`), settings and environment (`run.json`), evaluation summary, per-image Dice, example figures |
 | `config/` | the configuration files used, the fixed splits and the fixed training subset |
 | `audit/` | dataset audit report |
 | `METRICS.md` | definitions of all metrics and statistics |
