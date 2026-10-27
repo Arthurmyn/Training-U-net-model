@@ -38,7 +38,7 @@ Scope: does the protocol implemented in this repository support the research que
 2. Make the CVC-ClinicDB baseline informative: leave-sequence-out or grouped k-fold cross-validation, which also enlarges the test set; stratify by polyp size.
 3. Find patient identifiers (or the original sequence list) to split CVC-ClinicDB by patient; resolve the 29 vs 31 sequence discrepancy.
 4. Review the five unreviewed Kvasir-SEG near-duplicate pairs.
-5. Evaluate at the original resolution as a robustness check of the 256 × 256 metrics.
+5. ~~Evaluate at the original resolution as a robustness check of the 256 × 256 metrics.~~ Done for experiment 2 (`results_equal/original_resolution/`, `python -m train.original_resolution`): the mean Dice differs by at most 0.001 from the 256 × 256 value, the largest single-image difference is 0.017, and the gaps are identical (Kvasir-SEG-trained 0.166 [0.143, 0.189]; CVC-ClinicDB-trained −0.065 [−0.102, −0.029]).
 6. Complete the manual error categorisation (`error_analysis/`) and report Cohen's κ.
 7. If transfer is to be studied further: a fine-tuning arm and an intensity-normalisation ablation (a controlled test of brightness as a cause); detection-level metrics if polyp finding is of interest.
 
