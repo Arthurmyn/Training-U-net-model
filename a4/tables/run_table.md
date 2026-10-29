@@ -1,0 +1,14 @@
+# Run table
+
+| run | seed | train images | val images | epochs | best epoch | best val Dice | stop reason | own test Dice | own test images | external Dice | external images | gpu | platform | python | torch | numpy | git_dirty |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| cvc_seed1 | 1 | 429 | 92 | 63 | 48 | 0.484 | early_stopping (no val improvement for 15 epochs) | 0.364 | 91 | 0.427 | 1000 | NVIDIA GeForce RTX 3050 6GB Laptop GPU | Windows-11-10.0.26300-SP0 | 3.14.3 | 2.14.1+cu126 | 2.4.3 | True |
+| cvc_seed2 | 2 | 429 | 92 | 50 | 7 | 0.460 | early_stopping (no val improvement for 43 epochs) | 0.273 | 91 | 0.385 | 1000 | Tesla T4 | Linux-6.18.55+-x86_64-with-glibc2.39 | 3.13.15 | 2.11.0+cu128 | 2.1.3 | True |
+| cvc_seed3 | 3 | 429 | 92 | 74 | 59 | 0.481 | early_stopping (no val improvement for 15 epochs) | 0.380 | 91 | 0.424 | 1000 | Tesla T4 | Linux-6.18.55+-x86_64-with-glibc2.39 | 3.13.15 | 2.11.0+cu128 | 2.1.3 | True |
+| cvc_seed4 | 4 | 429 | 92 | 50 | 16 | 0.461 | early_stopping (no val improvement for 34 epochs) | 0.332 | 91 | 0.403 | 1000 | Tesla T4 | Linux-6.18.55+-x86_64-with-glibc2.39 | 3.13.15 | 2.11.0+cu128 | 2.1.3 | True |
+| cvc_seed5 | 5 | 429 | 92 | 63 | 48 | 0.482 | early_stopping (no val improvement for 15 epochs) | 0.389 | 91 | 0.425 | 1000 | Tesla T4 | Linux-6.18.55+-x86_64-with-glibc2.39 | 3.13.15 | 2.11.0+cu128 | 2.1.3 | True |
+| kvasir_seed1 | 1 | 429 | 100 | 100 | 88 | 0.842 | max_epochs | 0.784 | 100 | 0.628 | 612 | NVIDIA GeForce RTX 3050 6GB Laptop GPU | Windows-11-10.0.26300-SP0 | 3.14.3 | 2.14.1+cu126 | 2.4.3 | True |
+| kvasir_seed2 | 2 | 429 | 100 | 100 | 85 | 0.764 | early_stopping (no val improvement for 15 epochs) | 0.741 | 100 | 0.576 | 612 | Tesla T4 | Linux-6.18.55+-x86_64-with-glibc2.39 | 3.13.15 | 2.11.0+cu128 | 2.1.3 | False |
+| kvasir_seed3 | 3 | 429 | 100 | 85 | 70 | 0.709 | early_stopping (no val improvement for 15 epochs) | 0.703 | 100 | 0.506 | 612 | Tesla T4 | Linux-6.18.55+-x86_64-with-glibc2.39 | 3.13.15 | 2.11.0+cu128 | 2.1.3 | True |
+| kvasir_seed4 | 4 | 429 | 100 | 87 | 72 | 0.825 | early_stopping (no val improvement for 15 epochs) | 0.795 | 100 | 0.645 | 612 | Tesla T4 | Linux-6.18.55+-x86_64-with-glibc2.39 | 3.13.15 | 2.11.0+cu128 | 2.1.3 | True |
+| kvasir_seed5 | 5 | 429 | 100 | 99 | 84 | 0.792 | early_stopping (no val improvement for 15 epochs) | 0.760 | 100 | 0.597 | 612 | Tesla T4 | Linux-6.18.55+-x86_64-with-glibc2.39 | 3.13.15 | 2.11.0+cu128 | 2.1.3 | True |

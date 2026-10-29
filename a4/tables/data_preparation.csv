@@ -1,0 +1,14 @@
+step,operation,parameter,value,source
+1,pair images with masks,"matched pairs, Kvasir-SEG / CVC-ClinicDB",1000 / 612,audit.*.pairs
+2,binarise masks,threshold (value > t),127,final_results/audit/audit_report.md
+2,binarise masks,"masks with values other than 0 and 255, Kvasir-SEG / CVC-ClinicDB",1000 / 138,audit.*.masks_other_values
+3,resize,"output size (pixels), images bilinear, masks nearest neighbour",256 x 256,final_results/audit/audit_report.md
+3,resize,"distinct input sizes, Kvasir-SEG / CVC-ClinicDB",333 / 1,audit.*.distinct_sizes
+4,scale pixel values,range,"[0, 1]",final_results/audit/audit_report.md
+5,near-duplicate search (perceptual hash),Hamming distance limit (bits),4,final_results/audit/audit_report.md
+5,near-duplicate search (perceptual hash),pairs within Kvasir-SEG / within CVC-ClinicDB / across,7 / 183 / 0,audit.near_duplicates.*
+6,"fixed split, Kvasir-SEG (random)",train / val / test images,800 / 100 / 100,split.kvasir.*
+6,"fixed split, CVC-ClinicDB (whole video sequences)",train / val / test frames,429 / 92 / 91,split.cvc.*
+6,"fixed split, CVC-ClinicDB (whole video sequences)",video sequences listed in metadata.csv,29,audit.cvc.sequences
+6,fixed splits,random seed of the audit,42,final_results/audit/audit_report.md
+7,training subset (Kvasir-SEG),"images in the training subset (one run, all seeds)",429,run.kvasir_seed1.n_train

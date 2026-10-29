@@ -1,0 +1,10 @@
+# Error indicators
+
+| condition | miss rate | HD95 (px) | Dice, small polyps (n) | Dice, medium polyps (n) | Dice, large polyps (n) | Spearman, Dice vs polyp area |
+|---|---|---|---|---|---|---|
+| E1 | 0.020 | 54.2 | 0.587 ± 0.101 (13) | 0.780 ± 0.030 (50) | 0.785 ± 0.028 (37) | n/a |
+| E2 | 0.091 | 83.2 | 0.512 ± 0.095 (200) | 0.628 ± 0.044 (320) | 0.629 ± 0.034 (92) | 0.213 |
+| E3 | 0.180 | 126.6 | 0.201 ± 0.014 (34) | 0.400 ± 0.074 (51) | 0.729 ± 0.095 (6) | n/a |
+| E4 | 0.001 | 109.9 | 0.148 ± 0.006 (168) | 0.370 ± 0.020 (508) | 0.618 ± 0.024 (324) | 0.785 |
+
+Frames of the CVC-ClinicDB set with seed-averaged Dice < 0.5 (Kvasir-SEG-trained model): 199 of 612. Polyp-size bins: small < 0.0438, large > 0.1707 (fraction of the 256 x 256 image).
