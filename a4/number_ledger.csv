@@ -1,0 +1,434 @@
+id,value,meaning,source_file,locator,unit,decimals,derived
+run.cvc_seed1.seed,1,cvc_seed1: seed,runs_equal/cvc_seed1/run.json,json#seed,,0,False
+run.cvc_seed1.n_train,429,cvc_seed1: training images,runs_equal/cvc_seed1/run.json,json#n_train,images,0,False
+run.cvc_seed1.n_val,92,cvc_seed1: validation images,runs_equal/cvc_seed1/run.json,json#n_val,images,0,False
+run.cvc_seed1.epochs_run,63,cvc_seed1: epochs run,runs_equal/cvc_seed1/run.json,json#epochs_run,epochs,0,False
+run.cvc_seed1.best_epoch,48,cvc_seed1: best epoch (highest validation Dice),runs_equal/cvc_seed1/run.json,json#best_epoch,epoch,0,False
+run.cvc_seed1.best_val_dice,0.4837246407633242,cvc_seed1: best validation Dice,runs_equal/cvc_seed1/run.json,json#best_val_dice,Dice,3,False
+run.cvc_seed1.stop_reason,early_stopping (no val improvement for 15 epochs),cvc_seed1: stop reason,runs_equal/cvc_seed1/run.json,json#stop_reason,text,0,False
+run.cvc_seed1.env.gpu,NVIDIA GeForce RTX 3050 6GB Laptop GPU,"cvc_seed1: training environment, gpu",runs_equal/cvc_seed1/run.json,json#environment.gpu,text,0,False
+run.cvc_seed1.env.device,cuda,"cvc_seed1: training environment, device",runs_equal/cvc_seed1/run.json,json#environment.device,text,0,False
+run.cvc_seed1.env.platform,Windows-11-10.0.26300-SP0,"cvc_seed1: training environment, platform",runs_equal/cvc_seed1/run.json,json#environment.platform,text,0,False
+run.cvc_seed1.env.python,3.14.3,"cvc_seed1: training environment, python",runs_equal/cvc_seed1/run.json,json#environment.python,text,0,False
+run.cvc_seed1.env.torch,2.14.1+cu126,"cvc_seed1: training environment, torch",runs_equal/cvc_seed1/run.json,json#environment.torch,text,0,False
+run.cvc_seed1.env.numpy,2.4.3,"cvc_seed1: training environment, numpy",runs_equal/cvc_seed1/run.json,json#environment.numpy,text,0,False
+run.cvc_seed1.env.git_dirty,True,"cvc_seed1: training environment, git_dirty",runs_equal/cvc_seed1/run.json,json#environment.git_dirty,text,0,False
+run.cvc_seed1.val.mean_dice,0.4836715912729826,cvc_seed1: mean Dice on cvc_val (evaluation at the end of training),runs_equal/cvc_seed1/eval_summary.json,json#sets.cvc_val.mean_dice,Dice,3,False
+run.cvc_seed1.val.n_images,92,cvc_seed1: images in cvc_val,runs_equal/cvc_seed1/eval_summary.json,json#sets.cvc_val.n_images,images,0,False
+run.cvc_seed1.own_test.mean_dice,0.3637767194432544,cvc_seed1: mean Dice on cvc_test (evaluation at the end of training),runs_equal/cvc_seed1/eval_summary.json,json#sets.cvc_test.mean_dice,Dice,3,False
+run.cvc_seed1.own_test.n_images,91,cvc_seed1: images in cvc_test,runs_equal/cvc_seed1/eval_summary.json,json#sets.cvc_test.n_images,images,0,False
+run.cvc_seed1.external.mean_dice,0.427067869856488,cvc_seed1: mean Dice on kvasir_external (evaluation at the end of training),runs_equal/cvc_seed1/eval_summary.json,json#sets.kvasir_external.mean_dice,Dice,3,False
+run.cvc_seed1.external.n_images,1000,cvc_seed1: images in kvasir_external,runs_equal/cvc_seed1/eval_summary.json,json#sets.kvasir_external.n_images,images,0,False
+run.cvc_seed2.seed,2,cvc_seed2: seed,runs_equal/cvc_seed2/run.json,json#seed,,0,False
+run.cvc_seed2.n_train,429,cvc_seed2: training images,runs_equal/cvc_seed2/run.json,json#n_train,images,0,False
+run.cvc_seed2.n_val,92,cvc_seed2: validation images,runs_equal/cvc_seed2/run.json,json#n_val,images,0,False
+run.cvc_seed2.epochs_run,50,cvc_seed2: epochs run,runs_equal/cvc_seed2/run.json,json#epochs_run,epochs,0,False
+run.cvc_seed2.best_epoch,7,cvc_seed2: best epoch (highest validation Dice),runs_equal/cvc_seed2/run.json,json#best_epoch,epoch,0,False
+run.cvc_seed2.best_val_dice,0.45956452514814294,cvc_seed2: best validation Dice,runs_equal/cvc_seed2/run.json,json#best_val_dice,Dice,3,False
+run.cvc_seed2.stop_reason,early_stopping (no val improvement for 43 epochs),cvc_seed2: stop reason,runs_equal/cvc_seed2/run.json,json#stop_reason,text,0,False
+run.cvc_seed2.env.gpu,Tesla T4,"cvc_seed2: training environment, gpu",runs_equal/cvc_seed2/run.json,json#environment.gpu,text,0,False
+run.cvc_seed2.env.device,cuda,"cvc_seed2: training environment, device",runs_equal/cvc_seed2/run.json,json#environment.device,text,0,False
+run.cvc_seed2.env.platform,Linux-6.18.55+-x86_64-with-glibc2.39,"cvc_seed2: training environment, platform",runs_equal/cvc_seed2/run.json,json#environment.platform,text,0,False
+run.cvc_seed2.env.python,3.13.15,"cvc_seed2: training environment, python",runs_equal/cvc_seed2/run.json,json#environment.python,text,0,False
+run.cvc_seed2.env.torch,2.11.0+cu128,"cvc_seed2: training environment, torch",runs_equal/cvc_seed2/run.json,json#environment.torch,text,0,False
+run.cvc_seed2.env.numpy,2.1.3,"cvc_seed2: training environment, numpy",runs_equal/cvc_seed2/run.json,json#environment.numpy,text,0,False
+run.cvc_seed2.env.git_dirty,True,"cvc_seed2: training environment, git_dirty",runs_equal/cvc_seed2/run.json,json#environment.git_dirty,text,0,False
+run.cvc_seed2.val.mean_dice,0.4599148980620236,cvc_seed2: mean Dice on cvc_val (evaluation at the end of training),runs_equal/cvc_seed2/eval_summary.json,json#sets.cvc_val.mean_dice,Dice,3,False
+run.cvc_seed2.val.n_images,92,cvc_seed2: images in cvc_val,runs_equal/cvc_seed2/eval_summary.json,json#sets.cvc_val.n_images,images,0,False
+run.cvc_seed2.own_test.mean_dice,0.2732349142910667,cvc_seed2: mean Dice on cvc_test (evaluation at the end of training),runs_equal/cvc_seed2/eval_summary.json,json#sets.cvc_test.mean_dice,Dice,3,False
+run.cvc_seed2.own_test.n_images,91,cvc_seed2: images in cvc_test,runs_equal/cvc_seed2/eval_summary.json,json#sets.cvc_test.n_images,images,0,False
+run.cvc_seed2.external.mean_dice,0.384972073563491,cvc_seed2: mean Dice on kvasir_external (evaluation at the end of training),runs_equal/cvc_seed2/eval_summary.json,json#sets.kvasir_external.mean_dice,Dice,3,False
+run.cvc_seed2.external.n_images,1000,cvc_seed2: images in kvasir_external,runs_equal/cvc_seed2/eval_summary.json,json#sets.kvasir_external.n_images,images,0,False
+run.cvc_seed3.seed,3,cvc_seed3: seed,runs_equal/cvc_seed3/run.json,json#seed,,0,False
+run.cvc_seed3.n_train,429,cvc_seed3: training images,runs_equal/cvc_seed3/run.json,json#n_train,images,0,False
+run.cvc_seed3.n_val,92,cvc_seed3: validation images,runs_equal/cvc_seed3/run.json,json#n_val,images,0,False
+run.cvc_seed3.epochs_run,74,cvc_seed3: epochs run,runs_equal/cvc_seed3/run.json,json#epochs_run,epochs,0,False
+run.cvc_seed3.best_epoch,59,cvc_seed3: best epoch (highest validation Dice),runs_equal/cvc_seed3/run.json,json#best_epoch,epoch,0,False
+run.cvc_seed3.best_val_dice,0.4810679010722948,cvc_seed3: best validation Dice,runs_equal/cvc_seed3/run.json,json#best_val_dice,Dice,3,False
+run.cvc_seed3.stop_reason,early_stopping (no val improvement for 15 epochs),cvc_seed3: stop reason,runs_equal/cvc_seed3/run.json,json#stop_reason,text,0,False
+run.cvc_seed3.env.gpu,Tesla T4,"cvc_seed3: training environment, gpu",runs_equal/cvc_seed3/run.json,json#environment.gpu,text,0,False
+run.cvc_seed3.env.device,cuda,"cvc_seed3: training environment, device",runs_equal/cvc_seed3/run.json,json#environment.device,text,0,False
+run.cvc_seed3.env.platform,Linux-6.18.55+-x86_64-with-glibc2.39,"cvc_seed3: training environment, platform",runs_equal/cvc_seed3/run.json,json#environment.platform,text,0,False
+run.cvc_seed3.env.python,3.13.15,"cvc_seed3: training environment, python",runs_equal/cvc_seed3/run.json,json#environment.python,text,0,False
+run.cvc_seed3.env.torch,2.11.0+cu128,"cvc_seed3: training environment, torch",runs_equal/cvc_seed3/run.json,json#environment.torch,text,0,False
+run.cvc_seed3.env.numpy,2.1.3,"cvc_seed3: training environment, numpy",runs_equal/cvc_seed3/run.json,json#environment.numpy,text,0,False
+run.cvc_seed3.env.git_dirty,True,"cvc_seed3: training environment, git_dirty",runs_equal/cvc_seed3/run.json,json#environment.git_dirty,text,0,False
+run.cvc_seed3.val.mean_dice,0.4811112727266331,cvc_seed3: mean Dice on cvc_val (evaluation at the end of training),runs_equal/cvc_seed3/eval_summary.json,json#sets.cvc_val.mean_dice,Dice,3,False
+run.cvc_seed3.val.n_images,92,cvc_seed3: images in cvc_val,runs_equal/cvc_seed3/eval_summary.json,json#sets.cvc_val.n_images,images,0,False
+run.cvc_seed3.own_test.mean_dice,0.3803777102314468,cvc_seed3: mean Dice on cvc_test (evaluation at the end of training),runs_equal/cvc_seed3/eval_summary.json,json#sets.cvc_test.mean_dice,Dice,3,False
+run.cvc_seed3.own_test.n_images,91,cvc_seed3: images in cvc_test,runs_equal/cvc_seed3/eval_summary.json,json#sets.cvc_test.n_images,images,0,False
+run.cvc_seed3.external.mean_dice,0.4244249414466321,cvc_seed3: mean Dice on kvasir_external (evaluation at the end of training),runs_equal/cvc_seed3/eval_summary.json,json#sets.kvasir_external.mean_dice,Dice,3,False
+run.cvc_seed3.external.n_images,1000,cvc_seed3: images in kvasir_external,runs_equal/cvc_seed3/eval_summary.json,json#sets.kvasir_external.n_images,images,0,False
+run.cvc_seed4.seed,4,cvc_seed4: seed,runs_equal/cvc_seed4/run.json,json#seed,,0,False
+run.cvc_seed4.n_train,429,cvc_seed4: training images,runs_equal/cvc_seed4/run.json,json#n_train,images,0,False
+run.cvc_seed4.n_val,92,cvc_seed4: validation images,runs_equal/cvc_seed4/run.json,json#n_val,images,0,False
+run.cvc_seed4.epochs_run,50,cvc_seed4: epochs run,runs_equal/cvc_seed4/run.json,json#epochs_run,epochs,0,False
+run.cvc_seed4.best_epoch,16,cvc_seed4: best epoch (highest validation Dice),runs_equal/cvc_seed4/run.json,json#best_epoch,epoch,0,False
+run.cvc_seed4.best_val_dice,0.46081927029982855,cvc_seed4: best validation Dice,runs_equal/cvc_seed4/run.json,json#best_val_dice,Dice,3,False
+run.cvc_seed4.stop_reason,early_stopping (no val improvement for 34 epochs),cvc_seed4: stop reason,runs_equal/cvc_seed4/run.json,json#stop_reason,text,0,False
+run.cvc_seed4.env.gpu,Tesla T4,"cvc_seed4: training environment, gpu",runs_equal/cvc_seed4/run.json,json#environment.gpu,text,0,False
+run.cvc_seed4.env.device,cuda,"cvc_seed4: training environment, device",runs_equal/cvc_seed4/run.json,json#environment.device,text,0,False
+run.cvc_seed4.env.platform,Linux-6.18.55+-x86_64-with-glibc2.39,"cvc_seed4: training environment, platform",runs_equal/cvc_seed4/run.json,json#environment.platform,text,0,False
+run.cvc_seed4.env.python,3.13.15,"cvc_seed4: training environment, python",runs_equal/cvc_seed4/run.json,json#environment.python,text,0,False
+run.cvc_seed4.env.torch,2.11.0+cu128,"cvc_seed4: training environment, torch",runs_equal/cvc_seed4/run.json,json#environment.torch,text,0,False
+run.cvc_seed4.env.numpy,2.1.3,"cvc_seed4: training environment, numpy",runs_equal/cvc_seed4/run.json,json#environment.numpy,text,0,False
+run.cvc_seed4.env.git_dirty,True,"cvc_seed4: training environment, git_dirty",runs_equal/cvc_seed4/run.json,json#environment.git_dirty,text,0,False
+run.cvc_seed4.val.mean_dice,0.4608404465303149,cvc_seed4: mean Dice on cvc_val (evaluation at the end of training),runs_equal/cvc_seed4/eval_summary.json,json#sets.cvc_val.mean_dice,Dice,3,False
+run.cvc_seed4.val.n_images,92,cvc_seed4: images in cvc_val,runs_equal/cvc_seed4/eval_summary.json,json#sets.cvc_val.n_images,images,0,False
+run.cvc_seed4.own_test.mean_dice,0.33157405779686766,cvc_seed4: mean Dice on cvc_test (evaluation at the end of training),runs_equal/cvc_seed4/eval_summary.json,json#sets.cvc_test.mean_dice,Dice,3,False
+run.cvc_seed4.own_test.n_images,91,cvc_seed4: images in cvc_test,runs_equal/cvc_seed4/eval_summary.json,json#sets.cvc_test.n_images,images,0,False
+run.cvc_seed4.external.mean_dice,0.4034975882644067,cvc_seed4: mean Dice on kvasir_external (evaluation at the end of training),runs_equal/cvc_seed4/eval_summary.json,json#sets.kvasir_external.mean_dice,Dice,3,False
+run.cvc_seed4.external.n_images,1000,cvc_seed4: images in kvasir_external,runs_equal/cvc_seed4/eval_summary.json,json#sets.kvasir_external.n_images,images,0,False
+run.cvc_seed5.seed,5,cvc_seed5: seed,runs_equal/cvc_seed5/run.json,json#seed,,0,False
+run.cvc_seed5.n_train,429,cvc_seed5: training images,runs_equal/cvc_seed5/run.json,json#n_train,images,0,False
+run.cvc_seed5.n_val,92,cvc_seed5: validation images,runs_equal/cvc_seed5/run.json,json#n_val,images,0,False
+run.cvc_seed5.epochs_run,63,cvc_seed5: epochs run,runs_equal/cvc_seed5/run.json,json#epochs_run,epochs,0,False
+run.cvc_seed5.best_epoch,48,cvc_seed5: best epoch (highest validation Dice),runs_equal/cvc_seed5/run.json,json#best_epoch,epoch,0,False
+run.cvc_seed5.best_val_dice,0.4817408426948216,cvc_seed5: best validation Dice,runs_equal/cvc_seed5/run.json,json#best_val_dice,Dice,3,False
+run.cvc_seed5.stop_reason,early_stopping (no val improvement for 15 epochs),cvc_seed5: stop reason,runs_equal/cvc_seed5/run.json,json#stop_reason,text,0,False
+run.cvc_seed5.env.gpu,Tesla T4,"cvc_seed5: training environment, gpu",runs_equal/cvc_seed5/run.json,json#environment.gpu,text,0,False
+run.cvc_seed5.env.device,cuda,"cvc_seed5: training environment, device",runs_equal/cvc_seed5/run.json,json#environment.device,text,0,False
+run.cvc_seed5.env.platform,Linux-6.18.55+-x86_64-with-glibc2.39,"cvc_seed5: training environment, platform",runs_equal/cvc_seed5/run.json,json#environment.platform,text,0,False
+run.cvc_seed5.env.python,3.13.15,"cvc_seed5: training environment, python",runs_equal/cvc_seed5/run.json,json#environment.python,text,0,False
+run.cvc_seed5.env.torch,2.11.0+cu128,"cvc_seed5: training environment, torch",runs_equal/cvc_seed5/run.json,json#environment.torch,text,0,False
+run.cvc_seed5.env.numpy,2.1.3,"cvc_seed5: training environment, numpy",runs_equal/cvc_seed5/run.json,json#environment.numpy,text,0,False
+run.cvc_seed5.env.git_dirty,True,"cvc_seed5: training environment, git_dirty",runs_equal/cvc_seed5/run.json,json#environment.git_dirty,text,0,False
+run.cvc_seed5.val.mean_dice,0.48179047592186736,cvc_seed5: mean Dice on cvc_val (evaluation at the end of training),runs_equal/cvc_seed5/eval_summary.json,json#sets.cvc_val.mean_dice,Dice,3,False
+run.cvc_seed5.val.n_images,92,cvc_seed5: images in cvc_val,runs_equal/cvc_seed5/eval_summary.json,json#sets.cvc_val.n_images,images,0,False
+run.cvc_seed5.own_test.mean_dice,0.3886682919705041,cvc_seed5: mean Dice on cvc_test (evaluation at the end of training),runs_equal/cvc_seed5/eval_summary.json,json#sets.cvc_test.mean_dice,Dice,3,False
+run.cvc_seed5.own_test.n_images,91,cvc_seed5: images in cvc_test,runs_equal/cvc_seed5/eval_summary.json,json#sets.cvc_test.n_images,images,0,False
+run.cvc_seed5.external.mean_dice,0.4248273714558309,cvc_seed5: mean Dice on kvasir_external (evaluation at the end of training),runs_equal/cvc_seed5/eval_summary.json,json#sets.kvasir_external.mean_dice,Dice,3,False
+run.cvc_seed5.external.n_images,1000,cvc_seed5: images in kvasir_external,runs_equal/cvc_seed5/eval_summary.json,json#sets.kvasir_external.n_images,images,0,False
+run.kvasir_seed1.seed,1,kvasir_seed1: seed,runs_equal/kvasir_seed1/run.json,json#seed,,0,False
+run.kvasir_seed1.n_train,429,kvasir_seed1: training images,runs_equal/kvasir_seed1/run.json,json#n_train,images,0,False
+run.kvasir_seed1.n_val,100,kvasir_seed1: validation images,runs_equal/kvasir_seed1/run.json,json#n_val,images,0,False
+run.kvasir_seed1.epochs_run,100,kvasir_seed1: epochs run,runs_equal/kvasir_seed1/run.json,json#epochs_run,epochs,0,False
+run.kvasir_seed1.best_epoch,88,kvasir_seed1: best epoch (highest validation Dice),runs_equal/kvasir_seed1/run.json,json#best_epoch,epoch,0,False
+run.kvasir_seed1.best_val_dice,0.8418279266357422,kvasir_seed1: best validation Dice,runs_equal/kvasir_seed1/run.json,json#best_val_dice,Dice,3,False
+run.kvasir_seed1.stop_reason,max_epochs,kvasir_seed1: stop reason,runs_equal/kvasir_seed1/run.json,json#stop_reason,text,0,False
+run.kvasir_seed1.env.gpu,NVIDIA GeForce RTX 3050 6GB Laptop GPU,"kvasir_seed1: training environment, gpu",runs_equal/kvasir_seed1/run.json,json#environment.gpu,text,0,False
+run.kvasir_seed1.env.device,cuda,"kvasir_seed1: training environment, device",runs_equal/kvasir_seed1/run.json,json#environment.device,text,0,False
+run.kvasir_seed1.env.platform,Windows-11-10.0.26300-SP0,"kvasir_seed1: training environment, platform",runs_equal/kvasir_seed1/run.json,json#environment.platform,text,0,False
+run.kvasir_seed1.env.python,3.14.3,"kvasir_seed1: training environment, python",runs_equal/kvasir_seed1/run.json,json#environment.python,text,0,False
+run.kvasir_seed1.env.torch,2.14.1+cu126,"kvasir_seed1: training environment, torch",runs_equal/kvasir_seed1/run.json,json#environment.torch,text,0,False
+run.kvasir_seed1.env.numpy,2.4.3,"kvasir_seed1: training environment, numpy",runs_equal/kvasir_seed1/run.json,json#environment.numpy,text,0,False
+run.kvasir_seed1.env.git_dirty,True,"kvasir_seed1: training environment, git_dirty",runs_equal/kvasir_seed1/run.json,json#environment.git_dirty,text,0,False
+run.kvasir_seed1.val.mean_dice,0.8417420297861099,kvasir_seed1: mean Dice on kvasir_val (evaluation at the end of training),runs_equal/kvasir_seed1/eval_summary.json,json#sets.kvasir_val.mean_dice,Dice,3,False
+run.kvasir_seed1.val.n_images,100,kvasir_seed1: images in kvasir_val,runs_equal/kvasir_seed1/eval_summary.json,json#sets.kvasir_val.n_images,images,0,False
+run.kvasir_seed1.own_test.mean_dice,0.7841684203594923,kvasir_seed1: mean Dice on kvasir_test (evaluation at the end of training),runs_equal/kvasir_seed1/eval_summary.json,json#sets.kvasir_test.mean_dice,Dice,3,False
+run.kvasir_seed1.own_test.n_images,100,kvasir_seed1: images in kvasir_test,runs_equal/kvasir_seed1/eval_summary.json,json#sets.kvasir_test.n_images,images,0,False
+run.kvasir_seed1.external.mean_dice,0.627595473285171,kvasir_seed1: mean Dice on cvc_external (evaluation at the end of training),runs_equal/kvasir_seed1/eval_summary.json,json#sets.cvc_external.mean_dice,Dice,3,False
+run.kvasir_seed1.external.n_images,612,kvasir_seed1: images in cvc_external,runs_equal/kvasir_seed1/eval_summary.json,json#sets.cvc_external.n_images,images,0,False
+run.kvasir_seed2.seed,2,kvasir_seed2: seed,runs_equal/kvasir_seed2/run.json,json#seed,,0,False
+run.kvasir_seed2.n_train,429,kvasir_seed2: training images,runs_equal/kvasir_seed2/run.json,json#n_train,images,0,False
+run.kvasir_seed2.n_val,100,kvasir_seed2: validation images,runs_equal/kvasir_seed2/run.json,json#n_val,images,0,False
+run.kvasir_seed2.epochs_run,100,kvasir_seed2: epochs run,runs_equal/kvasir_seed2/run.json,json#epochs_run,epochs,0,False
+run.kvasir_seed2.best_epoch,85,kvasir_seed2: best epoch (highest validation Dice),runs_equal/kvasir_seed2/run.json,json#best_epoch,epoch,0,False
+run.kvasir_seed2.best_val_dice,0.7635445499420166,kvasir_seed2: best validation Dice,runs_equal/kvasir_seed2/run.json,json#best_val_dice,Dice,3,False
+run.kvasir_seed2.stop_reason,early_stopping (no val improvement for 15 epochs),kvasir_seed2: stop reason,runs_equal/kvasir_seed2/run.json,json#stop_reason,text,0,False
+run.kvasir_seed2.env.gpu,Tesla T4,"kvasir_seed2: training environment, gpu",runs_equal/kvasir_seed2/run.json,json#environment.gpu,text,0,False
+run.kvasir_seed2.env.device,cuda,"kvasir_seed2: training environment, device",runs_equal/kvasir_seed2/run.json,json#environment.device,text,0,False
+run.kvasir_seed2.env.platform,Linux-6.18.55+-x86_64-with-glibc2.39,"kvasir_seed2: training environment, platform",runs_equal/kvasir_seed2/run.json,json#environment.platform,text,0,False
+run.kvasir_seed2.env.python,3.13.15,"kvasir_seed2: training environment, python",runs_equal/kvasir_seed2/run.json,json#environment.python,text,0,False
+run.kvasir_seed2.env.torch,2.11.0+cu128,"kvasir_seed2: training environment, torch",runs_equal/kvasir_seed2/run.json,json#environment.torch,text,0,False
+run.kvasir_seed2.env.numpy,2.1.3,"kvasir_seed2: training environment, numpy",runs_equal/kvasir_seed2/run.json,json#environment.numpy,text,0,False
+run.kvasir_seed2.env.git_dirty,False,"kvasir_seed2: training environment, git_dirty",runs_equal/kvasir_seed2/run.json,json#environment.git_dirty,text,0,False
+run.kvasir_seed2.val.mean_dice,0.7635179092548787,kvasir_seed2: mean Dice on kvasir_val (evaluation at the end of training),runs_equal/kvasir_seed2/eval_summary.json,json#sets.kvasir_val.mean_dice,Dice,3,False
+run.kvasir_seed2.val.n_images,100,kvasir_seed2: images in kvasir_val,runs_equal/kvasir_seed2/eval_summary.json,json#sets.kvasir_val.n_images,images,0,False
+run.kvasir_seed2.own_test.mean_dice,0.7413541976548731,kvasir_seed2: mean Dice on kvasir_test (evaluation at the end of training),runs_equal/kvasir_seed2/eval_summary.json,json#sets.kvasir_test.mean_dice,Dice,3,False
+run.kvasir_seed2.own_test.n_images,100,kvasir_seed2: images in kvasir_test,runs_equal/kvasir_seed2/eval_summary.json,json#sets.kvasir_test.n_images,images,0,False
+run.kvasir_seed2.external.mean_dice,0.5759335202959122,kvasir_seed2: mean Dice on cvc_external (evaluation at the end of training),runs_equal/kvasir_seed2/eval_summary.json,json#sets.cvc_external.mean_dice,Dice,3,False
+run.kvasir_seed2.external.n_images,612,kvasir_seed2: images in cvc_external,runs_equal/kvasir_seed2/eval_summary.json,json#sets.cvc_external.n_images,images,0,False
+run.kvasir_seed3.seed,3,kvasir_seed3: seed,runs_equal/kvasir_seed3/run.json,json#seed,,0,False
+run.kvasir_seed3.n_train,429,kvasir_seed3: training images,runs_equal/kvasir_seed3/run.json,json#n_train,images,0,False
+run.kvasir_seed3.n_val,100,kvasir_seed3: validation images,runs_equal/kvasir_seed3/run.json,json#n_val,images,0,False
+run.kvasir_seed3.epochs_run,85,kvasir_seed3: epochs run,runs_equal/kvasir_seed3/run.json,json#epochs_run,epochs,0,False
+run.kvasir_seed3.best_epoch,70,kvasir_seed3: best epoch (highest validation Dice),runs_equal/kvasir_seed3/run.json,json#best_epoch,epoch,0,False
+run.kvasir_seed3.best_val_dice,0.7089304399490356,kvasir_seed3: best validation Dice,runs_equal/kvasir_seed3/run.json,json#best_val_dice,Dice,3,False
+run.kvasir_seed3.stop_reason,early_stopping (no val improvement for 15 epochs),kvasir_seed3: stop reason,runs_equal/kvasir_seed3/run.json,json#stop_reason,text,0,False
+run.kvasir_seed3.env.gpu,Tesla T4,"kvasir_seed3: training environment, gpu",runs_equal/kvasir_seed3/run.json,json#environment.gpu,text,0,False
+run.kvasir_seed3.env.device,cuda,"kvasir_seed3: training environment, device",runs_equal/kvasir_seed3/run.json,json#environment.device,text,0,False
+run.kvasir_seed3.env.platform,Linux-6.18.55+-x86_64-with-glibc2.39,"kvasir_seed3: training environment, platform",runs_equal/kvasir_seed3/run.json,json#environment.platform,text,0,False
+run.kvasir_seed3.env.python,3.13.15,"kvasir_seed3: training environment, python",runs_equal/kvasir_seed3/run.json,json#environment.python,text,0,False
+run.kvasir_seed3.env.torch,2.11.0+cu128,"kvasir_seed3: training environment, torch",runs_equal/kvasir_seed3/run.json,json#environment.torch,text,0,False
+run.kvasir_seed3.env.numpy,2.1.3,"kvasir_seed3: training environment, numpy",runs_equal/kvasir_seed3/run.json,json#environment.numpy,text,0,False
+run.kvasir_seed3.env.git_dirty,True,"kvasir_seed3: training environment, git_dirty",runs_equal/kvasir_seed3/run.json,json#environment.git_dirty,text,0,False
+run.kvasir_seed3.val.mean_dice,0.7087982583930716,kvasir_seed3: mean Dice on kvasir_val (evaluation at the end of training),runs_equal/kvasir_seed3/eval_summary.json,json#sets.kvasir_val.mean_dice,Dice,3,False
+run.kvasir_seed3.val.n_images,100,kvasir_seed3: images in kvasir_val,runs_equal/kvasir_seed3/eval_summary.json,json#sets.kvasir_val.n_images,images,0,False
+run.kvasir_seed3.own_test.mean_dice,0.7034705818071961,kvasir_seed3: mean Dice on kvasir_test (evaluation at the end of training),runs_equal/kvasir_seed3/eval_summary.json,json#sets.kvasir_test.mean_dice,Dice,3,False
+run.kvasir_seed3.own_test.n_images,100,kvasir_seed3: images in kvasir_test,runs_equal/kvasir_seed3/eval_summary.json,json#sets.kvasir_test.n_images,images,0,False
+run.kvasir_seed3.external.mean_dice,0.5059325598109722,kvasir_seed3: mean Dice on cvc_external (evaluation at the end of training),runs_equal/kvasir_seed3/eval_summary.json,json#sets.cvc_external.mean_dice,Dice,3,False
+run.kvasir_seed3.external.n_images,612,kvasir_seed3: images in cvc_external,runs_equal/kvasir_seed3/eval_summary.json,json#sets.cvc_external.n_images,images,0,False
+run.kvasir_seed4.seed,4,kvasir_seed4: seed,runs_equal/kvasir_seed4/run.json,json#seed,,0,False
+run.kvasir_seed4.n_train,429,kvasir_seed4: training images,runs_equal/kvasir_seed4/run.json,json#n_train,images,0,False
+run.kvasir_seed4.n_val,100,kvasir_seed4: validation images,runs_equal/kvasir_seed4/run.json,json#n_val,images,0,False
+run.kvasir_seed4.epochs_run,87,kvasir_seed4: epochs run,runs_equal/kvasir_seed4/run.json,json#epochs_run,epochs,0,False
+run.kvasir_seed4.best_epoch,72,kvasir_seed4: best epoch (highest validation Dice),runs_equal/kvasir_seed4/run.json,json#best_epoch,epoch,0,False
+run.kvasir_seed4.best_val_dice,0.8250963687896729,kvasir_seed4: best validation Dice,runs_equal/kvasir_seed4/run.json,json#best_val_dice,Dice,3,False
+run.kvasir_seed4.stop_reason,early_stopping (no val improvement for 15 epochs),kvasir_seed4: stop reason,runs_equal/kvasir_seed4/run.json,json#stop_reason,text,0,False
+run.kvasir_seed4.env.gpu,Tesla T4,"kvasir_seed4: training environment, gpu",runs_equal/kvasir_seed4/run.json,json#environment.gpu,text,0,False
+run.kvasir_seed4.env.device,cuda,"kvasir_seed4: training environment, device",runs_equal/kvasir_seed4/run.json,json#environment.device,text,0,False
+run.kvasir_seed4.env.platform,Linux-6.18.55+-x86_64-with-glibc2.39,"kvasir_seed4: training environment, platform",runs_equal/kvasir_seed4/run.json,json#environment.platform,text,0,False
+run.kvasir_seed4.env.python,3.13.15,"kvasir_seed4: training environment, python",runs_equal/kvasir_seed4/run.json,json#environment.python,text,0,False
+run.kvasir_seed4.env.torch,2.11.0+cu128,"kvasir_seed4: training environment, torch",runs_equal/kvasir_seed4/run.json,json#environment.torch,text,0,False
+run.kvasir_seed4.env.numpy,2.1.3,"kvasir_seed4: training environment, numpy",runs_equal/kvasir_seed4/run.json,json#environment.numpy,text,0,False
+run.kvasir_seed4.env.git_dirty,True,"kvasir_seed4: training environment, git_dirty",runs_equal/kvasir_seed4/run.json,json#environment.git_dirty,text,0,False
+run.kvasir_seed4.val.mean_dice,0.8253196553885936,kvasir_seed4: mean Dice on kvasir_val (evaluation at the end of training),runs_equal/kvasir_seed4/eval_summary.json,json#sets.kvasir_val.mean_dice,Dice,3,False
+run.kvasir_seed4.val.n_images,100,kvasir_seed4: images in kvasir_val,runs_equal/kvasir_seed4/eval_summary.json,json#sets.kvasir_val.n_images,images,0,False
+run.kvasir_seed4.own_test.mean_dice,0.7950870731472969,kvasir_seed4: mean Dice on kvasir_test (evaluation at the end of training),runs_equal/kvasir_seed4/eval_summary.json,json#sets.kvasir_test.mean_dice,Dice,3,False
+run.kvasir_seed4.own_test.n_images,100,kvasir_seed4: images in kvasir_test,runs_equal/kvasir_seed4/eval_summary.json,json#sets.kvasir_test.n_images,images,0,False
+run.kvasir_seed4.external.mean_dice,0.6452808412961971,kvasir_seed4: mean Dice on cvc_external (evaluation at the end of training),runs_equal/kvasir_seed4/eval_summary.json,json#sets.cvc_external.mean_dice,Dice,3,False
+run.kvasir_seed4.external.n_images,612,kvasir_seed4: images in cvc_external,runs_equal/kvasir_seed4/eval_summary.json,json#sets.cvc_external.n_images,images,0,False
+run.kvasir_seed5.seed,5,kvasir_seed5: seed,runs_equal/kvasir_seed5/run.json,json#seed,,0,False
+run.kvasir_seed5.n_train,429,kvasir_seed5: training images,runs_equal/kvasir_seed5/run.json,json#n_train,images,0,False
+run.kvasir_seed5.n_val,100,kvasir_seed5: validation images,runs_equal/kvasir_seed5/run.json,json#n_val,images,0,False
+run.kvasir_seed5.epochs_run,99,kvasir_seed5: epochs run,runs_equal/kvasir_seed5/run.json,json#epochs_run,epochs,0,False
+run.kvasir_seed5.best_epoch,84,kvasir_seed5: best epoch (highest validation Dice),runs_equal/kvasir_seed5/run.json,json#best_epoch,epoch,0,False
+run.kvasir_seed5.best_val_dice,0.7922397756576538,kvasir_seed5: best validation Dice,runs_equal/kvasir_seed5/run.json,json#best_val_dice,Dice,3,False
+run.kvasir_seed5.stop_reason,early_stopping (no val improvement for 15 epochs),kvasir_seed5: stop reason,runs_equal/kvasir_seed5/run.json,json#stop_reason,text,0,False
+run.kvasir_seed5.env.gpu,Tesla T4,"kvasir_seed5: training environment, gpu",runs_equal/kvasir_seed5/run.json,json#environment.gpu,text,0,False
+run.kvasir_seed5.env.device,cuda,"kvasir_seed5: training environment, device",runs_equal/kvasir_seed5/run.json,json#environment.device,text,0,False
+run.kvasir_seed5.env.platform,Linux-6.18.55+-x86_64-with-glibc2.39,"kvasir_seed5: training environment, platform",runs_equal/kvasir_seed5/run.json,json#environment.platform,text,0,False
+run.kvasir_seed5.env.python,3.13.15,"kvasir_seed5: training environment, python",runs_equal/kvasir_seed5/run.json,json#environment.python,text,0,False
+run.kvasir_seed5.env.torch,2.11.0+cu128,"kvasir_seed5: training environment, torch",runs_equal/kvasir_seed5/run.json,json#environment.torch,text,0,False
+run.kvasir_seed5.env.numpy,2.1.3,"kvasir_seed5: training environment, numpy",runs_equal/kvasir_seed5/run.json,json#environment.numpy,text,0,False
+run.kvasir_seed5.env.git_dirty,True,"kvasir_seed5: training environment, git_dirty",runs_equal/kvasir_seed5/run.json,json#environment.git_dirty,text,0,False
+run.kvasir_seed5.val.mean_dice,0.7922867608815432,kvasir_seed5: mean Dice on kvasir_val (evaluation at the end of training),runs_equal/kvasir_seed5/eval_summary.json,json#sets.kvasir_val.mean_dice,Dice,3,False
+run.kvasir_seed5.val.n_images,100,kvasir_seed5: images in kvasir_val,runs_equal/kvasir_seed5/eval_summary.json,json#sets.kvasir_val.n_images,images,0,False
+run.kvasir_seed5.own_test.mean_dice,0.7596503077482339,kvasir_seed5: mean Dice on kvasir_test (evaluation at the end of training),runs_equal/kvasir_seed5/eval_summary.json,json#sets.kvasir_test.mean_dice,Dice,3,False
+run.kvasir_seed5.own_test.n_images,100,kvasir_seed5: images in kvasir_test,runs_equal/kvasir_seed5/eval_summary.json,json#sets.kvasir_test.n_images,images,0,False
+run.kvasir_seed5.external.mean_dice,0.5972146784131159,kvasir_seed5: mean Dice on cvc_external (evaluation at the end of training),runs_equal/kvasir_seed5/eval_summary.json,json#sets.cvc_external.mean_dice,Dice,3,False
+run.kvasir_seed5.external.n_images,612,kvasir_seed5: images in cvc_external,runs_equal/kvasir_seed5/eval_summary.json,json#sets.cvc_external.n_images,images,0,False
+cond.E1.dice.mean_over_seeds,0.756746,"E1 (kvasir_test): dice, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=dice#mean_over_seeds,fraction,3,False
+cond.E1.dice.sd_over_seeds,0.036420,"E1 (kvasir_test): dice, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=dice#sd_over_seeds,fraction,3,False
+cond.E1.dice.median_over_images_mean_over_seeds,0.835841,"E1 (kvasir_test): dice, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=dice#median_over_images_mean_over_seeds,fraction,3,False
+cond.E1.iou.mean_over_seeds,0.655651,"E1 (kvasir_test): iou, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=iou#mean_over_seeds,fraction,3,False
+cond.E1.iou.sd_over_seeds,0.040192,"E1 (kvasir_test): iou, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=iou#sd_over_seeds,fraction,3,False
+cond.E1.iou.median_over_images_mean_over_seeds,0.718614,"E1 (kvasir_test): iou, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=iou#median_over_images_mean_over_seeds,fraction,3,False
+cond.E1.precision.mean_over_seeds,0.779696,"E1 (kvasir_test): precision, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=precision#mean_over_seeds,fraction,3,False
+cond.E1.precision.sd_over_seeds,0.034631,"E1 (kvasir_test): precision, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=precision#sd_over_seeds,fraction,3,False
+cond.E1.precision.median_over_images_mean_over_seeds,0.879874,"E1 (kvasir_test): precision, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=precision#median_over_images_mean_over_seeds,fraction,3,False
+cond.E1.recall.mean_over_seeds,0.806055,"E1 (kvasir_test): recall, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=recall#mean_over_seeds,fraction,3,False
+cond.E1.recall.sd_over_seeds,0.028584,"E1 (kvasir_test): recall, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=recall#sd_over_seeds,fraction,3,False
+cond.E1.recall.median_over_images_mean_over_seeds,0.921406,"E1 (kvasir_test): recall, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=recall#median_over_images_mean_over_seeds,fraction,3,False
+cond.E1.hd95.mean_over_seeds,54.207024,"E1 (kvasir_test): hd95, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=hd95#mean_over_seeds,px,1,False
+cond.E1.hd95.sd_over_seeds,5.760673,"E1 (kvasir_test): hd95, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=hd95#sd_over_seeds,px,1,False
+cond.E1.hd95.median_over_images_mean_over_seeds,43.852358,"E1 (kvasir_test): hd95, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=hd95#median_over_images_mean_over_seeds,px,1,False
+cond.E1.boundary_iou.mean_over_seeds,0.288660,"E1 (kvasir_test): boundary_iou, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=boundary_iou#mean_over_seeds,fraction,3,False
+cond.E1.boundary_iou.sd_over_seeds,0.040617,"E1 (kvasir_test): boundary_iou, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=boundary_iou#sd_over_seeds,fraction,3,False
+cond.E1.boundary_iou.median_over_images_mean_over_seeds,0.266839,"E1 (kvasir_test): boundary_iou, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=boundary_iou#median_over_images_mean_over_seeds,fraction,3,False
+cond.E1.miss.mean_over_seeds,0.020000,"E1 (kvasir_test): miss, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=miss#mean_over_seeds,fraction,3,False
+cond.E1.miss.sd_over_seeds,0.010000,"E1 (kvasir_test): miss, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=miss#sd_over_seeds,fraction,3,False
+cond.E1.miss.median_over_images_mean_over_seeds,0.000000,"E1 (kvasir_test): miss, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=miss#median_over_images_mean_over_seeds,fraction,3,False
+cond.E1.n_images,100,E1 (kvasir_test): images in the evaluation set,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=dice#n_images,images,0,False
+cond.E1.n_seeds,5,E1 (kvasir_test): seeds,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=dice#n_seeds,seeds,0,False
+cond.E1.dice.seed1,0.784167,E1 (kvasir_test): mean Dice of seed 1,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=dice#seed_1,Dice,3,False
+cond.E1.dice.seed2,0.741354,E1 (kvasir_test): mean Dice of seed 2,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=dice#seed_2,Dice,3,False
+cond.E1.dice.seed3,0.703471,E1 (kvasir_test): mean Dice of seed 3,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=dice#seed_3,Dice,3,False
+cond.E1.dice.seed4,0.795087,E1 (kvasir_test): mean Dice of seed 4,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=dice#seed_4,Dice,3,False
+cond.E1.dice.seed5,0.759651,E1 (kvasir_test): mean Dice of seed 5,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_test&metric=dice#seed_5,Dice,3,False
+cond.E2.dice.mean_over_seeds,0.590394,"E2 (cvc_external): dice, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=dice#mean_over_seeds,fraction,3,False
+cond.E2.dice.sd_over_seeds,0.054283,"E2 (cvc_external): dice, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=dice#sd_over_seeds,fraction,3,False
+cond.E2.dice.median_over_images_mean_over_seeds,0.721435,"E2 (cvc_external): dice, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=dice#median_over_images_mean_over_seeds,fraction,3,False
+cond.E2.iou.mean_over_seeds,0.498332,"E2 (cvc_external): iou, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=iou#mean_over_seeds,fraction,3,False
+cond.E2.iou.sd_over_seeds,0.063036,"E2 (cvc_external): iou, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=iou#sd_over_seeds,fraction,3,False
+cond.E2.iou.median_over_images_mean_over_seeds,0.569928,"E2 (cvc_external): iou, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=iou#median_over_images_mean_over_seeds,fraction,3,False
+cond.E2.precision.mean_over_seeds,0.666521,"E2 (cvc_external): precision, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=precision#mean_over_seeds,fraction,3,False
+cond.E2.precision.sd_over_seeds,0.084998,"E2 (cvc_external): precision, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=precision#sd_over_seeds,fraction,3,False
+cond.E2.precision.median_over_images_mean_over_seeds,0.804470,"E2 (cvc_external): precision, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=precision#median_over_images_mean_over_seeds,fraction,3,False
+cond.E2.recall.mean_over_seeds,0.638653,"E2 (cvc_external): recall, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=recall#mean_over_seeds,fraction,3,False
+cond.E2.recall.sd_over_seeds,0.028194,"E2 (cvc_external): recall, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=recall#sd_over_seeds,fraction,3,False
+cond.E2.recall.median_over_images_mean_over_seeds,0.821151,"E2 (cvc_external): recall, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=recall#median_over_images_mean_over_seeds,fraction,3,False
+cond.E2.hd95.mean_over_seeds,83.203578,"E2 (cvc_external): hd95, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=hd95#mean_over_seeds,px,1,False
+cond.E2.hd95.sd_over_seeds,6.518800,"E2 (cvc_external): hd95, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=hd95#sd_over_seeds,px,1,False
+cond.E2.hd95.median_over_images_mean_over_seeds,46.506545,"E2 (cvc_external): hd95, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=hd95#median_over_images_mean_over_seeds,px,1,False
+cond.E2.boundary_iou.mean_over_seeds,0.218365,"E2 (cvc_external): boundary_iou, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=boundary_iou#mean_over_seeds,fraction,3,False
+cond.E2.boundary_iou.sd_over_seeds,0.053256,"E2 (cvc_external): boundary_iou, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=boundary_iou#sd_over_seeds,fraction,3,False
+cond.E2.boundary_iou.median_over_images_mean_over_seeds,0.199568,"E2 (cvc_external): boundary_iou, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=boundary_iou#median_over_images_mean_over_seeds,fraction,3,False
+cond.E2.miss.mean_over_seeds,0.090850,"E2 (cvc_external): miss, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=miss#mean_over_seeds,fraction,3,False
+cond.E2.miss.sd_over_seeds,0.026159,"E2 (cvc_external): miss, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=miss#sd_over_seeds,fraction,3,False
+cond.E2.miss.median_over_images_mean_over_seeds,0.000000,"E2 (cvc_external): miss, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=miss#median_over_images_mean_over_seeds,fraction,3,False
+cond.E2.n_images,612,E2 (cvc_external): images in the evaluation set,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=dice#n_images,images,0,False
+cond.E2.n_seeds,5,E2 (cvc_external): seeds,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=dice#n_seeds,seeds,0,False
+cond.E2.dice.seed1,0.627607,E2 (cvc_external): mean Dice of seed 1,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=dice#seed_1,Dice,3,False
+cond.E2.dice.seed2,0.575934,E2 (cvc_external): mean Dice of seed 2,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=dice#seed_2,Dice,3,False
+cond.E2.dice.seed3,0.505933,E2 (cvc_external): mean Dice of seed 3,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=dice#seed_3,Dice,3,False
+cond.E2.dice.seed4,0.645281,E2 (cvc_external): mean Dice of seed 4,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=dice#seed_4,Dice,3,False
+cond.E2.dice.seed5,0.597214,E2 (cvc_external): mean Dice of seed 5,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_external&metric=dice#seed_5,Dice,3,False
+cond.E3.dice.mean_over_seeds,0.347533,"E3 (cvc_test): dice, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=dice#mean_over_seeds,fraction,3,False
+cond.E3.dice.sd_over_seeds,0.046933,"E3 (cvc_test): dice, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=dice#sd_over_seeds,fraction,3,False
+cond.E3.dice.median_over_images_mean_over_seeds,0.325425,"E3 (cvc_test): dice, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=dice#median_over_images_mean_over_seeds,fraction,3,False
+cond.E3.iou.mean_over_seeds,0.260886,"E3 (cvc_test): iou, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=iou#mean_over_seeds,fraction,3,False
+cond.E3.iou.sd_over_seeds,0.044987,"E3 (cvc_test): iou, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=iou#sd_over_seeds,fraction,3,False
+cond.E3.iou.median_over_images_mean_over_seeds,0.195648,"E3 (cvc_test): iou, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=iou#median_over_images_mean_over_seeds,fraction,3,False
+cond.E3.precision.mean_over_seeds,0.483610,"E3 (cvc_test): precision, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=precision#mean_over_seeds,fraction,3,False
+cond.E3.precision.sd_over_seeds,0.048738,"E3 (cvc_test): precision, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=precision#sd_over_seeds,fraction,3,False
+cond.E3.precision.median_over_images_mean_over_seeds,0.484215,"E3 (cvc_test): precision, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=precision#median_over_images_mean_over_seeds,fraction,3,False
+cond.E3.recall.mean_over_seeds,0.353017,"E3 (cvc_test): recall, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=recall#mean_over_seeds,fraction,3,False
+cond.E3.recall.sd_over_seeds,0.050495,"E3 (cvc_test): recall, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=recall#sd_over_seeds,fraction,3,False
+cond.E3.recall.median_over_images_mean_over_seeds,0.305873,"E3 (cvc_test): recall, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=recall#median_over_images_mean_over_seeds,fraction,3,False
+cond.E3.hd95.mean_over_seeds,126.583240,"E3 (cvc_test): hd95, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=hd95#mean_over_seeds,px,1,False
+cond.E3.hd95.sd_over_seeds,13.492088,"E3 (cvc_test): hd95, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=hd95#sd_over_seeds,px,1,False
+cond.E3.hd95.median_over_images_mean_over_seeds,87.632230,"E3 (cvc_test): hd95, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=hd95#median_over_images_mean_over_seeds,px,1,False
+cond.E3.boundary_iou.mean_over_seeds,0.071665,"E3 (cvc_test): boundary_iou, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=boundary_iou#mean_over_seeds,fraction,3,False
+cond.E3.boundary_iou.sd_over_seeds,0.020427,"E3 (cvc_test): boundary_iou, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=boundary_iou#sd_over_seeds,fraction,3,False
+cond.E3.boundary_iou.median_over_images_mean_over_seeds,0.062251,"E3 (cvc_test): boundary_iou, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=boundary_iou#median_over_images_mean_over_seeds,fraction,3,False
+cond.E3.miss.mean_over_seeds,0.180220,"E3 (cvc_test): miss, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=miss#mean_over_seeds,fraction,3,False
+cond.E3.miss.sd_over_seeds,0.051893,"E3 (cvc_test): miss, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=miss#sd_over_seeds,fraction,3,False
+cond.E3.miss.median_over_images_mean_over_seeds,0.000000,"E3 (cvc_test): miss, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=miss#median_over_images_mean_over_seeds,fraction,3,False
+cond.E3.n_images,91,E3 (cvc_test): images in the evaluation set,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=dice#n_images,images,0,False
+cond.E3.n_seeds,5,E3 (cvc_test): seeds,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=dice#n_seeds,seeds,0,False
+cond.E3.dice.seed1,0.363808,E3 (cvc_test): mean Dice of seed 1,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=dice#seed_1,Dice,3,False
+cond.E3.dice.seed2,0.273235,E3 (cvc_test): mean Dice of seed 2,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=dice#seed_2,Dice,3,False
+cond.E3.dice.seed3,0.380378,E3 (cvc_test): mean Dice of seed 3,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=dice#seed_3,Dice,3,False
+cond.E3.dice.seed4,0.331574,E3 (cvc_test): mean Dice of seed 4,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=dice#seed_4,Dice,3,False
+cond.E3.dice.seed5,0.388668,E3 (cvc_test): mean Dice of seed 5,final_results/tables/metrics_by_condition.csv,csv?eval_set=cvc_test&metric=dice#seed_5,Dice,3,False
+cond.E4.dice.mean_over_seeds,0.412957,"E4 (kvasir_external): dice, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=dice#mean_over_seeds,fraction,3,False
+cond.E4.dice.sd_over_seeds,0.018331,"E4 (kvasir_external): dice, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=dice#sd_over_seeds,fraction,3,False
+cond.E4.dice.median_over_images_mean_over_seeds,0.396069,"E4 (kvasir_external): dice, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=dice#median_over_images_mean_over_seeds,fraction,3,False
+cond.E4.iou.mean_over_seeds,0.290913,"E4 (kvasir_external): iou, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=iou#mean_over_seeds,fraction,3,False
+cond.E4.iou.sd_over_seeds,0.015953,"E4 (kvasir_external): iou, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=iou#sd_over_seeds,fraction,3,False
+cond.E4.iou.median_over_images_mean_over_seeds,0.247073,"E4 (kvasir_external): iou, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=iou#median_over_images_mean_over_seeds,fraction,3,False
+cond.E4.precision.mean_over_seeds,0.352294,"E4 (kvasir_external): precision, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=precision#mean_over_seeds,fraction,3,False
+cond.E4.precision.sd_over_seeds,0.003143,"E4 (kvasir_external): precision, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=precision#sd_over_seeds,fraction,3,False
+cond.E4.precision.median_over_images_mean_over_seeds,0.279706,"E4 (kvasir_external): precision, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=precision#median_over_images_mean_over_seeds,fraction,3,False
+cond.E4.recall.mean_over_seeds,0.762207,"E4 (kvasir_external): recall, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=recall#mean_over_seeds,fraction,3,False
+cond.E4.recall.sd_over_seeds,0.041407,"E4 (kvasir_external): recall, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=recall#sd_over_seeds,fraction,3,False
+cond.E4.recall.median_over_images_mean_over_seeds,0.847681,"E4 (kvasir_external): recall, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=recall#median_over_images_mean_over_seeds,fraction,3,False
+cond.E4.hd95.mean_over_seeds,109.942215,"E4 (kvasir_external): hd95, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=hd95#mean_over_seeds,px,1,False
+cond.E4.hd95.sd_over_seeds,1.663507,"E4 (kvasir_external): hd95, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=hd95#sd_over_seeds,px,1,False
+cond.E4.hd95.median_over_images_mean_over_seeds,109.091908,"E4 (kvasir_external): hd95, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=hd95#median_over_images_mean_over_seeds,px,1,False
+cond.E4.boundary_iou.mean_over_seeds,0.064836,"E4 (kvasir_external): boundary_iou, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=boundary_iou#mean_over_seeds,fraction,3,False
+cond.E4.boundary_iou.sd_over_seeds,0.012326,"E4 (kvasir_external): boundary_iou, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=boundary_iou#sd_over_seeds,fraction,3,False
+cond.E4.boundary_iou.median_over_images_mean_over_seeds,0.050844,"E4 (kvasir_external): boundary_iou, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=boundary_iou#median_over_images_mean_over_seeds,fraction,3,False
+cond.E4.miss.mean_over_seeds,0.000600,"E4 (kvasir_external): miss, mean over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=miss#mean_over_seeds,fraction,3,False
+cond.E4.miss.sd_over_seeds,0.000894,"E4 (kvasir_external): miss, sample SD over seeds",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=miss#sd_over_seeds,fraction,3,False
+cond.E4.miss.median_over_images_mean_over_seeds,0.000000,"E4 (kvasir_external): miss, mean over seeds of the per-seed median over images",final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=miss#median_over_images_mean_over_seeds,fraction,3,False
+cond.E4.n_images,1000,E4 (kvasir_external): images in the evaluation set,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=dice#n_images,images,0,False
+cond.E4.n_seeds,5,E4 (kvasir_external): seeds,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=dice#n_seeds,seeds,0,False
+cond.E4.dice.seed1,0.427063,E4 (kvasir_external): mean Dice of seed 1,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=dice#seed_1,Dice,3,False
+cond.E4.dice.seed2,0.384972,E4 (kvasir_external): mean Dice of seed 2,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=dice#seed_2,Dice,3,False
+cond.E4.dice.seed3,0.424426,E4 (kvasir_external): mean Dice of seed 3,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=dice#seed_3,Dice,3,False
+cond.E4.dice.seed4,0.403497,E4 (kvasir_external): mean Dice of seed 4,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=dice#seed_4,Dice,3,False
+cond.E4.dice.seed5,0.424829,E4 (kvasir_external): mean Dice of seed 5,final_results/tables/metrics_by_condition.csv,csv?eval_set=kvasir_external&metric=dice#seed_5,Dice,3,False
+gap.kvasir.seed1,0.156560,Kvasir-SEG-trained: Dice gap of seed 1 (own test minus external),final_results/tables/gap_by_seed.csv,csv?direction=Kvasir-SEG-trained&metric=dice&seed=1#gap,Dice,3,False
+gap.kvasir.seed2,0.165421,Kvasir-SEG-trained: Dice gap of seed 2 (own test minus external),final_results/tables/gap_by_seed.csv,csv?direction=Kvasir-SEG-trained&metric=dice&seed=2#gap,Dice,3,False
+gap.kvasir.seed3,0.197538,Kvasir-SEG-trained: Dice gap of seed 3 (own test minus external),final_results/tables/gap_by_seed.csv,csv?direction=Kvasir-SEG-trained&metric=dice&seed=3#gap,Dice,3,False
+gap.kvasir.seed4,0.149807,Kvasir-SEG-trained: Dice gap of seed 4 (own test minus external),final_results/tables/gap_by_seed.csv,csv?direction=Kvasir-SEG-trained&metric=dice&seed=4#gap,Dice,3,False
+gap.kvasir.seed5,0.162436,Kvasir-SEG-trained: Dice gap of seed 5 (own test minus external),final_results/tables/gap_by_seed.csv,csv?direction=Kvasir-SEG-trained&metric=dice&seed=5#gap,Dice,3,False
+gap.kvasir.own_mean,0.756746,"Kvasir-SEG-trained: Dice gap, own-test Dice, mean over seeds",final_results/tables/gap_summary.csv,csv?direction=Kvasir-SEG-trained&metric=dice#own_mean,Dice,3,False
+gap.kvasir.external_mean,0.590394,"Kvasir-SEG-trained: Dice gap, external Dice, mean over seeds",final_results/tables/gap_summary.csv,csv?direction=Kvasir-SEG-trained&metric=dice#external_mean,Dice,3,False
+gap.kvasir.mean_gap,0.166352,"Kvasir-SEG-trained: Dice gap, mean gap",final_results/tables/gap_summary.csv,csv?direction=Kvasir-SEG-trained&metric=dice#mean_gap,Dice,3,False
+gap.kvasir.sd_gap,0.018428,"Kvasir-SEG-trained: Dice gap, SD of the gap over seeds",final_results/tables/gap_summary.csv,csv?direction=Kvasir-SEG-trained&metric=dice#sd_gap,Dice,3,False
+gap.kvasir.t_crit,2.776445,"Kvasir-SEG-trained: Dice gap, t quantile (df = seeds - 1)",final_results/tables/gap_summary.csv,csv?direction=Kvasir-SEG-trained&metric=dice#t_crit,Dice,3,False
+gap.kvasir.ci_t_low,0.143471,"Kvasir-SEG-trained: Dice gap, t-based 95% interval, lower",final_results/tables/gap_summary.csv,csv?direction=Kvasir-SEG-trained&metric=dice#ci_t_low,Dice,3,False
+gap.kvasir.ci_t_high,0.189234,"Kvasir-SEG-trained: Dice gap, t-based 95% interval, upper",final_results/tables/gap_summary.csv,csv?direction=Kvasir-SEG-trained&metric=dice#ci_t_high,Dice,3,False
+gap.kvasir.ci_boot_low,0.083560,"Kvasir-SEG-trained: Dice gap, cluster-bootstrap 95% interval, lower",final_results/tables/gap_summary.csv,csv?direction=Kvasir-SEG-trained&metric=dice#ci_boot_low,Dice,3,False
+gap.kvasir.ci_boot_high,0.251832,"Kvasir-SEG-trained: Dice gap, cluster-bootstrap 95% interval, upper",final_results/tables/gap_summary.csv,csv?direction=Kvasir-SEG-trained&metric=dice#ci_boot_high,Dice,3,False
+gap.kvasir.boot_samples,10000,"Kvasir-SEG-trained: Dice gap, bootstrap resamples",final_results/tables/gap_summary.csv,csv?direction=Kvasir-SEG-trained&metric=dice#boot_samples,Dice,0,False
+decision.kvasir.d0.05.decision_t_ci,meaningful drop,"Kvasir-SEG-trained: decision on the t-based interval, delta = 0.05",final_results/tables/decision_rule.csv,csv?direction=Kvasir-SEG-trained&delta=0.05#decision_t_ci,text,0,False
+decision.kvasir.d0.05.decision_bootstrap_ci,meaningful drop,"Kvasir-SEG-trained: decision on the bootstrap interval, delta = 0.05",final_results/tables/decision_rule.csv,csv?direction=Kvasir-SEG-trained&delta=0.05#decision_bootstrap_ci,text,0,False
+decision.kvasir.d0.03.decision_t_ci,meaningful drop,"Kvasir-SEG-trained: decision on the t-based interval, delta = 0.03",final_results/tables/decision_rule.csv,csv?direction=Kvasir-SEG-trained&delta=0.03#decision_t_ci,text,0,False
+decision.kvasir.d0.03.decision_bootstrap_ci,meaningful drop,"Kvasir-SEG-trained: decision on the bootstrap interval, delta = 0.03",final_results/tables/decision_rule.csv,csv?direction=Kvasir-SEG-trained&delta=0.03#decision_bootstrap_ci,text,0,False
+decision.kvasir.d0.10.decision_t_ci,meaningful drop,"Kvasir-SEG-trained: decision on the t-based interval, delta = 0.10",final_results/tables/decision_rule.csv,csv?direction=Kvasir-SEG-trained&delta=0.10#decision_t_ci,text,0,False
+decision.kvasir.d0.10.decision_bootstrap_ci,inconclusive,"Kvasir-SEG-trained: decision on the bootstrap interval, delta = 0.10",final_results/tables/decision_rule.csv,csv?direction=Kvasir-SEG-trained&delta=0.10#decision_bootstrap_ci,text,0,False
+gap.cvc.seed1,-0.063255,CVC-ClinicDB-trained: Dice gap of seed 1 (own test minus external),final_results/tables/gap_by_seed.csv,csv?direction=CVC-ClinicDB-trained&metric=dice&seed=1#gap,Dice,3,False
+gap.cvc.seed2,-0.111737,CVC-ClinicDB-trained: Dice gap of seed 2 (own test minus external),final_results/tables/gap_by_seed.csv,csv?direction=CVC-ClinicDB-trained&metric=dice&seed=2#gap,Dice,3,False
+gap.cvc.seed3,-0.044048,CVC-ClinicDB-trained: Dice gap of seed 3 (own test minus external),final_results/tables/gap_by_seed.csv,csv?direction=CVC-ClinicDB-trained&metric=dice&seed=3#gap,Dice,3,False
+gap.cvc.seed4,-0.071923,CVC-ClinicDB-trained: Dice gap of seed 4 (own test minus external),final_results/tables/gap_by_seed.csv,csv?direction=CVC-ClinicDB-trained&metric=dice&seed=4#gap,Dice,3,False
+gap.cvc.seed5,-0.036160,CVC-ClinicDB-trained: Dice gap of seed 5 (own test minus external),final_results/tables/gap_by_seed.csv,csv?direction=CVC-ClinicDB-trained&metric=dice&seed=5#gap,Dice,3,False
+gap.cvc.own_mean,0.347533,"CVC-ClinicDB-trained: Dice gap, own-test Dice, mean over seeds",final_results/tables/gap_summary.csv,csv?direction=CVC-ClinicDB-trained&metric=dice#own_mean,Dice,3,False
+gap.cvc.external_mean,0.412957,"CVC-ClinicDB-trained: Dice gap, external Dice, mean over seeds",final_results/tables/gap_summary.csv,csv?direction=CVC-ClinicDB-trained&metric=dice#external_mean,Dice,3,False
+gap.cvc.mean_gap,-0.065425,"CVC-ClinicDB-trained: Dice gap, mean gap",final_results/tables/gap_summary.csv,csv?direction=CVC-ClinicDB-trained&metric=dice#mean_gap,Dice,3,False
+gap.cvc.sd_gap,0.029602,"CVC-ClinicDB-trained: Dice gap, SD of the gap over seeds",final_results/tables/gap_summary.csv,csv?direction=CVC-ClinicDB-trained&metric=dice#sd_gap,Dice,3,False
+gap.cvc.t_crit,2.776445,"CVC-ClinicDB-trained: Dice gap, t quantile (df = seeds - 1)",final_results/tables/gap_summary.csv,csv?direction=CVC-ClinicDB-trained&metric=dice#t_crit,Dice,3,False
+gap.cvc.ci_t_low,-0.102181,"CVC-ClinicDB-trained: Dice gap, t-based 95% interval, lower",final_results/tables/gap_summary.csv,csv?direction=CVC-ClinicDB-trained&metric=dice#ci_t_low,Dice,3,False
+gap.cvc.ci_t_high,-0.028669,"CVC-ClinicDB-trained: Dice gap, t-based 95% interval, upper",final_results/tables/gap_summary.csv,csv?direction=CVC-ClinicDB-trained&metric=dice#ci_t_high,Dice,3,False
+gap.cvc.ci_boot_low,-0.255757,"CVC-ClinicDB-trained: Dice gap, cluster-bootstrap 95% interval, lower",final_results/tables/gap_summary.csv,csv?direction=CVC-ClinicDB-trained&metric=dice#ci_boot_low,Dice,3,False
+gap.cvc.ci_boot_high,0.131364,"CVC-ClinicDB-trained: Dice gap, cluster-bootstrap 95% interval, upper",final_results/tables/gap_summary.csv,csv?direction=CVC-ClinicDB-trained&metric=dice#ci_boot_high,Dice,3,False
+gap.cvc.boot_samples,10000,"CVC-ClinicDB-trained: Dice gap, bootstrap resamples",final_results/tables/gap_summary.csv,csv?direction=CVC-ClinicDB-trained&metric=dice#boot_samples,Dice,0,False
+decision.cvc.d0.05.decision_t_ci,inconclusive,"CVC-ClinicDB-trained: decision on the t-based interval, delta = 0.05",final_results/tables/decision_rule.csv,csv?direction=CVC-ClinicDB-trained&delta=0.05#decision_t_ci,text,0,False
+decision.cvc.d0.05.decision_bootstrap_ci,inconclusive,"CVC-ClinicDB-trained: decision on the bootstrap interval, delta = 0.05",final_results/tables/decision_rule.csv,csv?direction=CVC-ClinicDB-trained&delta=0.05#decision_bootstrap_ci,text,0,False
+decision.cvc.d0.03.decision_t_ci,inconclusive,"CVC-ClinicDB-trained: decision on the t-based interval, delta = 0.03",final_results/tables/decision_rule.csv,csv?direction=CVC-ClinicDB-trained&delta=0.03#decision_t_ci,text,0,False
+decision.cvc.d0.03.decision_bootstrap_ci,inconclusive,"CVC-ClinicDB-trained: decision on the bootstrap interval, delta = 0.03",final_results/tables/decision_rule.csv,csv?direction=CVC-ClinicDB-trained&delta=0.03#decision_bootstrap_ci,text,0,False
+decision.cvc.d0.10.decision_t_ci,inconclusive,"CVC-ClinicDB-trained: decision on the t-based interval, delta = 0.10",final_results/tables/decision_rule.csv,csv?direction=CVC-ClinicDB-trained&delta=0.10#decision_t_ci,text,0,False
+decision.cvc.d0.10.decision_bootstrap_ci,inconclusive,"CVC-ClinicDB-trained: decision on the bootstrap interval, delta = 0.10",final_results/tables/decision_rule.csv,csv?direction=CVC-ClinicDB-trained&delta=0.10#decision_bootstrap_ci,text,0,False
+spearman.cvc_external.gt_area_fraction.spearman_rho,0.212911,"cvc_external: per-image Dice against gt_area_fraction, Spearman rho",final_results/tables/spearman.csv,csv?eval_set=cvc_external&variable=gt_area_fraction#spearman_rho,,3,False
+spearman.cvc_external.gt_area_fraction.n_images,612,"cvc_external: per-image Dice against gt_area_fraction, images",final_results/tables/spearman.csv,csv?eval_set=cvc_external&variable=gt_area_fraction#n_images,,0,False
+spearman.cvc_external.gt_area_fraction.p_value,0.000000,"cvc_external: per-image Dice against gt_area_fraction, descriptive p-value",final_results/tables/spearman.csv,csv?eval_set=cvc_external&variable=gt_area_fraction#p_value,,6,False
+spearman.cvc_external.brightness_gray.spearman_rho,0.194734,"cvc_external: per-image Dice against brightness_gray, Spearman rho",final_results/tables/spearman.csv,csv?eval_set=cvc_external&variable=brightness_gray#spearman_rho,,3,False
+spearman.cvc_external.brightness_gray.n_images,612,"cvc_external: per-image Dice against brightness_gray, images",final_results/tables/spearman.csv,csv?eval_set=cvc_external&variable=brightness_gray#n_images,,0,False
+spearman.cvc_external.brightness_gray.p_value,0.000001,"cvc_external: per-image Dice against brightness_gray, descriptive p-value",final_results/tables/spearman.csv,csv?eval_set=cvc_external&variable=brightness_gray#p_value,,6,False
+spearman.kvasir_external.gt_area_fraction.spearman_rho,0.785051,"kvasir_external: per-image Dice against gt_area_fraction, Spearman rho",final_results/tables/spearman.csv,csv?eval_set=kvasir_external&variable=gt_area_fraction#spearman_rho,,3,False
+spearman.kvasir_external.gt_area_fraction.n_images,1000,"kvasir_external: per-image Dice against gt_area_fraction, images",final_results/tables/spearman.csv,csv?eval_set=kvasir_external&variable=gt_area_fraction#n_images,,0,False
+spearman.kvasir_external.gt_area_fraction.p_value,0.000000,"kvasir_external: per-image Dice against gt_area_fraction, descriptive p-value",final_results/tables/spearman.csv,csv?eval_set=kvasir_external&variable=gt_area_fraction#p_value,,6,False
+spearman.kvasir_external.brightness_gray.spearman_rho,-0.267940,"kvasir_external: per-image Dice against brightness_gray, Spearman rho",final_results/tables/spearman.csv,csv?eval_set=kvasir_external&variable=brightness_gray#spearman_rho,,3,False
+spearman.kvasir_external.brightness_gray.n_images,1000,"kvasir_external: per-image Dice against brightness_gray, images",final_results/tables/spearman.csv,csv?eval_set=kvasir_external&variable=brightness_gray#n_images,,0,False
+spearman.kvasir_external.brightness_gray.p_value,0.000000,"kvasir_external: per-image Dice against brightness_gray, descriptive p-value",final_results/tables/spearman.csv,csv?eval_set=kvasir_external&variable=brightness_gray#p_value,,6,False
+errors.frames_below_0.5,199,"frames of the CVC-ClinicDB set with seed-averaged Dice < 0.5, Kvasir-SEG-trained model",final_results/per_image/per_image_metrics_extended.csv,derived#frames_below(thr=0.5),frames,0,True
+errors.frames_total,612,frames of the CVC-ClinicDB set,final_results/per_image/per_image_metrics_extended.csv,derived#frames_total(),frames,0,True
+size.cut.q1,0.0438155,polyp-size bin limit q1 (quartile of the ground-truth area fraction over all evaluated images),final_results/per_image/per_image_metrics_extended.csv,derived#size_cut(which=q1),fraction,4,True
+size.cut.q3,0.17070000000000002,polyp-size bin limit q3 (quartile of the ground-truth area fraction over all evaluated images),final_results/per_image/per_image_metrics_extended.csv,derived#size_cut(which=q3),fraction,4,True
+size.E1.small.mean,0.5873127076923077,"E1 (kvasir_test), small polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_test,bin=small,stat=mean)",Dice,3,True
+size.E1.small.sd,0.10096244917205954,"E1 (kvasir_test), small polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_test,bin=small,stat=sd)",Dice,3,True
+size.E1.small.n,13,"E1 (kvasir_test), small polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_test,bin=small,stat=n)",images,0,True
+size.E1.medium.mean,0.779895584,"E1 (kvasir_test), medium polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_test,bin=medium,stat=mean)",Dice,3,True
+size.E1.medium.sd,0.02973683053640517,"E1 (kvasir_test), medium polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_test,bin=medium,stat=sd)",Dice,3,True
+size.E1.medium.n,50,"E1 (kvasir_test), medium polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_test,bin=medium,stat=n)",images,0,True
+size.E1.large.mean,0.7849932054054054,"E1 (kvasir_test), large polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_test,bin=large,stat=mean)",Dice,3,True
+size.E1.large.sd,0.028211877409133754,"E1 (kvasir_test), large polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_test,bin=large,stat=sd)",Dice,3,True
+size.E1.large.n,37,"E1 (kvasir_test), large polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_test,bin=large,stat=n)",images,0,True
+size.E2.small.mean,0.512456305,"E2 (cvc_external), small polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_external,bin=small,stat=mean)",Dice,3,True
+size.E2.small.sd,0.09521272454730591,"E2 (cvc_external), small polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_external,bin=small,stat=sd)",Dice,3,True
+size.E2.small.n,200,"E2 (cvc_external), small polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_external,bin=small,stat=n)",images,0,True
+size.E2.medium.mean,0.628023563125,"E2 (cvc_external), medium polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_external,bin=medium,stat=mean)",Dice,3,True
+size.E2.medium.sd,0.04437758192858441,"E2 (cvc_external), medium polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_external,bin=medium,stat=sd)",Dice,3,True
+size.E2.medium.n,320,"E2 (cvc_external), medium polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_external,bin=medium,stat=n)",images,0,True
+size.E2.large.mean,0.6289355108695652,"E2 (cvc_external), large polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_external,bin=large,stat=mean)",Dice,3,True
+size.E2.large.sd,0.03364852837861285,"E2 (cvc_external), large polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_external,bin=large,stat=sd)",Dice,3,True
+size.E2.large.n,92,"E2 (cvc_external), large polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_external,bin=large,stat=n)",images,0,True
+size.E3.small.mean,0.20091967647058823,"E3 (cvc_test), small polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_test,bin=small,stat=mean)",Dice,3,True
+size.E3.small.sd,0.013679417891280706,"E3 (cvc_test), small polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_test,bin=small,stat=sd)",Dice,3,True
+size.E3.small.n,34,"E3 (cvc_test), small polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_test,bin=small,stat=n)",images,0,True
+size.E3.medium.mean,0.40043911764705886,"E3 (cvc_test), medium polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_test,bin=medium,stat=mean)",Dice,3,True
+size.E3.medium.sd,0.07404854350713373,"E3 (cvc_test), medium polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_test,bin=medium,stat=sd)",Dice,3,True
+size.E3.medium.n,51,"E3 (cvc_test), medium polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_test,bin=medium,stat=n)",images,0,True
+size.E3.large.mean,0.7286323333333333,"E3 (cvc_test), large polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_test,bin=large,stat=mean)",Dice,3,True
+size.E3.large.sd,0.09482834704077737,"E3 (cvc_test), large polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_test,bin=large,stat=sd)",Dice,3,True
+size.E3.large.n,6,"E3 (cvc_test), large polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=cvc_test,bin=large,stat=n)",images,0,True
+size.E4.small.mean,0.14805515714285714,"E4 (kvasir_external), small polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_external,bin=small,stat=mean)",Dice,3,True
+size.E4.small.sd,0.005519508004951155,"E4 (kvasir_external), small polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_external,bin=small,stat=sd)",Dice,3,True
+size.E4.small.n,168,"E4 (kvasir_external), small polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_external,bin=small,stat=n)",images,0,True
+size.E4.medium.mean,0.3696720125984252,"E4 (kvasir_external), medium polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_external,bin=medium,stat=mean)",Dice,3,True
+size.E4.medium.sd,0.02018283458903324,"E4 (kvasir_external), medium polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_external,bin=medium,stat=sd)",Dice,3,True
+size.E4.medium.n,508,"E4 (kvasir_external), medium polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_external,bin=medium,stat=n)",images,0,True
+size.E4.large.mean,0.6181807308641976,"E4 (kvasir_external), large polyps: mean Dice over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_external,bin=large,stat=mean)",Dice,3,True
+size.E4.large.sd,0.024189044411912372,"E4 (kvasir_external), large polyps: sample SD over seeds",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_external,bin=large,stat=sd)",Dice,3,True
+size.E4.large.n,324,"E4 (kvasir_external), large polyps: images",final_results/per_image/per_image_metrics_extended.csv,"derived#size_bin(eval_set=kvasir_external,bin=large,stat=n)",images,0,True
+audit.kvasir.pairs,1000,Kvasir-SEG: matched image-mask pairs,final_results/audit/audit_report.md,md?section=1.&row=Kvasir-SEG#Matched pairs,images,0,False
+audit.kvasir.distinct_sizes,333,Kvasir-SEG: distinct image sizes,final_results/audit/audit_report.md,md?section=4.&row=Kvasir-SEG#Distinct sizes,sizes,0,False
+audit.kvasir.masks_other_values,1000,Kvasir-SEG: masks with values other than 0 and 255,final_results/audit/audit_report.md,md?section=5.&row=Kvasir-SEG#Masks with other values,masks,0,False
+audit.kvasir.area_mean,15.39,Kvasir-SEG: mean polyp area fraction,final_results/audit/audit_report.md,md?section=7.&row=Kvasir-SEG#Mean,percent,2,False
+audit.kvasir.grey_mean,97.48,Kvasir-SEG: mean grey level,final_results/audit/audit_report.md,md?section=8.&row=Kvasir-SEG#Grey mean,grey level,2,False
+split.kvasir.train,800,Kvasir-SEG: train pairs of the fixed split,final_results/audit/audit_report.md,md?section=11.&row=Kvasir-SEG#Train/val/test pairs@0,images,0,False
+split.kvasir.val,100,Kvasir-SEG: val pairs of the fixed split,final_results/audit/audit_report.md,md?section=11.&row=Kvasir-SEG#Train/val/test pairs@1,images,0,False
+split.kvasir.test,100,Kvasir-SEG: test pairs of the fixed split,final_results/audit/audit_report.md,md?section=11.&row=Kvasir-SEG#Train/val/test pairs@2,images,0,False
+audit.cvc.pairs,612,CVC-ClinicDB: matched image-mask pairs,final_results/audit/audit_report.md,md?section=1.&row=CVC-ClinicDB#Matched pairs,images,0,False
+audit.cvc.distinct_sizes,1,CVC-ClinicDB: distinct image sizes,final_results/audit/audit_report.md,md?section=4.&row=CVC-ClinicDB#Distinct sizes,sizes,0,False
+audit.cvc.masks_other_values,138,CVC-ClinicDB: masks with values other than 0 and 255,final_results/audit/audit_report.md,md?section=5.&row=CVC-ClinicDB#Masks with other values,masks,0,False
+audit.cvc.area_mean,9.17,CVC-ClinicDB: mean polyp area fraction,final_results/audit/audit_report.md,md?section=7.&row=CVC-ClinicDB#Mean,percent,2,False
+audit.cvc.grey_mean,76.19,CVC-ClinicDB: mean grey level,final_results/audit/audit_report.md,md?section=8.&row=CVC-ClinicDB#Grey mean,grey level,2,False
+split.cvc.train,429,CVC-ClinicDB: train pairs of the fixed split,final_results/audit/audit_report.md,md?section=11.&row=CVC-ClinicDB#Train/val/test pairs@0,images,0,False
+split.cvc.val,92,CVC-ClinicDB: val pairs of the fixed split,final_results/audit/audit_report.md,md?section=11.&row=CVC-ClinicDB#Train/val/test pairs@1,images,0,False
+split.cvc.test,91,CVC-ClinicDB: test pairs of the fixed split,final_results/audit/audit_report.md,md?section=11.&row=CVC-ClinicDB#Train/val/test pairs@2,images,0,False
+audit.cvc.sequences,29,CVC-ClinicDB: video sequences listed in metadata.csv,final_results/audit/audit_report.md,md?section=11.&row=CVC-ClinicDB#Sequences,sequences,0,False
+audit.near_duplicates.cvc,183,"near-duplicate pairs (perceptual hash distance <= 4), within cvc",final_results/audit/audit_report.md,md?section=10.&row=within cvc#Near-duplicates (<= 4),pairs,0,False
+audit.near_duplicates.kvasir,7,"near-duplicate pairs (perceptual hash distance <= 4), within kvasir",final_results/audit/audit_report.md,md?section=10.&row=within kvasir#Near-duplicates (<= 4),pairs,0,False
+audit.near_duplicates.across,0,"near-duplicate pairs (perceptual hash distance <= 4), across datasets",final_results/audit/audit_report.md,md?section=10.&row=across datasets#Near-duplicates (<= 4),pairs,0,False
+acceptance.A.kvasir_val.max_abs_diff,0.0005109676511954042,"recomputed against stored Dice, maximum absolute difference, kvasir_val",final_results/tables/acceptance_checks.json,json#A_dice_reproduces_original.by_eval_set.kvasir_val.max_abs_diff,Dice,4,False
+acceptance.A.kvasir_test.max_abs_diff,0.0002075771583956998,"recomputed against stored Dice, maximum absolute difference, kvasir_test",final_results/tables/acceptance_checks.json,json#A_dice_reproduces_original.by_eval_set.kvasir_test.max_abs_diff,Dice,4,False
+acceptance.A.cvc_external.max_abs_diff,0.001888246334310839,"recomputed against stored Dice, maximum absolute difference, cvc_external",final_results/tables/acceptance_checks.json,json#A_dice_reproduces_original.by_eval_set.cvc_external.max_abs_diff,Dice,4,False
+acceptance.A.cvc_val.max_abs_diff,0.0013350588235294114,"recomputed against stored Dice, maximum absolute difference, cvc_val",final_results/tables/acceptance_checks.json,json#A_dice_reproduces_original.by_eval_set.cvc_val.max_abs_diff,Dice,4,False
+acceptance.A.cvc_test.max_abs_diff,0.0016373484921015091,"recomputed against stored Dice, maximum absolute difference, cvc_test",final_results/tables/acceptance_checks.json,json#A_dice_reproduces_original.by_eval_set.cvc_test.max_abs_diff,Dice,4,False
+acceptance.A.kvasir_external.max_abs_diff,0.001122315891085801,"recomputed against stored Dice, maximum absolute difference, kvasir_external",final_results/tables/acceptance_checks.json,json#A_dice_reproduces_original.by_eval_set.kvasir_external.max_abs_diff,Dice,4,False
+acceptance.B.max_abs_deviation,2.220446049250313e-16,"IoU against Dice / (2 - Dice), maximum absolute deviation",final_results/tables/acceptance_checks.json,json#B_iou_equals_dice_over_2_minus_dice.max_abs_deviation,,3,False
