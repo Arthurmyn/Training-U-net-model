@@ -27,7 +27,7 @@ from audit.load import natural_key  # noqa: E402
 CATEGORIES_TEXT = """# Error categories
 
 Assign **one** primary category to every frame (columns `stem`, `category`, `notes` in your sheet). Use the number 1-7.
-Look only at the figure (image, ground truth, three predictions); the sheets contain no Dice values on purpose.
+Look only at the figure (image, ground truth, one prediction per seed); the sheets contain no Dice values on purpose.
 Work **independently**: do not discuss with the other annotator until both sheets are finished.
 
 | # | Category | Use it when |
@@ -42,9 +42,9 @@ Work **independently**: do not discuss with the other annotator until both sheet
 
 Rules for hard cases
 - If several categories fit, choose the one that explains the **largest part** of the error and mention the others in `notes`.
-- Judge what you see in the three predictions together; if they differ a lot between seeds, describe the most frequent failure.
-- Do not use a category for "the model is bad": if nothing fits, put `0` and explain in `notes`.
-- Disagreements are resolved later in the `resolved` column of `disagreements.csv`, together with the other annotator.
+- Judge what you see in the predictions of all seeds together; if they differ a lot between seeds, describe the most frequent failure.
+- Use exactly one of the seven categories for every frame; if none fits well, choose the closest one and explain in `notes`.
+- Disagreements are resolved later in the `resolved_category` column of `disagreements.csv`, together with the other annotator.
 """
 
 
