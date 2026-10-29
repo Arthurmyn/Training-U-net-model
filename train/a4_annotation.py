@@ -104,7 +104,7 @@ def failure_cases_md(directory: Path) -> str:
     cases = pick_cases(frames)
     seeds = sorted(int(c.replace("dice_seed", "")) for c in frames.columns if c.startswith("dice_seed"))
     lines = ["# Failure cases", "",
-             "Selection rule: the 3 frames with the lowest seed-averaged Dice among the frames of the annotation set (`frames.csv`), then one frame for each polyp-size bin "
+             "Selection rule: the 3 frames with the lowest seed-averaged Dice among the frames of the annotation set (`frames.csv`; ties are broken by the frame name in text order), then one frame for each polyp-size bin "
              "(the lower median by Dice of the bin, taken from a video sequence not used yet). Areas are fractions of the 256 x 256 image. "
              "Category and cause are left blank for the annotators.", ""]
     for _, r in cases.iterrows():
