@@ -1,0 +1,14 @@
+id,criterion,observed,result,ledger_ids
+ER1,"E1 mean Dice in [0.70, 0.85]",0.756746,true,cond.E1.dice.mean_over_seeds
+ER2,"Kvasir-trained gap in [0.03, 0.20]",0.166352,true,gap.kvasir.mean_gap
+ER3,"CVC-trained gap in [0.03, 0.25]",-0.065425,false,gap.cvc.mean_gap
+ER4,"HD95 higher on external data, E2 vs E1",E2 83.203578; E1 54.207024,true,cond.E2.hd95.mean_over_seeds; cond.E1.hd95.mean_over_seeds
+ER4,"Boundary IoU lower on external data, E2 vs E1",E2 0.218365; E1 0.288660,true,cond.E2.boundary_iou.mean_over_seeds; cond.E1.boundary_iou.mean_over_seeds
+ER4,"HD95 higher on external data, E4 vs E3",E4 109.942215; E3 126.583240,false,cond.E4.hd95.mean_over_seeds; cond.E3.hd95.mean_over_seeds
+ER4,"Boundary IoU lower on external data, E4 vs E3",E4 0.064836; E3 0.071665,true,cond.E4.boundary_iou.mean_over_seeds; cond.E3.boundary_iou.mean_over_seeds
+ER5,"SD of Dice over seeds <= 0.03, E1",0.036420,false,cond.E1.dice.sd_over_seeds
+ER5,"SD of Dice over seeds <= 0.03, E3",0.046933,false,cond.E3.dice.sd_over_seeds
+ER6,depends on the manual error annotation,filled category cells in both sheets: 0,not assessable,
+ER7,depends on the manual error annotation,filled category cells in both sheets: 0,not assessable,
+ER8,"Spearman rho, Dice vs ground-truth polyp area, >= 0.30 on external data, E2",0.212911,false,spearman.cvc_external.gt_area_fraction.spearman_rho
+ER8,"Spearman rho, Dice vs ground-truth polyp area, >= 0.30 on external data, E4",0.785051,true,spearman.kvasir_external.gt_area_fraction.spearman_rho
